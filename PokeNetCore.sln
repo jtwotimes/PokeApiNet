@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeNetCore.Core", "PokeNetCore.Core\PokeNetCore.Core.csproj", "{B2FFD916-9524-4705-93A9-C9DAED689BA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeNetCore.Tests", "PokeNetCore.Tests\PokeNetCore.Tests.csproj", "{F6BB72D0-333D-4B3F-AB7A-C319E06BE215}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2FFD916-9524-4705-93A9-C9DAED689BA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2FFD916-9524-4705-93A9-C9DAED689BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2FFD916-9524-4705-93A9-C9DAED689BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2FFD916-9524-4705-93A9-C9DAED689BA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6BB72D0-333D-4B3F-AB7A-C319E06BE215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6BB72D0-333D-4B3F-AB7A-C319E06BE215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6BB72D0-333D-4B3F-AB7A-C319E06BE215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6BB72D0-333D-4B3F-AB7A-C319E06BE215}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D37485B6-27B0-4595-98F5-D16759CC653F}
+	EndGlobalSection
+EndGlobal
