@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class Item
+    class Item : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -80,6 +80,8 @@ namespace PokeApi.Net.Models
         /// A list of the machines related to this item.
         /// </summary>
         public List<MachineVersionDetail> Machines { get; set; }
+
+        public override string ApiEndpoint => "item";
     }
 
     class ItemSprites
@@ -116,7 +118,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Version { get; set; }
     }
 
-    class ItemAttribute
+    class ItemAttribute : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -142,9 +144,11 @@ namespace PokeApi.Net.Models
         /// The description of this item attribute listed in different languages.
         /// </summary>
         public List<Descriptions> Descriptions { get; set; }
+
+        public override string ApiEndpoint => "item-attribute";
     }
 
-    class ItemCategory
+    class ItemCategory : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -170,9 +174,11 @@ namespace PokeApi.Net.Models
         /// The pocket items in this category would be put in.
         /// </summary>
         public NamedApiResource Pocket { get; set; }
+
+        public override string ApiEndpoint => "item-category";
     }
 
-    class ItemFlingEffect
+    class ItemFlingEffect : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -193,9 +199,11 @@ namespace PokeApi.Net.Models
         /// A list of items that have this fling effect.
         /// </summary>
         public List<NamedApiResource> Items { get; set; }
+
+        public override string ApiEndpoint => "item-fling-effect";
     }
 
-    class ItemPocket
+    class ItemPocket : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -216,5 +224,7 @@ namespace PokeApi.Net.Models
         /// The name of this resource listed in different languages.
         /// </summary>
         public List<Names> Names { get; set; }
+
+        public override string ApiEndpoint => "item-pocket";
     }
 }

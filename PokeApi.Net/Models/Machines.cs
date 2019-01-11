@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class Machine
+    class Machine : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -25,5 +25,7 @@ namespace PokeApi.Net.Models
         /// The version group that this machine applies to.
         /// </summary>
         public NamedApiResource VersionGroup { get; set; }
+
+        public override string ApiEndpoint => "machine";
     }
 }

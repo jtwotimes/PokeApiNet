@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class Generation
+    class Generation : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -52,9 +52,11 @@ namespace PokeApi.Net.Models
         /// generation.
         /// </summary>
         public List<NamedApiResource> VersionGroups { get; set; }
+
+        public override string ApiEndpoint => "generation";
     }
 
-    class Pokedex
+    class Pokedex : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -95,6 +97,8 @@ namespace PokeApi.Net.Models
         /// A list of version groups this Pokédex is relevant to.
         /// </summary>
         public List<NamedApiResource> VersionGroups { get; set; }
+
+        public override string ApiEndpoint => "pokedex";
     }
 
     class PokemonEntry
@@ -110,7 +114,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource PokemonSpecies { get; set; }
     }
 
-    class Version
+    class Version : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -131,9 +135,11 @@ namespace PokeApi.Net.Models
         /// The version group this version belongs to.
         /// </summary>
         public NamedApiResource VersionGroup { get; set; }
+
+        public override string ApiEndpoint => "version";
     }
 
-    class VersionGroup
+    class VersionGroup : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -176,5 +182,7 @@ namespace PokeApi.Net.Models
         /// The versions this version group owns.
         /// </summary>
         public List<NamedApiResource> Versions { get; set; }
+
+        public override string ApiEndpoint => "version-group";
     }
 }

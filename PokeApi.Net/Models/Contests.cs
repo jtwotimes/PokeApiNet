@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class ContestType
+    class ContestType : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -27,6 +27,8 @@ namespace PokeApi.Net.Models
         /// languages.
         /// </summary>
         public List<ContestName> Names { get; set; }
+
+        public override string ApiEndpoint => "contest-type";
     }
 
     class ContestName
@@ -47,7 +49,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Language { get; set; }
     }
 
-    class ContestEffect
+    class ContestEffect : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -77,9 +79,11 @@ namespace PokeApi.Net.Models
         /// different languages.
         /// </summary>
         public List<FlavorTexts> FlavorTextEntries { get; set; }
+
+        public override string ApiEndpoint => "contest-effect";
     }
 
-    class SuperContestEffect
+    class SuperContestEffect : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -102,5 +106,7 @@ namespace PokeApi.Net.Models
         /// super contests.
         /// </summary>
         public List<NamedApiResource> Moves { get; set; }
+
+        public override string ApiEndpoint => "super-contest-effect";
     }
 }

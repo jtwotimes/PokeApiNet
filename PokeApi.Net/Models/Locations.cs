@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class Location
+    class Location : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -35,9 +35,11 @@ namespace PokeApi.Net.Models
         /// Areas that can be found within this location
         /// </summary>
         public List<NamedApiResource> Areas { get; set; }
+
+        public override string ApiEndpoint => "location";
     }
 
-    class LocationArea
+    class LocationArea : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -76,6 +78,8 @@ namespace PokeApi.Net.Models
         /// version specific details about the encounter.
         /// </summary>
         public List<PokemonEncounter> PokemonEncounters { get; set; }
+
+        public override string ApiEndpoint => "location-area";
     }
 
     class EncounterMethodRate
@@ -119,7 +123,7 @@ namespace PokeApi.Net.Models
         public List<VersionEncounterDetail> VersionDetails { get; set; }
     }
 
-    class PalParkArea
+    class PalParkArea : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -141,6 +145,8 @@ namespace PokeApi.Net.Models
         /// details.
         /// </summary>
         public List<PalParkEncounterSpecies> PokemonEncounters { get; set; }
+
+        public override string ApiEndpoint => "pal-park-area";
     }
 
     class PalParkEncounterSpecies
@@ -162,7 +168,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource PokemonSpecies { get; set; }
     }
 
-    class Region
+    class Region : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -198,5 +204,7 @@ namespace PokeApi.Net.Models
         /// A list of version groups where this region can be visited.
         /// </summary>
         public List<NamedApiResource> VersionGroups { get; set; }
+
+        public override string ApiEndpoint => "region";
     }
 }

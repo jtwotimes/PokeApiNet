@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class EvolutionChain
+    class EvolutionChain : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -25,6 +25,8 @@ namespace PokeApi.Net.Models
         /// natural evolution order.
         /// </summary>
         public ChainLink Chain { get; set; }
+
+        public override string ApiEndpoint => "evolution-chain";
     }
 
     class ChainLink
@@ -164,7 +166,7 @@ namespace PokeApi.Net.Models
         public bool TurnUpsideDown { get; set; }
     }
 
-    class EvolutionTrigger
+    class EvolutionTrigger : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -186,5 +188,7 @@ namespace PokeApi.Net.Models
         /// trigger.
         /// </summary>
         public List<NamedApiResource> PokemonSpecies { get; set; }
+
+        public override string ApiEndpoint => "evolution-trigger";
     }
 }
