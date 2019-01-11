@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeNetCore.Tests", "PokeNetCore.Tests\PokeNetCore.Tests.csproj", "{F6BB72D0-333D-4B3F-AB7A-C319E06BE215}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeApi.Net", "PokeApi.Net\PokeApi.Net.csproj", "{5C6D2C6D-0A64-42DF-A118-F34425857413}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F6BB72D0-333D-4B3F-AB7A-C319E06BE215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6BB72D0-333D-4B3F-AB7A-C319E06BE215}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6BB72D0-333D-4B3F-AB7A-C319E06BE215}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6BB72D0-333D-4B3F-AB7A-C319E06BE215}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C6D2C6D-0A64-42DF-A118-F34425857413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C6D2C6D-0A64-42DF-A118-F34425857413}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C6D2C6D-0A64-42DF-A118-F34425857413}.Release|Any CPU.ActiveCfg = Release|Any CPU
