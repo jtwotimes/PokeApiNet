@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PokeNetCore.Core.Models
+namespace PokeApi.Net.Models
 {
     class EvolutionChain
     {

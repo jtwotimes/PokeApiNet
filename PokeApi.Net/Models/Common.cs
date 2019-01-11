@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PokeNetCore.Core.Models
+namespace PokeApi.Net.Models
 {
     class Language
     {
@@ -235,5 +235,15 @@ namespace PokeNetCore.Core.Models
         /// The version group which uses this flavor text.
         /// </summary>
         public NamedApiResource VersionGroup { get; set; }
+    }
+
+    abstract class ReferTo<T>
+    {
+        string Url { get; set; }
+
+        //T GetReferencedResource()
+        //{
+
+        //}
     }
 }
