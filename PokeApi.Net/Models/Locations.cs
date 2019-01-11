@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class Location : Resource
+    public class Location : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -39,7 +39,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "location";
     }
 
-    class LocationArea : Resource
+    public class LocationArea : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -82,7 +82,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "location-area";
     }
 
-    class EncounterMethodRate
+    public class EncounterMethodRate
     {
         /// <summary>
         /// The method in which Pokémon may be encountered in an area.
@@ -95,7 +95,7 @@ namespace PokeApi.Net.Models
         public List<EncounterVersionDetails> VersionDetails { get; set; }
     }
 
-    class EncounterVersionDetails
+    public class EncounterVersionDetails
     {
         /// <summary>
         /// The chance of an encounter to occur.
@@ -109,7 +109,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Version { get; set; }
     }
 
-    class PokemonEncounter
+    public class PokemonEncounter
     {
         /// <summary>
         /// The Pokémon being encountered.
@@ -123,7 +123,7 @@ namespace PokeApi.Net.Models
         public List<VersionEncounterDetail> VersionDetails { get; set; }
     }
 
-    class PalParkArea : Resource
+    public class PalParkArea : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -149,7 +149,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "pal-park-area";
     }
 
-    class PalParkEncounterSpecies
+    public class PalParkEncounterSpecies
     {
         /// <summary>
         /// The base score given to the player when this Pokémon is caught
@@ -168,7 +168,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource PokemonSpecies { get; set; }
     }
 
-    class Region : Resource
+    public class Region : Resource
     {
         /// <summary>
         /// The identifier for this resource.

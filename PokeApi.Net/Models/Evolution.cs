@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class EvolutionChain : Resource
+    public class EvolutionChain : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -29,7 +29,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "evolution-chain";
     }
 
-    class ChainLink
+    public class ChainLink
     {
         /// <summary>
         /// Whether or not this link is for a baby Pokémon. This would
@@ -54,7 +54,7 @@ namespace PokeApi.Net.Models
         public List<ChainLink> EvolvesTo { get; set; }
     }
 
-    class EvolutionDetail
+    public class EvolutionDetail
     {
         /// <summary>
         /// The item required to cause evolution this into Pokémon species.
@@ -166,7 +166,7 @@ namespace PokeApi.Net.Models
         public bool TurnUpsideDown { get; set; }
     }
 
-    class EvolutionTrigger : Resource
+    public class EvolutionTrigger : Resource
     {
         /// <summary>
         /// The identifier for this resource.

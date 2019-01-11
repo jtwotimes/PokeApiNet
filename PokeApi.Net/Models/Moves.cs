@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class Move : Resource
+    public class Move : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -63,7 +63,7 @@ namespace PokeApi.Net.Models
         /// <summary>
         /// The type of damage the move inflicts on the target, e.g. physical.
         /// </summary>
-        public NamedApiResource DamageClass { get; set; }
+        public NamedApiResource Damagepublic class { get; set; }
 
         /// <summary>
         /// The effect of this move listed in different languages.
@@ -131,7 +131,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "move";
     }
 
-    class ContestComboSets
+    public class ContestComboSets
     {
         /// <summary>
         /// A detail of moves this move can be used before or after,
@@ -146,7 +146,7 @@ namespace PokeApi.Net.Models
         public ContestComboDetail Super { get; set; }
     }
 
-    class ContestComboDetail
+    public class ContestComboDetail
     {
         /// <summary>
         /// A list of moves to use before this move.
@@ -159,7 +159,7 @@ namespace PokeApi.Net.Models
         public List<NamedApiResource> UseAfter { get; set; }
     }
 
-    class MoveFlavorText
+    public class MoveFlavorText
     {
         /// <summary>
         /// The localized flavor text for an api resource in a
@@ -178,7 +178,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource VersionGroup { get; set; }
     }
 
-    class MoveMetaData
+    public class MoveMetaData
     {
         /// <summary>
         /// The status ailment this move inflicts on its target.
@@ -249,7 +249,7 @@ namespace PokeApi.Net.Models
         public int StatChance { get; set; }
     }
 
-    class MoveStatChange
+    public class MoveStatChange
     {
         /// <summary>
         /// The amount of change
@@ -262,7 +262,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Stat { get; set; }
     }
 
-    class PastMoveStatValues
+    public class PastMoveStatValues
     {
         /// <summary>
         /// The percent value of how likely this move is to be successful.
@@ -302,7 +302,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource VersionGroup { get; set; }
     }
 
-    class MoveAilment : Resource
+    public class MoveAilment : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -327,7 +327,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "move-ailment";
     }
 
-    class MoveBattleStyle : Resource
+    public class MoveBattleStyle : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -347,7 +347,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "move-battle-style";
     }
 
-    class MoveCategory : Resource
+    public class MoveCategory : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -372,7 +372,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "move-category";
     }
 
-    class MoveDamageClass : Resource
+    public class MoveDamagepublic class : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -385,7 +385,7 @@ namespace PokeApi.Net.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// A list of moves that fall into this damage class.
+        /// A list of moves that fall into this damage public class.
         /// </summary>
         public List<NamedApiResource> Moves { get; set; }
 
@@ -399,10 +399,10 @@ namespace PokeApi.Net.Models
         /// </summary>
         public List<Names> Names { get; set; }
 
-        public override string ApiEndpoint => "move-damage-class";
+        public override string ApiEndpoint => "move-damage-public class";
     }
 
-    class MoveLearnMethod : Resource
+    public class MoveLearnMethod : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -432,7 +432,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "move-learn-method";
     }
 
-    class MoveTarget : Resource
+    public class MoveTarget : Resource
     {
         /// <summary>
         /// The identifier for this resource.

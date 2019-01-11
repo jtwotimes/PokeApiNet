@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class Generation : Resource
+    public class Generation : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -56,7 +56,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "generation";
     }
 
-    class Pokedex : Resource
+    public class Pokedex : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -101,7 +101,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "pokedex";
     }
 
-    class PokemonEntry
+    public class PokemonEntry
     {
         /// <summary>
         /// The index of this Pokémon species entry within the Pokédex.
@@ -114,7 +114,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource PokemonSpecies { get; set; }
     }
 
-    class Version : Resource
+    public class Version : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -139,7 +139,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "version";
     }
 
-    class VersionGroup : Resource
+    public class VersionGroup : Resource
     {
         /// <summary>
         /// The identifier for this resource.

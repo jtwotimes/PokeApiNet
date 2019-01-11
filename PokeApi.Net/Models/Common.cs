@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class Language : Resource
+    public class Language : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -41,7 +41,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "language";
     }
 
-    class ApiResource
+    public class ApiResource
     {
         /// <summary>
         /// The URL of the referenced resource.
@@ -49,7 +49,7 @@ namespace PokeApi.Net.Models
         public string Url { get; set; }
     }
 
-    class Descriptions
+    public class Descriptions
     {
         /// <summary>
         /// The localized description for an API resource in a
@@ -63,7 +63,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Language { get; set; }
     }
 
-    class Effects
+    public class Effects
     {
         /// <summary>
         /// The localized effect text for an API resource in a
@@ -77,7 +77,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Language { get; set; }
     }
 
-    class Encounter
+    public class Encounter
     {
         /// <summary>
         /// The lowest level the Pokémon could be encountered at.
@@ -106,7 +106,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Method { get; set; }
     }
 
-    class FlavorTexts
+    public class FlavorTexts
     {
         /// <summary>
         /// The localized flavor text for an API resource in a specific language.
@@ -119,7 +119,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Language { get; set; }
     }
 
-    class GenerationGameIndex
+    public class GenerationGameIndex
     {
         /// <summary>
         /// The internal id of an API resource within game data.
@@ -132,7 +132,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Generation { get; set; }
     }
 
-    class MachineVersionDetail
+    public class MachineVersionDetail
     {
         /// <summary>
         /// The machine that teaches a move from an item.
@@ -145,7 +145,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource VersionGroup { get; set; }
     }
 
-    class Names
+    public class Names
     {
         /// <summary>
         /// The localized name for an API resource in a specific language.
@@ -158,7 +158,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Language { get; set; }
     }
 
-    class NamedApiResource
+    public class NamedApiResource
     {
         /// <summary>
         /// The name of the referenced resource.
@@ -171,7 +171,7 @@ namespace PokeApi.Net.Models
         public string Url { get; set; }
     }
 
-    class VerboseEffect
+    public class VerboseEffect
     {
         /// <summary>
         /// The localized effect text for an API resource in a
@@ -190,7 +190,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Language { get; set; }
     }
 
-    class VersionEncounterDetail
+    public class VersionEncounterDetail
     {
         /// <summary>
         /// The game version this encounter happens in.
@@ -208,7 +208,7 @@ namespace PokeApi.Net.Models
         public List<Encounter> EncounterDetails { get; set; }
     }
 
-    class VersionGameIndex
+    public class VersionGameIndex
     {
         /// <summary>
         /// The internal id of an API resource within game data.
@@ -221,7 +221,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Version { get; set; }
     }
 
-    class VersionGroupFlavorText
+    public class VersionGroupFlavorText
     {
         /// <summary>
         /// The localized name for an API resource in a specific language.
@@ -239,7 +239,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource VersionGroup { get; set; }
     }
 
-    abstract class ReferTo<T>
+    abstract public class ReferTo<T>
     {
         string Url { get; set; }
 

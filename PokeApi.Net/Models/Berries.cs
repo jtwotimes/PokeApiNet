@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class Berry : Resource
+    public class Berry : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -81,7 +81,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "berry";
     }
 
-    class BerryFlavorMap
+    public class BerryFlavorMap
     {
         /// <summary>
         /// How powerful the referenced flavor is for this
@@ -95,7 +95,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Flavor { get; set; }
     }
 
-    class BerryFirmness : Resource
+    public class BerryFirmness : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -121,7 +121,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "berry-firmness";
     }
 
-    class BerryFlavor : Resource
+    public class BerryFlavor : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -152,7 +152,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "berry-flavor";
     }
 
-    class FlavorBerryMap
+    public class FlavorBerryMap
     {
         /// <summary>
         /// How powerful this referenced flavor is for this

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class EncounterMethod : Resource
+    public class EncounterMethod : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -30,7 +30,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "encounter-method";
     }
 
-    class EncounterCondition : Resource
+    public class EncounterCondition : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -56,7 +56,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "encounter-condition";
     }
 
-    class EncounterConditionValue : Resource
+    public class EncounterConditionValue : Resource
     {
         /// <summary>
         /// The identifier for this resource.

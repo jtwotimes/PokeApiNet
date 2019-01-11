@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class Item : Resource
+    public class Item : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -84,7 +84,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "item";
     }
 
-    class ItemSprites
+    public class ItemSprites
     {
         /// <summary>
         /// The default descritpion of this item.
@@ -92,7 +92,7 @@ namespace PokeApi.Net.Models
         public string Default { get; set; }
     }
 
-    class ItemHolderPokemon
+    public class ItemHolderPokemon
     {
         /// <summary>
         /// The Pokémon that holds this item.
@@ -105,7 +105,7 @@ namespace PokeApi.Net.Models
         public List<ItemHolderPokemonVersionDetail> VersionDetails { get; set; }
     }
 
-    class ItemHolderPokemonVersionDetail
+    public class ItemHolderPokemonVersionDetail
     {
         /// <summary>
         /// How often this Pokémon holds this item in this version.
@@ -118,7 +118,7 @@ namespace PokeApi.Net.Models
         public NamedApiResource Version { get; set; }
     }
 
-    class ItemAttribute : Resource
+    public class ItemAttribute : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -148,7 +148,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "item-attribute";
     }
 
-    class ItemCategory : Resource
+    public class ItemCategory : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -178,7 +178,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "item-category";
     }
 
-    class ItemFlingEffect : Resource
+    public class ItemFlingEffect : Resource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -203,7 +203,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "item-fling-effect";
     }
 
-    class ItemPocket : Resource
+    public class ItemPocket : Resource
     {
         /// <summary>
         /// The identifier for this resource.

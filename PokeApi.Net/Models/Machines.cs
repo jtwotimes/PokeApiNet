@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    class Machine : Resource
+    public class Machine : Resource
     {
         /// <summary>
         /// The identifier for this resource.

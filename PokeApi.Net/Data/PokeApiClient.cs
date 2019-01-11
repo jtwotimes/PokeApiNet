@@ -11,7 +11,7 @@ namespace PokeApi.Net.Data
     /// <summary>
     /// Gets data from the PokeAPI service
     /// </summary>
-    class PokeApiClient
+    public class PokeApiClient
     {
         private HttpClient client;
 
