@@ -63,7 +63,7 @@ namespace PokeApi.Net.Models
         /// <summary>
         /// The type of damage the move inflicts on the target, e.g. physical.
         /// </summary>
-        public NamedApiResource Damagepublic class { get; set; }
+        public NamedApiResource DamageClass { get; set; }
 
         /// <summary>
         /// The effect of this move listed in different languages.
@@ -372,7 +372,7 @@ namespace PokeApi.Net.Models
         public override string ApiEndpoint => "move-category";
     }
 
-    public class MoveDamagepublic class : Resource
+    public class MoveDamageClass : Resource
     {
         /// <summary>
         /// The identifier for this resource.

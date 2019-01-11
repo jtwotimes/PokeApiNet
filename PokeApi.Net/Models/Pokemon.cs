@@ -1065,7 +1065,7 @@ namespace PokeApi.Net.Models
         /// <summary>
         /// The public class of damage this stat is directly related to.
         /// </summary>
-        public NamedApiResource MoveDamagepublic class { get; set; }
+        public NamedApiResource MoveDamageClass { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.
@@ -1144,7 +1144,7 @@ namespace PokeApi.Net.Models
         /// <summary>
         /// The public class of damage inflicted by this type.
         /// </summary>
-        public NamedApiResource MoveDamagepublic class { get; set; }
+        public NamedApiResource MoveDamageClass { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.
