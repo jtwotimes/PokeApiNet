@@ -13,24 +13,41 @@ namespace PokeApi.Net.Data
     /// <summary>
     /// Gets data from the PokeAPI service
     /// </summary>
-    public class PokeApiClient
+    public class PokeApiClient : IDisposable
     {
-        private HttpClient client;
+        private readonly HttpClient _client;
+        private readonly Uri _baseUri = new Uri("https://pokeapi.co/api/v2/");
 
         /// <summary>
-        /// Constructor
+        /// Default constructor
+        /// </summary>
+        public PokeApiClient()
+        {
+            _client = new HttpClient() { BaseAddress = _baseUri };
+        }
+
+        /// <summary>
+        /// Constructor with message handler
         /// </summary>
         /// <param name="messageHandler">Message handler implementation</param>
         public PokeApiClient(HttpMessageHandler messageHandler)
         {
-            client = new HttpClient(messageHandler) { BaseAddress = new Uri("https://pokeapi.co/api/v2/") };
+            _client = new HttpClient(messageHandler) { BaseAddress = _baseUri };
+        }
+
+        /// <summary>
+        /// Close resources
+        /// </summary>
+        public void Dispose()
+        {
+            _client.Dispose();
         }
 
         private async Task<T> GetResourcesWithParamsAsync<T>(string apiParam) where T : class
         {
             ApiEndpointAttribute attribute = typeof(T).GetCustomAttribute(typeof(ApiEndpointAttribute)) as ApiEndpointAttribute;
             string apiEndpoint = attribute.ApiEndpoint;
-            HttpResponseMessage response = await client.GetAsync($"{apiEndpoint}/{apiParam}");
+            HttpResponseMessage response = await _client.GetAsync($"{apiEndpoint}/{apiParam}");
 
             string resp = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(resp);
