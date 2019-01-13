@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PokeApi.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    public class EvolutionChain : Resource
+    [ApiEndpoint("evolution-chain")]
+    public class EvolutionChain
     {
         /// <summary>
         /// The identifier for this resource.
@@ -25,8 +27,6 @@ namespace PokeApi.Net.Models
         /// natural evolution order.
         /// </summary>
         public ChainLink Chain { get; set; }
-
-        public override string ApiEndpoint => "evolution-chain";
     }
 
     public class ChainLink
@@ -166,7 +166,8 @@ namespace PokeApi.Net.Models
         public bool TurnUpsideDown { get; set; }
     }
 
-    public class EvolutionTrigger : Resource
+    [ApiEndpoint("evolution-trigger")]
+    public class EvolutionTrigger
     {
         /// <summary>
         /// The identifier for this resource.
@@ -188,7 +189,5 @@ namespace PokeApi.Net.Models
         /// trigger.
         /// </summary>
         public List<NamedApiResource> PokemonSpecies { get; set; }
-
-        public override string ApiEndpoint => "evolution-trigger";
     }
 }

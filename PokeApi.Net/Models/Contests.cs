@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PokeApi.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    public class ContestType : Resource
+    [ApiEndpoint("contest-type")]
+    public class ContestType
     {
         /// <summary>
         /// The identifier for this resource.
@@ -27,8 +29,6 @@ namespace PokeApi.Net.Models
         /// languages.
         /// </summary>
         public List<ContestName> Names { get; set; }
-
-        public override string ApiEndpoint => "contest-type";
     }
 
     public class ContestName
@@ -49,7 +49,8 @@ namespace PokeApi.Net.Models
         public NamedApiResource Language { get; set; }
     }
 
-    public class ContestEffect : Resource
+    [ApiEndpoint("contest-effect")]
+    public class ContestEffect
     {
         /// <summary>
         /// The identifier for this resource.
@@ -79,11 +80,10 @@ namespace PokeApi.Net.Models
         /// different languages.
         /// </summary>
         public List<FlavorTexts> FlavorTextEntries { get; set; }
-
-        public override string ApiEndpoint => "contest-effect";
     }
 
-    public class SuperContestEffect : Resource
+    [ApiEndpoint("super-contest-effect")]
+    public class SuperContestEffect
     {
         /// <summary>
         /// The identifier for this resource.
@@ -106,7 +106,5 @@ namespace PokeApi.Net.Models
         /// super contests.
         /// </summary>
         public List<NamedApiResource> Moves { get; set; }
-
-        public override string ApiEndpoint => "super-contest-effect";
     }
 }

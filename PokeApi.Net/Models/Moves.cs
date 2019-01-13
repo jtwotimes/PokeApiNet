@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PokeApi.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    public class Move : Resource
+    [ApiEndpoint("move")]
+    public class Move
     {
         /// <summary>
         /// The identifier for this resource.
@@ -127,8 +129,6 @@ namespace PokeApi.Net.Models
         /// The elemental type of this move.
         /// </summary>
         public NamedApiResource Type { get; set; }
-
-        public override string ApiEndpoint => "move";
     }
 
     public class ContestComboSets
@@ -302,7 +302,8 @@ namespace PokeApi.Net.Models
         public NamedApiResource VersionGroup { get; set; }
     }
 
-    public class MoveAilment : Resource
+    [ApiEndpoint("move-ailment")]
+    public class MoveAilment
     {
         /// <summary>
         /// The identifier for this resource.
@@ -323,11 +324,10 @@ namespace PokeApi.Net.Models
         /// The name of this resource listed in different languages.
         /// </summary>
         public List<Names> Names { get; set; }
-
-        public override string ApiEndpoint => "move-ailment";
     }
 
-    public class MoveBattleStyle : Resource
+    [ApiEndpoint("move-battle-style")]
+    public class MoveBattleStyle
     {
         /// <summary>
         /// The identifier for this resource.
@@ -343,11 +343,10 @@ namespace PokeApi.Net.Models
         /// The name of this resource listed in different languages.
         /// </summary>
         public List<Names> Names { get; set; }
-
-        public override string ApiEndpoint => "move-battle-style";
     }
 
-    public class MoveCategory : Resource
+    [ApiEndpoint("move-category")]
+    public class MoveCategory
     {
         /// <summary>
         /// The identifier for this resource.
@@ -368,11 +367,10 @@ namespace PokeApi.Net.Models
         /// The description of this resource listed in different languages.
         /// </summary>
         public List<Descriptions> Descriptions { get; set; }
-
-        public override string ApiEndpoint => "move-category";
     }
 
-    public class MoveDamageClass : Resource
+    [ApiEndpoint("move-damage-class")]
+    public class MoveDamageClass
     {
         /// <summary>
         /// The identifier for this resource.
@@ -398,11 +396,10 @@ namespace PokeApi.Net.Models
         /// The name of this resource listed in different languages.
         /// </summary>
         public List<Names> Names { get; set; }
-
-        public override string ApiEndpoint => "move-damage-public class";
     }
 
-    public class MoveLearnMethod : Resource
+    [ApiEndpoint("move-learn-method")]
+    public class MoveLearnMethod
     {
         /// <summary>
         /// The identifier for this resource.
@@ -428,11 +425,10 @@ namespace PokeApi.Net.Models
         /// A list of version groups where moves can be learned through this method.
         /// </summary>
         public List<NamedApiResource> VersionGroups { get; set; }
-
-        public override string ApiEndpoint => "move-learn-method";
     }
 
-    public class MoveTarget : Resource
+    [ApiEndpoint("move-target")]
+    public class MoveTarget
     {
         /// <summary>
         /// The identifier for this resource.
@@ -458,7 +454,5 @@ namespace PokeApi.Net.Models
         /// The name of this resource listed in different languages.
         /// </summary>
         public List<Names> Names { get; set; }
-
-        public override string ApiEndpoint => "move-target";
     }
 }

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PokeApi.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    public class Generation : Resource
+    [ApiEndpoint("generation")]
+    public class Generation
     {
         /// <summary>
         /// The identifier for this resource.
@@ -52,11 +54,10 @@ namespace PokeApi.Net.Models
         /// generation.
         /// </summary>
         public List<NamedApiResource> VersionGroups { get; set; }
-
-        public override string ApiEndpoint => "generation";
     }
 
-    public class Pokedex : Resource
+    [ApiEndpoint("pokedex")]
+    public class Pokedex
     {
         /// <summary>
         /// The identifier for this resource.
@@ -97,8 +98,6 @@ namespace PokeApi.Net.Models
         /// A list of version groups this Pokédex is relevant to.
         /// </summary>
         public List<NamedApiResource> VersionGroups { get; set; }
-
-        public override string ApiEndpoint => "pokedex";
     }
 
     public class PokemonEntry
@@ -114,7 +113,8 @@ namespace PokeApi.Net.Models
         public NamedApiResource PokemonSpecies { get; set; }
     }
 
-    public class Version : Resource
+    [ApiEndpoint("version")]
+    public class Version
     {
         /// <summary>
         /// The identifier for this resource.
@@ -135,11 +135,10 @@ namespace PokeApi.Net.Models
         /// The version group this version belongs to.
         /// </summary>
         public NamedApiResource VersionGroup { get; set; }
-
-        public override string ApiEndpoint => "version";
     }
 
-    public class VersionGroup : Resource
+    [ApiEndpoint("version-group")]
+    public class VersionGroup
     {
         /// <summary>
         /// The identifier for this resource.
@@ -182,7 +181,5 @@ namespace PokeApi.Net.Models
         /// The versions this version group owns.
         /// </summary>
         public List<NamedApiResource> Versions { get; set; }
-
-        public override string ApiEndpoint => "version-group";
     }
 }

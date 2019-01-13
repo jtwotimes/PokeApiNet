@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PokeApi.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    public class Ability : Resource
+    [ApiEndpoint("ability")]
+    public class Ability
     {
         /// <summary>
         /// The identifier for this resource.
@@ -50,8 +52,6 @@ namespace PokeApi.Net.Models
         /// A list of Pokémon that could potentially have this ability.
         /// </summary>
         public List<AbilityPokemon> Pokemon { get; set; }
-
-        public override string ApiEndpoint => "ability";
     }
 
     public class AbilityEffectChange
@@ -105,7 +105,8 @@ namespace PokeApi.Net.Models
         public NamedApiResource Pokemon { get; set; }
     }
 
-    public class Characteristic : Resource
+    [ApiEndpoint("characteristic")]
+    public class Characteristic
     {
         /// <summary>
         /// The identifier for this resource.
@@ -122,11 +123,10 @@ namespace PokeApi.Net.Models
         /// a Pokémon recieving this characteristic when divided by 5.
         /// </summary>
         public List<int> PossibleValues { get; set; }
-
-        public override string ApiEndpoint => "characteristic";
     }
 
-    public class EggGroup : Resource
+    [ApiEndpoint("egg-group")]
+    public class EggGroup
     {
         /// <summary>
         /// The identifier for this resource.
@@ -147,11 +147,10 @@ namespace PokeApi.Net.Models
         /// A list of all Pokémon species that are members of this egg group.
         /// </summary>
         public List<NamedApiResource> PokemonSpecies { get; set; }
-
-        public override string ApiEndpoint => "egg-group";
     }
 
-    public class Gender : Resource
+    [ApiEndpoint("gender")]
+    public class Gender
     {
         /// <summary>
         /// The identifier for this resource.
@@ -174,8 +173,6 @@ namespace PokeApi.Net.Models
         /// Pokémon to evolve into them.
         /// </summary>
         public List<NamedApiResource> RequiredForEvolution { get; set; }
-
-        public override string ApiEndpoint => "gender";
     }
 
     public class PokemonSpeciesGender
@@ -192,7 +189,8 @@ namespace PokeApi.Net.Models
         public NamedApiResource PokemonSpecies { get; set; }
     }
 
-    public class GrowthRate : Resource
+    [ApiEndpoint("growth-rate")]
+    public class GrowthRate
     {
         /// <summary>
         /// The identifier for this resource.
@@ -225,8 +223,6 @@ namespace PokeApi.Net.Models
         /// A list of Pokémon species that gain levels at this growth rate.
         /// </summary>
         public List<NamedApiResource> PokemonSpecies { get; set; }
-
-        public override string ApiEndpoint => "growth-rate";
     }
 
     public class GrowthRateExperienceLevel
@@ -242,7 +238,8 @@ namespace PokeApi.Net.Models
         public int Experience { get; set; }
     }
 
-    public class Nature : Resource
+    [ApiEndpoint("nature")]
+    public class Nature
     {
         /// <summary>
         /// The identifier for this resource.
@@ -290,8 +287,6 @@ namespace PokeApi.Net.Models
         /// The name of this resource listed in different languages.
         /// </summary>
         public List<Names> Names { get; set; }
-
-        public override string ApiEndpoint => "nature";
     }
 
     public class NatureStatChange
@@ -325,7 +320,8 @@ namespace PokeApi.Net.Models
         public NamedApiResource MoveBattleStyle { get; set; }
     }
 
-    public class PokeathlonStat : Resource
+    [ApiEndpoint("pokeathlon-stat")]
+    public class PokeathlonStat
     {
         /// <summary>
         /// The identifier for this resource.
@@ -347,8 +343,6 @@ namespace PokeApi.Net.Models
         /// or negatively.
         /// </summary>
         public NaturePokeathlonStatAffectSets AffectingNatures { get; set; }
-
-        public override string ApiEndpoint => "pokeathlon-stat";
     }
 
     public class NaturePokeathlonStatAffectSets
@@ -377,7 +371,8 @@ namespace PokeApi.Net.Models
         public NamedApiResource Nature { get; set; }
     }
 
-    public class Pokemon : Resource
+    [ApiEndpoint("pokemon")]
+    public class Pokemon
     {
         /// <summary>
         /// The identifier for this resource.
@@ -466,8 +461,6 @@ namespace PokeApi.Net.Models
         /// A list of details showing types this Pokémon has.
         /// </summary>
         public List<PokemonType> Types { get; set; }
-
-        public override string ApiEndpoint => "pokemon";
     }
 
     public class PokemonAbility
@@ -633,7 +626,8 @@ namespace PokeApi.Net.Models
         public List<VersionEncounterDetail> VersionDetails { get; set; }
     }
 
-    public class PokemonColor : Resource
+    [ApiEndpoint("pokemon-color")]
+    public class PokemonColor
     {
         /// <summary>
         /// The identifier for this resource.
@@ -654,11 +648,10 @@ namespace PokeApi.Net.Models
         /// A list of the Pokémon species that have this color.
         /// </summary>
         public List<NamedApiResource> PokemonSpecies { get; set; }
-
-        public override string ApiEndpoint => "pokemon-color";
     }
 
-    public class PokemonForm : Resource
+    [ApiEndpoint("pokemon-form")]
+    public class PokemonForm
     {
         /// <summary>
         /// The identifier for this resource.
@@ -728,8 +721,6 @@ namespace PokeApi.Net.Models
         /// form does not have a specific name.
         /// </summary>
         public List<Names> FormNames { get; set; }
-
-        public override string ApiEndpoint => "pokemon-form";
     }
 
     public class PokemonFormSprites
@@ -755,7 +746,8 @@ namespace PokeApi.Net.Models
         public string BackShiny { get; set; }
     }
 
-    public class PokemonHabitat : Resource
+    [ApiEndpoint("pokemon-habitat")]
+    public class PokemonHabitat
     {
         /// <summary>
         /// The identifier for this resource.
@@ -776,11 +768,10 @@ namespace PokeApi.Net.Models
         /// A list of the Pokémon species that can be found in this habitat.
         /// </summary>
         public List<NamedApiResource> PokemonSpecies { get; set; }
-
-        public override string ApiEndpoint => "pokemon-habitat";
     }
 
-    public class PokemonShape : Resource
+    [ApiEndpoint("pokemon-shape")]
+    public class PokemonShape
     {
         /// <summary>
         /// The identifier for this resource.
@@ -807,8 +798,6 @@ namespace PokeApi.Net.Models
         /// A list of the Pokémon species that have this shape.
         /// </summary>
         public List<PokemonSpecies> PokemonSpecies { get; set; }
-
-        public override string ApiEndpoint => "pokemon-shape";
     }
 
     public class AwesomeNames
@@ -825,7 +814,8 @@ namespace PokeApi.Net.Models
         public NamedApiResource Language { get; set; }
     }
 
-    public class PokemonSpecies : Resource
+    [ApiEndpoint("pokemon-species")]
+    public class PokemonSpecies
     {
         /// <summary>
         /// The identifier for this resource.
@@ -961,8 +951,6 @@ namespace PokeApi.Net.Models
         /// A list of the Pokémon that exist within this Pokémon species.
         /// </summary>
         public List<PokemonSpeciesVariety> Varieties { get; set; }
-
-        public override string ApiEndpoint => "pokemon-species";
     }
 
     public class Genuses
@@ -1024,7 +1012,8 @@ namespace PokeApi.Net.Models
         public NamedApiResource Pokemon { get; set; }
     }
 
-    public class Stat : Resource
+    [ApiEndpoint("stat")]
+    public class Stat
     {
         /// <summary>
         /// The identifier for this resource.
@@ -1071,8 +1060,6 @@ namespace PokeApi.Net.Models
         /// The name of this resource listed in different languages.
         /// </summary>
         public List<Names> Names { get; set; }
-
-        public override string ApiEndpoint => "stat";
     }
 
     public class MoveStatAffectSets
@@ -1114,7 +1101,8 @@ namespace PokeApi.Net.Models
         public List<NamedApiResource> Decrease { get; set; }
     }
 
-    public class Type : Resource
+    [ApiEndpoint("type")]
+    public class Type
     {
         /// <summary>
         /// The identifier for this resource.
@@ -1160,8 +1148,6 @@ namespace PokeApi.Net.Models
         /// A list of moves that have this type.
         /// </summary>
         public List<NamedApiResource> Moves { get; set; }
-
-        public override string ApiEndpoint => "type";
     }
 
     public class TypePokemon

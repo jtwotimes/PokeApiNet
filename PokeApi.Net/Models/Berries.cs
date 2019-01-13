@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PokeApi.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    public class Berry : Resource
+    [ApiEndpoint("berry")]
+    public class Berry
     {
         /// <summary>
         /// The identifier for this resource.
@@ -77,8 +79,6 @@ namespace PokeApi.Net.Models
         /// this Berry.
         /// </summary>
         public NamedApiResource NaturalGiftType { get; set; }
-
-        public override string ApiEndpoint => "berry";
     }
 
     public class BerryFlavorMap
@@ -95,7 +95,8 @@ namespace PokeApi.Net.Models
         public NamedApiResource Flavor { get; set; }
     }
 
-    public class BerryFirmness : Resource
+    [ApiEndpoint("berry-firmness")]
+    public class BerryFirmness
     {
         /// <summary>
         /// The identifier for this resource.
@@ -117,11 +118,10 @@ namespace PokeApi.Net.Models
         /// languages.
         /// </summary>
         public List<Names> Names { get; set; }
-
-        public override string ApiEndpoint => "berry-firmness";
     }
 
-    public class BerryFlavor : Resource
+    [ApiEndpoint("berry-flavor")]
+    public class BerryFlavor
     {
         /// <summary>
         /// The identifier for this resource.
@@ -148,8 +148,6 @@ namespace PokeApi.Net.Models
         /// The name of this resource in different languages.
         /// </summary>
         public List<Names> Names { get; set; }
-
-        public override string ApiEndpoint => "berry-flavor";
     }
 
     public class FlavorBerryMap

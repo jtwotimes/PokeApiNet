@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PokeApi.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    public class Language : Resource
+    [ApiEndpoint("language")]
+    public class Language
     {
         /// <summary>
         /// The identifier for this resource.
@@ -37,8 +39,6 @@ namespace PokeApi.Net.Models
         /// The name of this resource listed in different languages.
         /// </summary>
         public List<Names> Names { get; set; }
-
-        public override string ApiEndpoint => "language";
     }
 
     public class ApiResource

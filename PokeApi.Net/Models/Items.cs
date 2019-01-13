@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PokeApi.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    public class Item : Resource
+    [ApiEndpoint("item")]
+    public class Item
     {
         /// <summary>
         /// The identifier for this resource.
@@ -80,8 +82,6 @@ namespace PokeApi.Net.Models
         /// A list of the machines related to this item.
         /// </summary>
         public List<MachineVersionDetail> Machines { get; set; }
-
-        public override string ApiEndpoint => "item";
     }
 
     public class ItemSprites
@@ -118,7 +118,8 @@ namespace PokeApi.Net.Models
         public NamedApiResource Version { get; set; }
     }
 
-    public class ItemAttribute : Resource
+    [ApiEndpoint("item-attribute")]
+    public class ItemAttribute
     {
         /// <summary>
         /// The identifier for this resource.
@@ -144,11 +145,10 @@ namespace PokeApi.Net.Models
         /// The description of this item attribute listed in different languages.
         /// </summary>
         public List<Descriptions> Descriptions { get; set; }
-
-        public override string ApiEndpoint => "item-attribute";
     }
 
-    public class ItemCategory : Resource
+    [ApiEndpoint("item-category")]
+    public class ItemCategory
     {
         /// <summary>
         /// The identifier for this resource.
@@ -174,11 +174,10 @@ namespace PokeApi.Net.Models
         /// The pocket items in this category would be put in.
         /// </summary>
         public NamedApiResource Pocket { get; set; }
-
-        public override string ApiEndpoint => "item-category";
     }
 
-    public class ItemFlingEffect : Resource
+    [ApiEndpoint("item-fling-effect")]
+    public class ItemFlingEffect
     {
         /// <summary>
         /// The identifier for this resource.
@@ -199,11 +198,10 @@ namespace PokeApi.Net.Models
         /// A list of items that have this fling effect.
         /// </summary>
         public List<NamedApiResource> Items { get; set; }
-
-        public override string ApiEndpoint => "item-fling-effect";
     }
 
-    public class ItemPocket : Resource
+    [ApiEndpoint("item-pocket")]
+    public class ItemPocket
     {
         /// <summary>
         /// The identifier for this resource.
@@ -224,7 +222,5 @@ namespace PokeApi.Net.Models
         /// The name of this resource listed in different languages.
         /// </summary>
         public List<Names> Names { get; set; }
-
-        public override string ApiEndpoint => "item-pocket";
     }
 }

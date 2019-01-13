@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PokeApi.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PokeApi.Net.Models
 {
-    public class EncounterMethod : Resource
+    [ApiEndpoint("encounter-method")]
+    public class EncounterMethod
     {
         /// <summary>
         /// The identifier for this resource.
@@ -26,11 +28,10 @@ namespace PokeApi.Net.Models
         /// languages.
         /// </summary>
         public List<Names> Names { get; set; }
-
-        public override string ApiEndpoint => "encounter-method";
     }
 
-    public class EncounterCondition : Resource
+    [ApiEndpoint("encounter-condition")]
+    public class EncounterCondition
     {
         /// <summary>
         /// The identifier for this resource.
@@ -52,11 +53,10 @@ namespace PokeApi.Net.Models
         /// A list of possible values for this encounter condition.
         /// </summary>
         public List<NamedApiResource> Values { get; set; }
-
-        public override string ApiEndpoint => "encounter-condition";
     }
 
-    public class EncounterConditionValue : Resource
+    [ApiEndpoint("encounter-condition-value")]
+    public class EncounterConditionValue
     {
         /// <summary>
         /// The identifier for this resource.
@@ -79,7 +79,5 @@ namespace PokeApi.Net.Models
         /// languages.
         /// </summary>
         public List<Names> Names { get; set; }
-
-        public override string ApiEndpoint => "encounter-condition-value";
     }
 }
