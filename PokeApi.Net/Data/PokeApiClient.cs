@@ -47,7 +47,7 @@ namespace PokeApi.Net.Data
         {
             ApiEndpointAttribute attribute = typeof(T).GetCustomAttribute(typeof(ApiEndpointAttribute)) as ApiEndpointAttribute;
             string apiEndpoint = attribute.ApiEndpoint;
-            HttpResponseMessage response = await _client.GetAsync($"{apiEndpoint}/{apiParam}");
+            HttpResponseMessage response = await _client.GetAsync($"{apiEndpoint}/{apiParam}/");        // trailing slash is needed!
 
             string resp = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(resp);
