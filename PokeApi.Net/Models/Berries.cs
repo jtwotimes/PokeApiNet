@@ -1,4 +1,4 @@
-﻿using PokeApi.Net.Attributes;
+﻿using PokeApi.Net.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,13 +6,13 @@ using System.Text;
 namespace PokeApi.Net.Models
 {
     [ApiEndpoint("berry")]
-    public class Berry
+    public class Berry : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public int Id { get; set; }
-
+    
         /// <summary>
         /// The name for this resource.
         /// </summary>
@@ -96,7 +96,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("berry-firmness")]
-    public class BerryFirmness
+    public class BerryFirmness : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -121,7 +121,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("berry-flavor")]
-    public class BerryFlavor
+    public class BerryFlavor : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.

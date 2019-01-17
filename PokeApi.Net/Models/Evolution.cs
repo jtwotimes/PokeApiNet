@@ -1,4 +1,4 @@
-﻿using PokeApi.Net.Attributes;
+﻿using PokeApi.Net.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Text;
 namespace PokeApi.Net.Models
 {
     [ApiEndpoint("evolution-chain")]
-    public class EvolutionChain
+    public class EvolutionChain : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -167,7 +167,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("evolution-trigger")]
-    public class EvolutionTrigger
+    public class EvolutionTrigger : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.

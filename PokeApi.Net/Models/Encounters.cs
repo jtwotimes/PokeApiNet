@@ -1,4 +1,4 @@
-﻿using PokeApi.Net.Attributes;
+﻿using PokeApi.Net.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Text;
 namespace PokeApi.Net.Models
 {
     [ApiEndpoint("encounter-method")]
-    public class EncounterMethod
+    public class EncounterMethod : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -31,7 +31,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("encounter-condition")]
-    public class EncounterCondition
+    public class EncounterCondition : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -56,7 +56,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("encounter-condition-value")]
-    public class EncounterConditionValue
+    public class EncounterConditionValue : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.

@@ -1,4 +1,4 @@
-﻿using PokeApi.Net.Attributes;
+﻿using PokeApi.Net.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Text;
 namespace PokeApi.Net.Models
 {
     [ApiEndpoint("generation")]
-    public class Generation
+    public class Generation : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -57,7 +57,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("pokedex")]
-    public class Pokedex
+    public class Pokedex : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -114,7 +114,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("version")]
-    public class Version
+    public class Version : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -138,7 +138,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("version-group")]
-    public class VersionGroup
+    public class VersionGroup : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.

@@ -1,4 +1,4 @@
-﻿using PokeApi.Net.Attributes;
+﻿using PokeApi.Net.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Text;
 namespace PokeApi.Net.Models
 {
     [ApiEndpoint("move")]
-    public class Move
+    public class Move : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -303,7 +303,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("move-ailment")]
-    public class MoveAilment
+    public class MoveAilment : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -327,7 +327,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("move-battle-style")]
-    public class MoveBattleStyle
+    public class MoveBattleStyle : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -346,7 +346,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("move-category")]
-    public class MoveCategory
+    public class MoveCategory : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -370,7 +370,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("move-damage-class")]
-    public class MoveDamageClass
+    public class MoveDamageClass : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -399,7 +399,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("move-learn-method")]
-    public class MoveLearnMethod
+    public class MoveLearnMethod : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -428,7 +428,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("move-target")]
-    public class MoveTarget
+    public class MoveTarget : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.

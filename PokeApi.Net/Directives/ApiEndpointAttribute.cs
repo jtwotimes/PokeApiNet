@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PokeApi.Net.Attributes
+namespace PokeApi.Net.Directives
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = true)]
     class ApiEndpointAttribute : Attribute

@@ -1,4 +1,4 @@
-﻿using PokeApi.Net.Attributes;
+﻿using PokeApi.Net.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Text;
 namespace PokeApi.Net.Models
 {
     [ApiEndpoint("item")]
-    public class Item
+    public class Item : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -119,7 +119,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("item-attribute")]
-    public class ItemAttribute
+    public class ItemAttribute : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -148,7 +148,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("item-category")]
-    public class ItemCategory
+    public class ItemCategory : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -177,7 +177,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("item-fling-effect")]
-    public class ItemFlingEffect
+    public class ItemFlingEffect : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -201,7 +201,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("item-pocket")]
-    public class ItemPocket
+    public class ItemPocket : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.

@@ -1,4 +1,4 @@
-﻿using PokeApi.Net.Attributes;
+﻿using PokeApi.Net.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Text;
 namespace PokeApi.Net.Models
 {
     [ApiEndpoint("ability")]
-    public class Ability
+    public class Ability : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -106,7 +106,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("characteristic")]
-    public class Characteristic
+    public class Characteristic : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -126,7 +126,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("egg-group")]
-    public class EggGroup
+    public class EggGroup : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -150,7 +150,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("gender")]
-    public class Gender
+    public class Gender : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -190,7 +190,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("growth-rate")]
-    public class GrowthRate
+    public class GrowthRate : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -239,7 +239,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("nature")]
-    public class Nature
+    public class Nature : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -321,7 +321,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("pokeathlon-stat")]
-    public class PokeathlonStat
+    public class PokeathlonStat : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -372,7 +372,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("pokemon")]
-    public class Pokemon
+    public class Pokemon : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -627,7 +627,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("pokemon-color")]
-    public class PokemonColor
+    public class PokemonColor : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -651,7 +651,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("pokemon-form")]
-    public class PokemonForm
+    public class PokemonForm : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -747,7 +747,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("pokemon-habitat")]
-    public class PokemonHabitat
+    public class PokemonHabitat : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -771,7 +771,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("pokemon-shape")]
-    public class PokemonShape
+    public class PokemonShape : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -815,7 +815,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("pokemon-species")]
-    public class PokemonSpecies
+    public class PokemonSpecies : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -1013,7 +1013,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("stat")]
-    public class Stat
+    public class Stat : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -1102,7 +1102,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("type")]
-    public class Type
+    public class Type : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.

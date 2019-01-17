@@ -1,4 +1,4 @@
-﻿using PokeApi.Net.Attributes;
+﻿using PokeApi.Net.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Text;
 namespace PokeApi.Net.Models
 {
     [ApiEndpoint("location")]
-    public class Location
+    public class Location : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -40,7 +40,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("location-area")]
-    public class LocationArea
+    public class LocationArea : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -123,7 +123,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("pal-park-area")]
-    public class PalParkArea
+    public class PalParkArea : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -167,7 +167,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("region")]
-    public class Region
+    public class Region : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.

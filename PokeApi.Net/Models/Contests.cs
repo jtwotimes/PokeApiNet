@@ -1,4 +1,4 @@
-﻿using PokeApi.Net.Attributes;
+﻿using PokeApi.Net.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Text;
 namespace PokeApi.Net.Models
 {
     [ApiEndpoint("contest-type")]
-    public class ContestType
+    public class ContestType : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -50,7 +50,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("contest-effect")]
-    public class ContestEffect
+    public class ContestEffect : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
@@ -83,7 +83,7 @@ namespace PokeApi.Net.Models
     }
 
     [ApiEndpoint("super-contest-effect")]
-    public class SuperContestEffect
+    public class SuperContestEffect : ICanBeCached
     {
         /// <summary>
         /// The identifier for this resource.
