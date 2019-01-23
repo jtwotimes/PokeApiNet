@@ -91,5 +91,22 @@ namespace PokeApi.Net.Data
                 return await GetResourcesWithParamsAsync<T>(name);
             }
         }
+
+        /// <summary>
+        /// Clears all cached data
+        /// </summary>
+        public void ClearCache()
+        {
+            _cacheManager.ClearAll();
+        }
+
+        /// <summary>
+        /// Clears the cached data for a specific resource
+        /// </summary>
+        /// <typeparam name="T">The type of cache</typeparam>
+        public void ClearCache<T>() where T : class, ICanBeCached
+        {
+            _cacheManager.Clear<T>();
+        }
     }
 }
