@@ -17,6 +17,7 @@ namespace PokeApi.Net.Data
     {
         private readonly HttpClient _client;
         private readonly Uri _baseUri = new Uri("https://pokeapi.co/api/v2/");
+        private readonly CacheManager _cacheManager = new CacheManager();
 
         /// <summary>
         /// Default constructor
@@ -43,7 +44,7 @@ namespace PokeApi.Net.Data
             _client.Dispose();
         }
 
-        private async Task<T> GetResourcesWithParamsAsync<T>(string apiParam) where T : class
+        private async Task<T> GetResourcesWithParamsAsync<T>(string apiParam) where T : ICanBeCached
         {
             ApiEndpointAttribute attribute = typeof(T).GetCustomAttribute(typeof(ApiEndpointAttribute)) as ApiEndpointAttribute;
             string apiEndpoint = attribute.ApiEndpoint;
@@ -59,9 +60,17 @@ namespace PokeApi.Net.Data
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="id">Id of resource</param>
         /// <returns>The object of the resource</returns>
-        public async Task<T> GetResourceAsync<T>(int id) where T : class
+        public async Task<T> GetResourceAsync<T>(int id) where T : class, ICanBeCached
         {
-            return await GetResourcesWithParamsAsync<T>(id.ToString());
+            T resource = _cacheManager.Get<T>(id);
+            if (resource != null)
+            {
+                return resource;
+            }
+            else
+            {
+                return await GetResourcesWithParamsAsync<T>(id.ToString());
+            }
         }
 
         /// <summary>
@@ -70,9 +79,17 @@ namespace PokeApi.Net.Data
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="name">Name of resource</param>
         /// <returns>The object of the resource</returns>
-        public async Task<T> GetResourceAsync<T>(string name) where T : class
+        public async Task<T> GetResourceAsync<T>(string name) where T : class, ICanBeCached
         {
-            return await GetResourcesWithParamsAsync<T>(name);
+            T resource = _cacheManager.Get<T>(name);
+            if (resource != null)
+            {
+                return resource;
+            }
+            else
+            {
+                return await GetResourcesWithParamsAsync<T>(name);
+            }
         }
     }
 }

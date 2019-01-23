@@ -1,6 +1,9 @@
 using PokeApi.Net.Data;
+using PokeApi.Net.Models;
 using RichardSzalay.MockHttp;
 using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace PokeApi.Net.Tests.Data
@@ -8,14 +11,16 @@ namespace PokeApi.Net.Tests.Data
     public class PokeApiClientTests
     {
         [Fact]
-        public async void GetResourceAsyncTest()
+        public async Task GetResourceAsyncTest()
         {
-            var mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("").Respond("application/json", "{}");
+            PokeApiClient client = new PokeApiClient();
+            var berry = await client.GetResourceAsync<Berry>("cheri");
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
+            //var mockHttp = new MockHttpMessageHandler();
+            //mockHttp.When("").Respond("application/json", "{}");
 
-            await client.GetResourceAsync<Models.Berry>(1);
+            //PokeApiClient client = new PokeApiClient(mockHttp);
+            //await client.GetResourceAsync<Models.Berry>(1);
         }
     }
 }
