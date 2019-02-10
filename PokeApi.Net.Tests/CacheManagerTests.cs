@@ -11,6 +11,7 @@ namespace PokeApi.Net.Tests.Data
     public class CacheManagerTests
     {
         [Fact]
+        [Trait("Category", "Unit")]
         public void CacheManagerGetByIdTest()
         {
             // assemble
@@ -26,6 +27,7 @@ namespace PokeApi.Net.Tests.Data
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void CacheManagerGetByIdDoesNotExistTest()
         {
             // assemble
@@ -41,6 +43,7 @@ namespace PokeApi.Net.Tests.Data
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void CacheManagerStoreThrowsTest()
         {
             // assemble
@@ -56,6 +59,7 @@ namespace PokeApi.Net.Tests.Data
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void CacheManagerGetEmptyIsNullTest()
         {
             // assemble
@@ -69,6 +73,7 @@ namespace PokeApi.Net.Tests.Data
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void CacheManagerGetByNameTest()
         {
             // assemble
@@ -84,6 +89,7 @@ namespace PokeApi.Net.Tests.Data
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void CacheManagerGetByNameDoesNotExistTest()
         {
             // assemble
@@ -99,6 +105,7 @@ namespace PokeApi.Net.Tests.Data
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void CacheManagerClearAllTest()
         {
             // assemble
@@ -119,6 +126,7 @@ namespace PokeApi.Net.Tests.Data
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public void CacheManageClearTypeTest()
         {
             // assemble
