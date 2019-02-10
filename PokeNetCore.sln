@@ -5,9 +5,14 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeApi.Net", "PokeApi.Net\PokeApi.Net.csproj", "{5C6D2C6D-0A64-42DF-A118-F34425857413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeApi.Net.Tests", "PokeApi.Net.Tests\PokeApi.Net.Tests.csproj", "{FCBBBAF5-6BF4-41C8-B3F8-E03A97CF6F54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeApi.Net.Tests", "PokeApi.Net.Tests\PokeApi.Net.Tests.csproj", "{FCBBBAF5-6BF4-41C8-B3F8-E03A97CF6F54}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5C6D2C6D-0A64-42DF-A118-F34425857413} = {5C6D2C6D-0A64-42DF-A118-F34425857413}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{32DCA351-B9ED-4856-8468-CBF1C12BFBC8}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
