@@ -1049,7 +1049,7 @@ namespace PokeApi.Net.Models
         /// A list of characteristics that are set on a Pokémon when its highest
         /// base stat is this stat.
         /// </summary>
-        public ApiResource Characteristics { get; set; }
+        public List<ApiResource> Characteristics { get; set; }
 
         /// <summary>
         /// The public class of damage this stat is directly related to.

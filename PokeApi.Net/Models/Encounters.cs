@@ -72,7 +72,7 @@ namespace PokeApi.Net.Models
         /// The condition this encounter condition value pertains
         /// to.
         /// </summary>
-        public List<NamedApiResource> Condition { get; set; }
+        public NamedApiResource Condition { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different
