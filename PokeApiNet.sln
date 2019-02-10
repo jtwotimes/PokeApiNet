@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeApi.Net", "PokeApi.Net\PokeApi.Net.csproj", "{5C6D2C6D-0A64-42DF-A118-F34425857413}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeApiNet", "PokeApiNet\PokeApiNet.csproj", "{5C6D2C6D-0A64-42DF-A118-F34425857413}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeApi.Net.Tests", "PokeApi.Net.Tests\PokeApi.Net.Tests.csproj", "{FCBBBAF5-6BF4-41C8-B3F8-E03A97CF6F54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeApiNet.Tests", "PokeApiNet.Tests\PokeApiNet.Tests.csproj", "{FCBBBAF5-6BF4-41C8-B3F8-E03A97CF6F54}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5C6D2C6D-0A64-42DF-A118-F34425857413} = {5C6D2C6D-0A64-42DF-A118-F34425857413}
 	EndProjectSection

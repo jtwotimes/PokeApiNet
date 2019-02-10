@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using PokeApi.Net.Directives;
-using PokeApi.Net.Models;
+using PokeApiNet.Directives;
+using PokeApiNet.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokeApi.Net.Data
+namespace PokeApiNet.Data
 {
     /// <summary>
     /// Gets data from the PokeAPI service

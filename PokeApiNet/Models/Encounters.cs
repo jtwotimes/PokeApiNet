@@ -1,9 +1,9 @@
-﻿using PokeApi.Net.Directives;
+﻿using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PokeApi.Net.Models
+namespace PokeApiNet.Models
 {
     /// <summary>
     /// Methods by which the player might can encounter Pokémon

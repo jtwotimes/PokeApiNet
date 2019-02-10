@@ -1,5 +1,5 @@
-﻿using PokeApi.Net.Directives;
-using PokeApi.Net.Models;
+﻿using PokeApiNet.Directives;
+using PokeApiNet.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-[assembly: InternalsVisibleTo("PokeApi.Net.Tests")]
-namespace PokeApi.Net.Data
+[assembly: InternalsVisibleTo("PokeApiNet.Tests")]
+namespace PokeApiNet.Data
 {
     /// <summary>
     /// Manages caches for all types

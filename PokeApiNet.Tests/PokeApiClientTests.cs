@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
-using PokeApi.Net.Data;
-using PokeApi.Net.Models;
+using PokeApiNet.Data;
+using PokeApiNet.Models;
 using RichardSzalay.MockHttp;
 using System;
 using System.Net;
@@ -332,7 +332,7 @@ public class PokeApiClientTests
         PokeApiClient client = new PokeApiClient();
 
         // act
-        PokeApi.Net.Models.Version version = await client.GetResourceAsync<PokeApi.Net.Models.Version>(1);
+        PokeApiNet.Models.Version version = await client.GetResourceAsync<PokeApiNet.Models.Version>(1);
 
         // assert
         Assert.True(version.Id != default(int));
@@ -794,7 +794,7 @@ public class PokeApiClientTests
         PokeApiClient client = new PokeApiClient();
 
         // act
-        PokeApi.Net.Models.Type type = await client.GetResourceAsync<PokeApi.Net.Models.Type>(1);
+        PokeApiNet.Models.Type type = await client.GetResourceAsync<PokeApiNet.Models.Type>(1);
 
         // assert
         Assert.True(type.Id != default(int));

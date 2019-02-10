@@ -7,23 +7,23 @@
     <Authors>JJ Banda</Authors>
     <Company />
     <Description>.Net client for the PokeAPI api</Description>
-    <PackageProjectUrl>https://github.com/mtrdp642/pokenetcore</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/mtrdp642/pokenetcore</RepositoryUrl>
-    <PackageTags>pokemon</PackageTags>
+    <PackageProjectUrl>https://github.com/mtrdp642/PokeApiNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mtrdp642/PokeApiNet</RepositoryUrl>
+    <PackageTags>pokemon pokeapi</PackageTags>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>PokeApi.Net.xml</DocumentationFile>
+    <DocumentationFile>PokeApiNet.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>PokeApi.Net.xml</DocumentationFile>
+    <DocumentationFile>PokeApiNet.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="PokeApi.Net.xml" />
+    <None Remove="PokeApiNet.xml" />
   </ItemGroup>
 
   <ItemGroup>

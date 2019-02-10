@@ -1,9 +1,9 @@
-﻿using PokeApi.Net.Directives;
+﻿using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PokeApi.Net.Models
+namespace PokeApiNet.Models
 {
     /// <summary>
     /// Abilities provide passive effects for Pokémon in battle or in

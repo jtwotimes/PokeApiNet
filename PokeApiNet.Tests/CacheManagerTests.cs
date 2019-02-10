@@ -1,6 +1,6 @@
-﻿using PokeApi.Net.Data;
-using PokeApi.Net.Directives;
-using PokeApi.Net.Models;
+﻿using PokeApiNet.Data;
+using PokeApiNet.Directives;
+using PokeApiNet.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

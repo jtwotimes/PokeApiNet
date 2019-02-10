@@ -1,9 +1,9 @@
-﻿using PokeApi.Net.Directives;
+﻿using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PokeApi.Net.Models
+namespace PokeApiNet.Models
 {
     /// <summary>
     /// Machines are the representation of items that teach moves
