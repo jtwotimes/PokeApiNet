@@ -48,7 +48,7 @@ namespace PokeApi.Net.Tests.Data
             TestClass test = new TestClass { Id = 1 };
 
             // assert
-            Assert.Throws<KeyNotFoundException>(() => 
+            Assert.Throws<NotSupportedException>(() => 
             {
                 // act
                 cacheManager.Store(test);
