@@ -55,7 +55,7 @@ namespace PokeApi.Net.Data
         }
 
         /// <summary>
-        /// Gets a resource by id
+        /// Gets a resource by id; resource is retrieved from cache if possible
         /// </summary>
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="id">Id of resource</param>
@@ -63,18 +63,17 @@ namespace PokeApi.Net.Data
         public async Task<T> GetResourceAsync<T>(int id) where T : class, ICanBeCached
         {
             T resource = _cacheManager.Get<T>(id);
-            if (resource != null)
+            if (resource == null)
             {
-                return resource;
+                resource = await GetResourcesWithParamsAsync<T>(id.ToString());
+                _cacheManager.Store(resource);
             }
-            else
-            {
-                return await GetResourcesWithParamsAsync<T>(id.ToString());
-            }
+
+            return resource;
         }
 
         /// <summary>
-        /// Gets a resource by name
+        /// Gets a resource by name; resource is retrieved from cache if possible
         /// </summary>
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="name">Name of resource</param>
@@ -82,14 +81,13 @@ namespace PokeApi.Net.Data
         public async Task<T> GetResourceAsync<T>(string name) where T : class, ICanBeCached
         {
             T resource = _cacheManager.Get<T>(name);
-            if (resource != null)
+            if (resource == null)
             {
-                return resource;
+                resource = await GetResourcesWithParamsAsync<T>(name);
+                _cacheManager.Store(resource);
             }
-            else
-            {
-                return await GetResourcesWithParamsAsync<T>(name);
-            }
+
+            return resource;
         }
 
         /// <summary>
@@ -104,7 +102,7 @@ namespace PokeApi.Net.Data
         /// Clears the cached data for a specific resource
         /// </summary>
         /// <typeparam name="T">The type of cache</typeparam>
-        public void ClearCache<T>() where T : class, ICanBeCached
+        public void ClearCache<T>() where T : ICanBeCached
         {
             _cacheManager.Clear<T>();
         }
