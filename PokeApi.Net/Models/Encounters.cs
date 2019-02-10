@@ -5,6 +5,10 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
+    /// <summary>
+    /// Methods by which the player might can encounter Pokémon
+    /// in the wild, e.g., walking in tall grass.
+    /// </summary>
     [ApiEndpoint("encounter-method")]
     public class EncounterMethod : ICanBeCached
     {
@@ -30,6 +34,10 @@ namespace PokeApi.Net.Models
         public List<Names> Names { get; set; }
     }
 
+    /// <summary>
+    /// Conditions which affect what pokemon might appear in the
+    /// wild, e.g., day or night.
+    /// </summary>
     [ApiEndpoint("encounter-condition")]
     public class EncounterCondition : ICanBeCached
     {
@@ -55,6 +63,10 @@ namespace PokeApi.Net.Models
         public List<NamedApiResource> Values { get; set; }
     }
 
+    /// <summary>
+    /// Encounter condition values are the various states that an encounter
+    /// condition can have, i.e., time of day can be either day or night.
+    /// </summary>
     [ApiEndpoint("encounter-condition-value")]
     public class EncounterConditionValue : ICanBeCached
     {

@@ -5,6 +5,12 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
+    /// <summary>
+    /// Moves are the skills of Pokémon in battle. In battle, a Pokémon
+    /// uses one move each turn. Some moves (including those learned by
+    /// Hidden Machine) can be used outside of battle as well, usually
+    /// for the purpose of removing obstacles or exploring new areas.
+    /// </summary>
     [ApiEndpoint("move")]
     public class Move : ICanBeCached
     {
@@ -302,6 +308,9 @@ namespace PokeApi.Net.Models
         public NamedApiResource VersionGroup { get; set; }
     }
 
+    /// <summary>
+    /// Move Ailments are status conditions caused by moves used during battle.
+    /// </summary>
     [ApiEndpoint("move-ailment")]
     public class MoveAilment : ICanBeCached
     {
@@ -326,6 +335,9 @@ namespace PokeApi.Net.Models
         public List<Names> Names { get; set; }
     }
 
+    /// <summary>
+    /// Styles of moves when used in the Battle Palace.
+    /// </summary>
     [ApiEndpoint("move-battle-style")]
     public class MoveBattleStyle : ICanBeCached
     {
@@ -345,6 +357,9 @@ namespace PokeApi.Net.Models
         public List<Names> Names { get; set; }
     }
 
+    /// <summary>
+    /// Very general categories that loosely group move effects.
+    /// </summary>
     [ApiEndpoint("move-category")]
     public class MoveCategory : ICanBeCached
     {
@@ -369,6 +384,9 @@ namespace PokeApi.Net.Models
         public List<Descriptions> Descriptions { get; set; }
     }
 
+    /// <summary>
+    /// Damage classes moves can have, e.g. physical, special, or non-damaging.
+    /// </summary>
     [ApiEndpoint("move-damage-class")]
     public class MoveDamageClass : ICanBeCached
     {
@@ -398,6 +416,9 @@ namespace PokeApi.Net.Models
         public List<Names> Names { get; set; }
     }
 
+    /// <summary>
+    /// Methods by which Pokémon can learn moves.
+    /// </summary>
     [ApiEndpoint("move-learn-method")]
     public class MoveLearnMethod : ICanBeCached
     {
@@ -427,6 +448,10 @@ namespace PokeApi.Net.Models
         public List<NamedApiResource> VersionGroups { get; set; }
     }
 
+    /// <summary>
+    /// Targets moves can be directed at during battle. Targets can be Pokémon,
+    /// environments or even other moves.
+    /// </summary>
     [ApiEndpoint("move-target")]
     public class MoveTarget : ICanBeCached
     {

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
+    /// <summary>
+    /// Languages for translations of API resource information.
+    /// </summary>
     [ApiEndpoint("language")]
     public class Language : ICanBeCached
     {

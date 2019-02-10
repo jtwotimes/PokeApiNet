@@ -5,6 +5,10 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
+    /// <summary>
+    /// Contest types are categories judges used to weigh
+    /// a Pokémon's condition in Pokémon contests.
+    /// </summary>
     [ApiEndpoint("contest-type")]
     public class ContestType : ICanBeCached
     {
@@ -49,6 +53,10 @@ namespace PokeApi.Net.Models
         public NamedApiResource Language { get; set; }
     }
 
+    /// <summary>
+    /// Contest effects refer to the effects of moves
+    /// when used in contests.
+    /// </summary>
     [ApiEndpoint("contest-effect")]
     public class ContestEffect : ICanBeCached
     {
@@ -82,6 +90,10 @@ namespace PokeApi.Net.Models
         public List<FlavorTexts> FlavorTextEntries { get; set; }
     }
 
+    /// <summary>
+    /// Super contest effects refer to the effects of moves
+    /// when used in super contests.
+    /// </summary>
     [ApiEndpoint("super-contest-effect")]
     public class SuperContestEffect : ICanBeCached
     {

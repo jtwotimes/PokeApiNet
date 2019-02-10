@@ -5,6 +5,12 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
+    /// <summary>
+    /// Evolution chains are essentially family trees. They start with
+    /// the lowest stage within a family and detail evolution conditions
+    /// for each as well as Pokémon they can evolve into up through the
+    /// hierarchy.
+    /// </summary>
     [ApiEndpoint("evolution-chain")]
     public class EvolutionChain : ICanBeCached
     {
@@ -166,6 +172,10 @@ namespace PokeApi.Net.Models
         public bool TurnUpsideDown { get; set; }
     }
 
+    /// <summary>
+    /// Evolution triggers are the events and conditions that
+    /// cause a Pokémon to evolve.
+    /// </summary>
     [ApiEndpoint("evolution-trigger")]
     public class EvolutionTrigger : ICanBeCached
     {

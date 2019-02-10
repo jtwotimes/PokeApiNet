@@ -5,6 +5,12 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
+    /// <summary>
+    /// An item is an object in the games which the player can
+    /// pick up, keep in their bag, and use in some manner. They
+    /// have various uses, including healing, powering up, helping
+    /// catch Pokémon, or to access a new area.
+    /// </summary>
     [ApiEndpoint("item")]
     public class Item : ICanBeCached
     {
@@ -118,6 +124,10 @@ namespace PokeApi.Net.Models
         public NamedApiResource Version { get; set; }
     }
 
+    /// <summary>
+    /// Item attributes define particular aspects of items,
+    /// e.g. "usable in battle" or "consumable".
+    /// </summary>
     [ApiEndpoint("item-attribute")]
     public class ItemAttribute : ICanBeCached
     {
@@ -147,6 +157,9 @@ namespace PokeApi.Net.Models
         public List<Descriptions> Descriptions { get; set; }
     }
 
+    /// <summary>
+    /// Item categories determine where items will be placed in the players bag.
+    /// </summary>
     [ApiEndpoint("item-category")]
     public class ItemCategory : ICanBeCached
     {
@@ -176,6 +189,9 @@ namespace PokeApi.Net.Models
         public NamedApiResource Pocket { get; set; }
     }
 
+    /// <summary>
+    /// The various effects of the move "Fling" when used with different items.
+    /// </summary>
     [ApiEndpoint("item-fling-effect")]
     public class ItemFlingEffect : ICanBeCached
     {
@@ -200,6 +216,9 @@ namespace PokeApi.Net.Models
         public List<NamedApiResource> Items { get; set; }
     }
 
+    /// <summary>
+    /// Pockets within the players bag used for storing items by category.
+    /// </summary>
     [ApiEndpoint("item-pocket")]
     public class ItemPocket : ICanBeCached
     {

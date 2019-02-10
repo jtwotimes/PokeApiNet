@@ -5,6 +5,12 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
+    /// <summary>
+    /// A generation is a grouping of the Pokémon games that separates
+    /// them based on the Pokémon they include. In each generation, a new
+    /// set of Pokémon, Moves, Abilities and Types that did not exist in
+    /// the previous generation are released.
+    /// </summary>
     [ApiEndpoint("generation")]
     public class Generation : ICanBeCached
     {
@@ -56,6 +62,12 @@ namespace PokeApi.Net.Models
         public List<NamedApiResource> VersionGroups { get; set; }
     }
 
+    /// <summary>
+    /// A Pokédex is a handheld electronic encyclopedia device; one which
+    /// is capable of recording and retaining information of the various
+    /// Pokémon in a given region with the exception of the national dex
+    /// and some smaller dexes related to portions of a region.
+    /// </summary>
     [ApiEndpoint("pokedex")]
     public class Pokedex : ICanBeCached
     {
@@ -113,6 +125,9 @@ namespace PokeApi.Net.Models
         public NamedApiResource PokemonSpecies { get; set; }
     }
 
+    /// <summary>
+    /// Versions of the games, e.g., Red, Blue or Yellow.
+    /// </summary>
     [ApiEndpoint("version")]
     public class Version : ICanBeCached
     {
@@ -137,6 +152,9 @@ namespace PokeApi.Net.Models
         public NamedApiResource VersionGroup { get; set; }
     }
 
+    /// <summary>
+    /// Version groups categorize highly similar versions of the games.
+    /// </summary>
     [ApiEndpoint("version-group")]
     public class VersionGroup : ICanBeCached
     {

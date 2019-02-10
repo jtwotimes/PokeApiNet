@@ -5,6 +5,10 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
+    /// <summary>
+    /// Locations that can be visited within the games. Locations make
+    /// up sizable portions of regions, like cities or routes.
+    /// </summary>
     [ApiEndpoint("location")]
     public class Location : ICanBeCached
     {
@@ -39,6 +43,10 @@ namespace PokeApi.Net.Models
         public List<NamedApiResource> Areas { get; set; }
     }
 
+    /// <summary>
+    /// Location areas are sections of areas, such as floors in a building
+    /// or cave. Each area has its own set of possible Pokémon encounters.
+    /// </summary>
     [ApiEndpoint("location-area")]
     public class LocationArea : ICanBeCached
     {
@@ -122,6 +130,10 @@ namespace PokeApi.Net.Models
         public List<VersionEncounterDetail> VersionDetails { get; set; }
     }
 
+    /// <summary>
+    /// Areas used for grouping Pokémon encounters in Pal Park. They're like
+    /// habitats that are specific to Pal Park.
+    /// </summary>
     [ApiEndpoint("pal-park-area")]
     public class PalParkArea : ICanBeCached
     {
@@ -166,6 +178,11 @@ namespace PokeApi.Net.Models
         public NamedApiResource PokemonSpecies { get; set; }
     }
 
+    /// <summary>
+    /// A region is an organized area of the Pokémon world. Most often,
+    /// the main difference between regions is the species of Pokémon
+    /// that can be encountered within them.
+    /// </summary>
     [ApiEndpoint("region")]
     public class Region : ICanBeCached
     {

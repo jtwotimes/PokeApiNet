@@ -5,6 +5,12 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
+    /// <summary>
+    /// Machines are the representation of items that teach moves
+    /// to Pokémon. They vary from version to version, so it is
+    /// not certain that one specific TM or HM corresponds to a
+    /// single Machine.
+    /// </summary>
     [ApiEndpoint("machine")]
     public class Machine : ICanBeCached
     {

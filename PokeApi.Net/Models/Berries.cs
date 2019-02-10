@@ -5,6 +5,10 @@ using System.Text;
 
 namespace PokeApi.Net.Models
 {
+    /// <summary>
+    /// Berries are small fruits that can provide HP and status condition restoration,
+    /// stat enhancement, and even damage negation when eaten by Pokémon.
+    /// </summary>
     [ApiEndpoint("berry")]
     public class Berry : ICanBeCached
     {
@@ -95,6 +99,9 @@ namespace PokeApi.Net.Models
         public NamedApiResource Flavor { get; set; }
     }
 
+    /// <summary>
+    /// Berries can be soft or hard.
+    /// </summary>
     [ApiEndpoint("berry-firmness")]
     public class BerryFirmness : ICanBeCached
     {
@@ -120,6 +127,10 @@ namespace PokeApi.Net.Models
         public List<Names> Names { get; set; }
     }
 
+    /// <summary>
+    /// Flavors determine whether a Pokémon will benefit or suffer from eating
+    /// a berry based on their nature.
+    /// </summary>
     [ApiEndpoint("berry-flavor")]
     public class BerryFlavor : ICanBeCached
     {
