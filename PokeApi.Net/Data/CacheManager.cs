@@ -4,14 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 
+[assembly: InternalsVisibleTo("PokeApi.Net.Tests")]
 namespace PokeApi.Net.Data
 {
     /// <summary>
     /// Manages caches for all types
     /// </summary>
-    public class CacheManager
+    internal class CacheManager
     {
         private readonly Dictionary<System.Type, GenericCache<ICanBeCached>> _allCaches;
         private readonly List<System.Type> ApiTypes =

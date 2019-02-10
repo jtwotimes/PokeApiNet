@@ -5,7 +5,7 @@ using System.Text;
 namespace PokeApi.Net.Directives
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = true)]
-    class ApiEndpointAttribute : Attribute
+    internal class ApiEndpointAttribute : Attribute
     {
         public string ApiEndpoint { get; }
 
