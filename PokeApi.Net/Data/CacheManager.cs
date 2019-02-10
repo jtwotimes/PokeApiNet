@@ -38,7 +38,7 @@ namespace PokeApi.Net.Data
         /// <param name="obj">Object to cache</param>
         /// <exception cref="NotSupportedException">The given type is not supported for searching
         /// via PokeAPI</exception>
-        public void Store<T>(T obj) where T : class, ICanBeCached
+        public void Store<T>(T obj) where T : ICanBeCached
         {
             System.Type matchingType = ApiTypes.FirstOrDefault(type => type == obj.GetType());
             if (matchingType == null)
@@ -108,13 +108,13 @@ namespace PokeApi.Net.Data
         /// Clears a specific cache
         /// </summary>
         /// <typeparam name="T">The type of cache to clear</typeparam>
-        public void Clear<T>() where T : class, ICanBeCached
+        public void Clear<T>() where T : ICanBeCached
         {
             System.Type type = typeof(T);
             _allCaches[type].Clear();
         }
 
-        private class GenericCache<T> where T : class, ICanBeCached
+        private class GenericCache<T> where T : ICanBeCached
         {
             /// <summary>
             /// The underlying data store for the cache
