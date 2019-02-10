@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using PokeApi.Net.Data;
 using PokeApi.Net.Models;
 using RichardSzalay.MockHttp;
@@ -12,13 +13,91 @@ namespace PokeApi.Net.Tests.Data
     {
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetResourceAsyncTest()
+        public async Task GetResourceAsyncByIdAutoCacheTest()
         {
-            var mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("*").Respond("application/json", "{}");
+            // assemble
+            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
+            mockHttp.When("*").Respond("application/json", JsonConvert.SerializeObject(new Berry { Id = 1 }));
 
             PokeApiClient client = new PokeApiClient(mockHttp);
-            var berry = await client.GetResourceAsync<Berry>(1);
+            Berry berry = await client.GetResourceAsync<Berry>(1);
+
+            mockHttp.ResetBackendDefinitions();
+            mockHttp.When("*").Throw(new Exception("Should not be thrown if cache system is in place"));
+
+            // act
+            Berry cachedBerry = await client.GetResourceAsync<Berry>(1);
+
+            // assert
+            Assert.Same(berry, cachedBerry);
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task GetResourceAsyncByNameAutoCacheTest()
+        {
+            // assemble
+            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
+            mockHttp.When("*").Respond("application/json", JsonConvert.SerializeObject(new Berry { Name = "cheri" }));
+
+            PokeApiClient client = new PokeApiClient(mockHttp);
+            Berry berry = await client.GetResourceAsync<Berry>("cheri");
+
+            mockHttp.ResetBackendDefinitions();
+            mockHttp.When("*").Throw(new Exception("Should not be thrown if cache system is in place"));
+
+            // act
+            Berry cachedBerry = await client.GetResourceAsync<Berry>("cheri");
+
+            // assert
+            Assert.Same(berry, cachedBerry);
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task ClearCacheTypedTest()
+        {
+            // assemble
+            Berry returnedBerry = new Berry { Id = 1 };
+            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
+            mockHttp.Expect("*").Respond("application/json", JsonConvert.SerializeObject(returnedBerry));
+
+            PokeApiClient client = new PokeApiClient(mockHttp);
+            Berry berry = await client.GetResourceAsync<Berry>(1);
+
+            mockHttp.ResetExpectations();
+
+            // act
+            client.ClearCache<Berry>();
+            mockHttp.Expect("*").Respond("application/json", JsonConvert.SerializeObject(returnedBerry));
+            berry = await client.GetResourceAsync<Berry>(1);
+
+            // assert
+            mockHttp.VerifyNoOutstandingExpectation();
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task ClearCacheTest()
+        {
+            // assemble
+            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
+            mockHttp.Expect("*berry/1/").Respond("application/json", JsonConvert.SerializeObject(new Berry { Id = 1 }));
+            mockHttp.Expect("*pokemon/1/").Respond("application/json", JsonConvert.SerializeObject(new Pokemon { Id = 1 }));
+
+            PokeApiClient client = new PokeApiClient(mockHttp);
+            Berry berry = await client.GetResourceAsync<Berry>(1);
+            Pokemon pokemon = await client.GetResourceAsync<Pokemon>(1);
+
+            mockHttp.ResetExpectations();
+
+            // act
+            client.ClearCache();
+            mockHttp.Expect("*berry/1/").Respond("application/json", JsonConvert.SerializeObject(new Berry { Id = 1 }));
+            berry = await client.GetResourceAsync<Berry>(1);
+
+            // assert
+            mockHttp.VerifyNoOutstandingExpectation();
         }
 
         [Fact]
