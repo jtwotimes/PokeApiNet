@@ -1,4 +1,5 @@
-﻿using PokeApiNet.Directives;
+﻿using Newtonsoft.Json;
+using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,6 +33,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The version group that this machine applies to.
         /// </summary>
+        [JsonProperty("version_group")]
         public NamedApiResource VersionGroup { get; set; }
     }
 }

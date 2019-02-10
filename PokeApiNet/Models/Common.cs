@@ -1,4 +1,5 @@
-﻿using PokeApiNet.Directives;
+﻿using Newtonsoft.Json;
+using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -85,17 +86,20 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The lowest level the Pokémon could be encountered at.
         /// </summary>
+        [JsonProperty("min_level")]
         public int MinLevel { get; set; }
 
         /// <summary>
         /// The highest level the Pokémon could be encountered at.
         /// </summary>
+        [JsonProperty("max_level")]
         public int MaxLevel { get; set; }
 
         /// <summary>
         /// A list of condition values that must be in effect for this
         /// encounter to occur.
         /// </summary>
+        [JsonProperty("condition_values")]
         public List<NamedApiResource> ConditionValues { get; set; }
 
         /// <summary>
@@ -114,6 +118,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The localized flavor text for an API resource in a specific language.
         /// </summary>
+        [JsonProperty("flavor_text")]
         public string FlavorText { get; set; }
 
         /// <summary>
@@ -127,6 +132,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The internal id of an API resource within game data.
         /// </summary>
+        [JsonProperty("game_index")]
         public int GameIndex { get; set; }
 
         /// <summary>
@@ -145,6 +151,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The version group of this specific machine.
         /// </summary>
+        [JsonProperty("version_group")]
         public NamedApiResource VersionGroup { get; set; }
     }
 
@@ -185,6 +192,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The localized effect text in brief.
         /// </summary>
+        [JsonProperty("short_effect")]
         public string ShortEffect { get; set; }
 
         /// <summary>
@@ -203,11 +211,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The total percentage of all encounter potential.
         /// </summary>
+        [JsonProperty("max_chance")]
         public int MaxChance { get; set; }
 
         /// <summary>
         /// A list of encounters and their specifics.
         /// </summary>
+        [JsonProperty("encounter_details")]
         public List<Encounter> EncounterDetails { get; set; }
     }
 
@@ -216,6 +226,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The internal id of an API resource within game data.
         /// </summary>
+        [JsonProperty("game_index")]
         public int GameIndex { get; set; }
 
         /// <summary>
@@ -239,16 +250,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The version group which uses this flavor text.
         /// </summary>
+        [JsonProperty("version_group")]
         public NamedApiResource VersionGroup { get; set; }
-    }
-
-    abstract public class ReferTo<T>
-    {
-        string Url { get; set; }
-
-        //T GetReferencedResource()
-        //{
-
-        //}
     }
 }

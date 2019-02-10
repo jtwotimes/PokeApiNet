@@ -1,4 +1,5 @@
-﻿using PokeApiNet.Directives;
+﻿using Newtonsoft.Json;
+using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,18 +28,21 @@ namespace PokeApiNet.Models
         /// Berry trees go through four of these growth stages
         /// before they can be picked.
         /// </summary>
+        [JsonProperty("growth_time")]
         public int GrowthTime { get; set; }
 
         /// <summary>
         /// The maximum number of these berries that can grow
         /// on one tree in Generation IV.
         /// </summary>
+        [JsonProperty("max_harvest")]
         public int MaxHarvest { get; set; }
 
         /// <summary>
         /// The power of the move "Natural Gift" when used with
         /// this Berry.
         /// </summary>
+        [JsonProperty("natural_gift_power")]
         public int NaturalGiftPower { get; set; }
 
         /// <summary>
@@ -57,6 +61,7 @@ namespace PokeApiNet.Models
         /// it grows. A higher rate means the soil dries out
         /// more quickly.
         /// </summary>
+        [JsonProperty("soil_dryness")]
         public int SoilDryness { get; set; }
 
         /// <summary>
@@ -82,6 +87,7 @@ namespace PokeApiNet.Models
         /// The type inherited by "Natural Gift" when used with
         /// this Berry.
         /// </summary>
+        [JsonProperty("natural_gift_type")]
         public NamedApiResource NaturalGiftType { get; set; }
     }
 
@@ -153,6 +159,7 @@ namespace PokeApiNet.Models
         /// The contest type that correlates with this berry
         /// flavor.
         /// </summary>
+        [JsonProperty("contest_type")]
         public NamedApiResource ContentType { get; set; }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using PokeApiNet.Directives;
+﻿using Newtonsoft.Json;
+using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,6 +25,7 @@ namespace PokeApiNet.Models
         /// when mating that would trigger the egg hatching
         /// a baby Pokémon rather than a basic Pokémon.
         /// </summary>
+        [JsonProperty("baby_trigger_item")]
         public NamedApiResource BabyTriggerItem { get; set; }
 
         /// <summary>
@@ -41,6 +43,7 @@ namespace PokeApiNet.Models
         /// Whether or not this link is for a baby Pokémon. This would
         /// only ever be true on the base link.
         /// </summary>
+        [JsonProperty("is_baby")]
         public bool IsBaby { get; set; }
 
         /// <summary>
@@ -52,11 +55,13 @@ namespace PokeApiNet.Models
         /// All details regarding the specific details of the referenced
         /// Pokémon species evolution.
         /// </summary>
+        [JsonProperty("evolution_details")]
         public List<EvolutionDetail> EvolutionDetails { get; set; }
 
         /// <summary>
         /// A List of chain objects.
         /// </summary>
+        [JsonProperty("evolves_to")]
         public List<ChainLink> EvolvesTo { get; set; }
     }
 
@@ -83,6 +88,7 @@ namespace PokeApiNet.Models
         /// The item the evolving Pokémon species must be holding during the
         /// evolution trigger event to evolve into this Pokémon species.
         /// </summary>
+        [JsonProperty("held_item")]
         public NamedApiResource HeldItem { get; set; }
 
         /// <summary>
@@ -90,6 +96,7 @@ namespace PokeApiNet.Models
         /// during the evolution trigger event in order to evolve into
         /// this Pokémon species.
         /// </summary>
+        [JsonProperty("known_move")]
         public NamedApiResource KnownMove { get; set; }
 
         /// <summary>
@@ -97,6 +104,7 @@ namespace PokeApiNet.Models
         /// during the evolution trigger event in order to evolve into this
         /// Pokémon species.
         /// </summary>
+        [JsonProperty("known_move_type")]
         public NamedApiResource KnownMoveType { get; set; }
 
         /// <summary>
@@ -108,30 +116,35 @@ namespace PokeApiNet.Models
         /// The minimum required level of the evolving Pokémon species to
         /// evolve into this Pokémon species.
         /// </summary>
+        [JsonProperty("min_level")]
         public int MinLevel { get; set; }
 
         /// <summary>
         /// The minimum required level of happiness the evolving Pokémon
         /// species to evolve into this Pokémon species.
         /// </summary>
+        [JsonProperty("min_happiness")]
         public int MinHappiness { get; set; }
 
         /// <summary>
         /// The minimum required level of beauty the evolving Pokémon species
         /// to evolve into this Pokémon species.
         /// </summary>
+        [JsonProperty("min_beauty")]
         public int MinBeauty { get; set; }
 
         /// <summary>
         /// The minimum required level of affection the evolving Pokémon
         /// species to evolve into this Pokémon species.
         /// </summary>
+        [JsonProperty("min_affection")]
         public int MinAffection { get; set; }
 
         /// <summary>
         /// Whether or not it must be raining in the overworld to cause
         /// evolution this Pokémon species.
         /// </summary>
+        [JsonProperty("needs_overworld_rain")]
         public bool NeedsOverworldRain { get; set; }
 
         /// <summary>
@@ -139,6 +152,7 @@ namespace PokeApiNet.Models
         /// order for the evolving Pokémon species to evolve into this
         /// Pokémon species.
         /// </summary>
+        [JsonProperty("party_species")]
         public NamedApiResource PartySpecies { get; set; }
 
         /// <summary>
@@ -146,6 +160,7 @@ namespace PokeApiNet.Models
         /// during the evolution trigger event in order for the evolving
         /// Pokémon species to evolve into this Pokémon species.
         /// </summary>
+        [JsonProperty("party_type")]
         public NamedApiResource PartyType { get; set; }
 
         /// <summary>
@@ -153,22 +168,26 @@ namespace PokeApiNet.Models
         /// stats. 1 means Attack > Defense. 0 means Attack = Defense.
         /// -1 means Attack &gt; Defense.
         /// </summary>
+        [JsonProperty("relative_physical_stats")]
         public int RelativePhysicalStats { get; set; }
 
         /// <summary>
         /// The required time of day. Day or night.
         /// </summary>
+        [JsonProperty("time_of_day")]
         public string TimeOfDay { get; set; }
 
         /// <summary>
         /// Pokémon species for which this one must be traded.
         /// </summary>
+        [JsonProperty("trade_species")]
         public NamedApiResource TradeSpecies { get; set; }
 
         /// <summary>
         /// Whether or not the 3DS needs to be turned upside-down as this
         /// Pokémon levels up.
         /// </summary>
+        [JsonProperty("turn_upside_down")]
         public bool TurnUpsideDown { get; set; }
     }
 
@@ -198,6 +217,7 @@ namespace PokeApiNet.Models
         /// A list of pokemon species that result from this evolution
         /// trigger.
         /// </summary>
+        [JsonProperty("pokemon_species")]
         public List<NamedApiResource> PokemonSpecies { get; set; }
     }
 }

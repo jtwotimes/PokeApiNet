@@ -1,4 +1,5 @@
-﻿using PokeApiNet.Directives;
+﻿using Newtonsoft.Json;
+using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,11 +33,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The power of the move Fling when used with this item.
         /// </summary>
+        [JsonProperty("fling_power")]
         public int FlingPower { get; set; }
 
         /// <summary>
         /// The effect of the move Fling when used with this item.
         /// </summary>
+        [JsonProperty("fling_effect")]
         public NamedApiResource FlingEffect { get; set; }
 
         /// <summary>
@@ -52,16 +55,19 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The effect of this ability listed in different languages.
         /// </summary>
+        [JsonProperty("effect_entries")]
         public List<VerboseEffect> EffectEntries { get; set; }
 
         /// <summary>
         /// The flavor text of this ability listed in different languages.
         /// </summary>
+        [JsonProperty("flavor_text_entries")]
         public List<VersionGroupFlavorText> FlavorGroupTextEntries { get; set; }
 
         /// <summary>
         /// A list of game indices relevent to this item by generation.
         /// </summary>
+        [JsonProperty("game_indices")]
         public List<GenerationGameIndex> GameIndices { get; set; }
 
         /// <summary>
@@ -77,11 +83,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of Pokémon that might be found in the wild holding this item.
         /// </summary>
+        [JsonProperty("held_by_pokemon")]
         public List<ItemHolderPokemon> HeldByPokemon { get; set; }
 
         /// <summary>
         /// An evolution chain this item requires to produce a baby during mating.
         /// </summary>
+        [JsonProperty("baby_trigger_for")]
         public ApiResource BabyTriggerFor { get; set; }
 
         /// <summary>
@@ -108,6 +116,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The details for the version that this item is held in by the Pokémon.
         /// </summary>
+        [JsonProperty("version_details")]
         public List<ItemHolderPokemonVersionDetail> VersionDetails { get; set; }
     }
 
@@ -208,6 +217,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The result of this fling effect listed in different languages.
         /// </summary>
+        [JsonProperty("effect_entries")]
         public List<Effects> EffectEntries { get; set; }
 
         /// <summary>
