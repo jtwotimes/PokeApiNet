@@ -145,7 +145,7 @@ namespace PokeApi.Net.Models
         /// <summary>
         /// The required relation between the Pokémon's Attack and Defense
         /// stats. 1 means Attack > Defense. 0 means Attack = Defense.
-        /// -1 means Attack < Defense.
+        /// -1 means Attack &gt; Defense.
         /// </summary>
         public int RelativePhysicalStats { get; set; }
 
