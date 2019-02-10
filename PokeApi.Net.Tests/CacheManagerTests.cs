@@ -146,6 +146,22 @@ namespace PokeApi.Net.Tests.Data
             Assert.NotNull(retrievedPokedex);
         }
 
+        [Fact]
+        [Trait("Category", "Unit")]
+        public void CacheManagerGetsAreCaseInsensitive()
+        {
+            // assemble
+            CacheManager cacheManager = new CacheManager();
+            Berry berry = new Berry { Name = "CHERI" };
+            cacheManager.Store(berry);
+
+            // act
+            Berry retrievedBerry = cacheManager.Get<Berry>("cheri");
+
+            // assert
+            Assert.Same(berry, retrievedBerry);
+        }
+
         class TestClass : ICanBeCached { public int Id { get; set; } };
     }
 }

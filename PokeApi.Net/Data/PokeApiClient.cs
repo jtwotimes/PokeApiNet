@@ -46,9 +46,14 @@ namespace PokeApi.Net.Data
 
         private async Task<T> GetResourcesWithParamsAsync<T>(string apiParam) where T : ICanBeCached
         {
+            // lowercase the resource name as the API doesn't recognize upper case and lower case as the same
+            string sanitizedApiParam = apiParam.ToLowerInvariant();
+
             ApiEndpointAttribute attribute = typeof(T).GetCustomAttribute(typeof(ApiEndpointAttribute)) as ApiEndpointAttribute;
             string apiEndpoint = attribute.ApiEndpoint;
-            HttpResponseMessage response = await _client.GetAsync($"{apiEndpoint}/{apiParam}/");        // trailing slash is needed!
+            HttpResponseMessage response = await _client.GetAsync($"{apiEndpoint}/{sanitizedApiParam}/");        // trailing slash is needed!
+
+            response.EnsureSuccessStatusCode();
 
             string resp = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(resp);
@@ -73,7 +78,9 @@ namespace PokeApi.Net.Data
         }
 
         /// <summary>
-        /// Gets a resource by name; resource is retrieved from cache if possible
+        /// Gets a resource by name; resource is retrieved from cache if possible. If the resource name
+        /// contains spaces, replace spaces with dashes (-). Omit all punctuation marks. This lookup
+        /// is case insensitive.
         /// </summary>
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="name">Name of resource</param>

@@ -85,7 +85,7 @@ namespace PokeApi.Net.Data
             {
                 // we wouldn't be here without knowing that T has a Name property
                 string value = nameProperty.GetValue(cacheObj) as string;
-                if (value.Equals(name, StringComparison.CurrentCultureIgnoreCase))
+                if (value.Equals(name, StringComparison.InvariantCultureIgnoreCase))
                 {
                     matchingObject = cacheObj;
                     break;

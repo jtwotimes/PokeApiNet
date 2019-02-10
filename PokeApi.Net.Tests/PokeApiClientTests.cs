@@ -3,6 +3,7 @@ using PokeApi.Net.Data;
 using PokeApi.Net.Models;
 using RichardSzalay.MockHttp;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
@@ -98,6 +99,49 @@ namespace PokeApi.Net.Tests.Data
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task ResourceNotFoundTest()
+        {
+            // assemble
+            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
+            mockHttp.When("*").Respond(HttpStatusCode.NotFound);
+            PokeApiClient client = new PokeApiClient(mockHttp);
+
+            // act / assert
+            await Assert.ThrowsAsync<HttpRequestException>(async () => { await client.GetResourceAsync<Berry>("i am not a berry name"); });
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task GetResourceAsyncByNameCaseTest()
+        {
+            // assemble
+            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
+            mockHttp.Expect("*berry/cheri/").Respond("application/json", JsonConvert.SerializeObject(new Berry { Name = "cheri" }));
+            PokeApiClient client = new PokeApiClient(mockHttp);
+
+            // act
+            Berry retrievedBerry = await client.GetResourceAsync<Berry>("CHERI");
+
+            // assert
+            mockHttp.VerifyNoOutstandingExpectation();
+        }
+
+        [Fact]
+        [Trait("Category", "Integration")]
+        public async Task GetTest()
+        {
+            // assemble
+            PokeApiClient client = new PokeApiClient();
+
+            // act
+            Berry berry = await client.GetResourceAsync<Berry>("hello");
+
+            // assert
+            Assert.True(berry.Id != default(int));
         }
 
         [Fact]
