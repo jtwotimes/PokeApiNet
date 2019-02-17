@@ -60,7 +60,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of possible values for this encounter condition.
         /// </summary>
-        public List<NamedApiResource> Values { get; set; }
+        public List<NamedApiResource<EncounterConditionValue>> Values { get; set; }
     }
 
     /// <summary>
@@ -84,7 +84,7 @@ namespace PokeApiNet.Models
         /// The condition this encounter condition value pertains
         /// to.
         /// </summary>
-        public NamedApiResource Condition { get; set; }
+        public NamedApiResource<EncounterCondition> Condition { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different

@@ -28,7 +28,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of abilities that were introduced in this generation.
         /// </summary>
-        public List<NamedApiResource> Abilities { get; set; }
+        public List<NamedApiResource<Ability>> Abilities { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.
@@ -39,31 +39,31 @@ namespace PokeApiNet.Models
         /// The main region travelled in this generation.
         /// </summary>
         [JsonProperty("main_region")]
-        public NamedApiResource MainRegion { get; set; }
+        public NamedApiResource<Region> MainRegion { get; set; }
 
         /// <summary>
         /// A list of moves that were introduced in this generation.
         /// </summary>
-        public List<NamedApiResource> Moves { get; set; }
+        public List<NamedApiResource<Move>> Moves { get; set; }
 
         /// <summary>
         /// A list of Pokemon species that were introduced in this
         /// generation.
         /// </summary>
         [JsonProperty("pokemon_species")]
-        public List<NamedApiResource> PokemonSpecies { get; set; }
+        public List<NamedApiResource<PokemonSpecies>> PokemonSpecies { get; set; }
 
         /// <summary>
         /// A list of types that were introduced in this generation.
         /// </summary>
-        public List<NamedApiResource> Types { get; set; }
+        public List<NamedApiResource<Type>> Types { get; set; }
 
         /// <summary>
         /// A list of version groups that were introduced in this
         /// generation.
         /// </summary>
         [JsonProperty("version_groups")]
-        public List<NamedApiResource> VersionGroups { get; set; }
+        public List<NamedApiResource<VersionGroup>> VersionGroups { get; set; }
     }
 
     /// <summary>
@@ -110,13 +110,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The region this Pokédex catalogues Pokémon for.
         /// </summary>
-        public NamedApiResource Region { get; set; }
+        public NamedApiResource<Region> Region { get; set; }
 
         /// <summary>
         /// A list of version groups this Pokédex is relevant to.
         /// </summary>
         [JsonProperty("version_groups")]
-        public List<NamedApiResource> VersionGroups { get; set; }
+        public List<NamedApiResource<VersionGroup>> VersionGroups { get; set; }
     }
 
     public class PokemonEntry
@@ -131,7 +131,7 @@ namespace PokeApiNet.Models
         /// The Pokémon species being encountered.
         /// </summary>
         [JsonProperty("pokemon_species")]
-        public NamedApiResource PokemonSpecies { get; set; }
+        public NamedApiResource<PokemonSpecies> PokemonSpecies { get; set; }
     }
 
     /// <summary>
@@ -159,7 +159,7 @@ namespace PokeApiNet.Models
         /// The version group this version belongs to.
         /// </summary>
         [JsonProperty("version_group")]
-        public NamedApiResource VersionGroup { get; set; }
+        public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
     /// <summary>
@@ -187,28 +187,28 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The generation this version was introduced in.
         /// </summary>
-        public NamedApiResource Generation { get; set; }
+        public NamedApiResource<Generation> Generation { get; set; }
 
         /// <summary>
         /// A list of methods in which Pokémon can learn moves in
         /// this version group.
         /// </summary>
         [JsonProperty("move_learn_methods")]
-        public List<NamedApiResource> MoveLearnMethods { get; set; }
+        public List<NamedApiResource<MoveLearnMethod>> MoveLearnMethods { get; set; }
 
         /// <summary>
         /// A list of Pokédexes introduces in this version group.
         /// </summary>
-        public List<NamedApiResource> Pokedexes { get; set; }
+        public List<NamedApiResource<Pokedex>> Pokedexes { get; set; }
 
         /// <summary>
         /// A list of regions that can be visited in this version group.
         /// </summary>
-        public List<NamedApiResource> Regions { get; set; }
+        public List<NamedApiResource<Region>> Regions { get; set; }
 
         /// <summary>
         /// The versions this version group owns.
         /// </summary>
-        public List<NamedApiResource> Versions { get; set; }
+        public List<NamedApiResource<Version>> Versions { get; set; }
     }
 }

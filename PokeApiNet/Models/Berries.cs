@@ -68,7 +68,7 @@ namespace PokeApiNet.Models
         /// The firmness of this berry, used in making Pokeblocks
         /// or Poffins.
         /// </summary>
-        public NamedApiResource Firmness { get; set; }
+        public NamedApiResource<BerryFirmness> Firmness { get; set; }
 
         /// <summary>
         /// A list of references to each flavor a berry can have
@@ -81,14 +81,14 @@ namespace PokeApiNet.Models
         /// Berries are actually items. This is a reference to
         /// the item specific data for this berry.
         /// </summary>
-        public NamedApiResource Item { get; set; }
+        public NamedApiResource<Item> Item { get; set; }
 
         /// <summary>
         /// The type inherited by "Natural Gift" when used with
         /// this Berry.
         /// </summary>
         [JsonProperty("natural_gift_type")]
-        public NamedApiResource NaturalGiftType { get; set; }
+        public NamedApiResource<Type> NaturalGiftType { get; set; }
     }
 
     public class BerryFlavorMap
@@ -102,7 +102,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The referenced berry flavor.
         /// </summary>
-        public NamedApiResource Flavor { get; set; }
+        public NamedApiResource<BerryFlavor> Flavor { get; set; }
     }
 
     /// <summary>
@@ -124,7 +124,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of berries with this firmness.
         /// </summary>
-        public List<NamedApiResource> Berries { get; set; }
+        public List<NamedApiResource<Berry>> Berries { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different
@@ -160,7 +160,7 @@ namespace PokeApiNet.Models
         /// flavor.
         /// </summary>
         [JsonProperty("contest_type")]
-        public NamedApiResource ContentType { get; set; }
+        public NamedApiResource<ContestType> ContentType { get; set; }
 
         /// <summary>
         /// The name of this resource in different languages.
@@ -179,6 +179,6 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The berry with the referenced flavor.
         /// </summary>
-        public NamedApiResource Berry { get; set; }
+        public NamedApiResource<Berry> Berry { get; set; }
     }
 }

@@ -45,13 +45,7 @@ namespace PokeApiNet.Models
         public List<Names> Names { get; set; }
     }
 
-    public class ApiResource
-    {
-        /// <summary>
-        /// The URL of the referenced resource.
-        /// </summary>
-        public string Url { get; set; }
-    }
+    public class ApiResource<T> : UrlNavigation<T> where T : class, ICanBeCached { }
 
     public class Descriptions
     {
@@ -64,7 +58,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The language this name is in.
         /// </summary>
-        public NamedApiResource Language { get; set; }
+        public NamedApiResource<Language> Language { get; set; }
     }
 
     public class Effects
@@ -78,7 +72,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The language this effect is in.
         /// </summary>
-        public NamedApiResource Language { get; set; }
+        public NamedApiResource<Language> Language { get; set; }
     }
 
     public class Encounter
@@ -100,7 +94,7 @@ namespace PokeApiNet.Models
         /// encounter to occur.
         /// </summary>
         [JsonProperty("condition_values")]
-        public List<NamedApiResource> ConditionValues { get; set; }
+        public List<NamedApiResource<EncounterConditionValue>> ConditionValues { get; set; }
 
         /// <summary>
         /// Percent chance that this encounter will occur.
@@ -110,7 +104,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The method by which this encounter happens.
         /// </summary>
-        public NamedApiResource Method { get; set; }
+        public NamedApiResource<EncounterMethod> Method { get; set; }
     }
 
     public class FlavorTexts
@@ -124,7 +118,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The language this name is in.
         /// </summary>
-        public NamedApiResource Language { get; set; }
+        public NamedApiResource<Language> Language { get; set; }
     }
 
     public class GenerationGameIndex
@@ -138,7 +132,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The generation relevent to this game index.
         /// </summary>
-        public NamedApiResource Generation { get; set; }
+        public NamedApiResource<Generation> Generation { get; set; }
     }
 
     public class MachineVersionDetail
@@ -146,13 +140,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The machine that teaches a move from an item.
         /// </summary>
-        public ApiResource Machine { get; set; }
+        public ApiResource<Machine> Machine { get; set; }
 
         /// <summary>
         /// The version group of this specific machine.
         /// </summary>
         [JsonProperty("version_group")]
-        public NamedApiResource VersionGroup { get; set; }
+        public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
     public class Names
@@ -165,20 +159,15 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The language this name is in.
         /// </summary>
-        public NamedApiResource Language { get; set; }
+        public NamedApiResource<Language> Language { get; set; }
     }
 
-    public class NamedApiResource
+    public class NamedApiResource<T> : UrlNavigation<T> where T : class, ICanBeCached
     {
         /// <summary>
         /// The name of the referenced resource.
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// The URL of the referenced resource.
-        /// </summary>
-        public string Url { get; set; }
     }
 
     public class VerboseEffect
@@ -198,7 +187,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The language this effect is in.
         /// </summary>
-        public NamedApiResource Language { get; set; }
+        public NamedApiResource<Language> Language { get; set; }
     }
 
     public class VersionEncounterDetail
@@ -206,7 +195,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The game version this encounter happens in.
         /// </summary>
-        public NamedApiResource Version { get; set; }
+        public NamedApiResource<Version> Version { get; set; }
 
         /// <summary>
         /// The total percentage of all encounter potential.
@@ -232,7 +221,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The version relevent to this game index.
         /// </summary>
-        public NamedApiResource Version { get; set; }
+        public NamedApiResource<Version> Version { get; set; }
     }
 
     public class VersionGroupFlavorText
@@ -245,12 +234,12 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The language this name is in.
         /// </summary>
-        public NamedApiResource Language { get; set; }
+        public NamedApiResource<Language> Language { get; set; }
 
         /// <summary>
         /// The version group which uses this flavor text.
         /// </summary>
         [JsonProperty("version_group")]
-        public NamedApiResource VersionGroup { get; set; }
+        public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 }

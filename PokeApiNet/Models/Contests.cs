@@ -28,7 +28,7 @@ namespace PokeApiNet.Models
         /// type.
         /// </summary>
         [JsonProperty("berry_flavor")]
-        public NamedApiResource BerryFlavor { get; set; }
+        public NamedApiResource<BerryFlavor> BerryFlavor { get; set; }
 
         /// <summary>
         /// The name of this contest type listed in different
@@ -52,7 +52,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The language that this name is in.
         /// </summary>
-        public NamedApiResource Language { get; set; }
+        public NamedApiResource<Language> Language { get; set; }
     }
 
     /// <summary>
@@ -122,6 +122,6 @@ namespace PokeApiNet.Models
         /// A list of moves that have the effect when used in
         /// super contests.
         /// </summary>
-        public List<NamedApiResource> Moves { get; set; }
+        public List<NamedApiResource<Move>> Moves { get; set; }
     }
 }

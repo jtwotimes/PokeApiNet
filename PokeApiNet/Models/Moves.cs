@@ -28,13 +28,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The percent value of how likely this move is to be successful.
         /// </summary>
-        public int Accuracy { get; set; }
+        public int? Accuracy { get; set; }
 
         /// <summary>
         /// The percent value of how likely it is this moves effect will happen.
         /// </summary>
         [JsonProperty("effect_chance")]
-        public int EffectChance { get; set; }
+        public int? EffectChance { get; set; }
 
         /// <summary>
         /// Power points. The number of times this move can be used.
@@ -53,7 +53,7 @@ namespace PokeApiNet.Models
         /// The base power of this move with a value of 0 if it does not have
         /// a base power.
         /// </summary>
-        public int Power { get; set; }
+        public int? Power { get; set; }
 
         /// <summary>
         /// A detail of normal and super contest combos that require this move.
@@ -65,19 +65,19 @@ namespace PokeApiNet.Models
         /// The type of appeal this move gives a Pokémon when used in a contest.
         /// </summary>
         [JsonProperty("contest_type")]
-        public NamedApiResource ContestType { get; set; }
+        public NamedApiResource<ContestType> ContestType { get; set; }
 
         /// <summary>
         /// The effect the move has when used in a contest.
         /// </summary>
         [JsonProperty("contest_effect")]
-        public ApiResource ContestEffect { get; set; }
+        public ApiResource<ContestEffect> ContestEffect { get; set; }
 
         /// <summary>
         /// The type of damage the move inflicts on the target, e.g. physical.
         /// </summary>
         [JsonProperty("damage_class")]
-        public NamedApiResource DamageClass { get; set; }
+        public NamedApiResource<MoveDamageClass> DamageClass { get; set; }
 
         /// <summary>
         /// The effect of this move listed in different languages.
@@ -101,7 +101,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The generation in which this move was introduced.
         /// </summary>
-        public NamedApiResource Generation { get; set; }
+        public NamedApiResource<Generation> Generation { get; set; }
 
         /// <summary>
         /// A list of the machines that teach this move.
@@ -136,17 +136,17 @@ namespace PokeApiNet.Models
         /// The effect the move has when used in a super contest.
         /// </summary>
         [JsonProperty("super_contest_effect")]
-        public ApiResource SuperContestEffect { get; set; }
+        public ApiResource<SuperContestEffect> SuperContestEffect { get; set; }
 
         /// <summary>
         /// The type of target that will receive the effects of the attack.
         /// </summary>
-        public NamedApiResource Target { get; set; }
+        public NamedApiResource<MoveTarget> Target { get; set; }
 
         /// <summary>
         /// The elemental type of this move.
         /// </summary>
-        public NamedApiResource Type { get; set; }
+        public NamedApiResource<Type> Type { get; set; }
     }
 
     public class ContestComboSets
@@ -170,13 +170,13 @@ namespace PokeApiNet.Models
         /// A list of moves to use before this move.
         /// </summary>
         [JsonProperty("use_before")]
-        public List<NamedApiResource> UseBefore { get; set; }
+        public List<NamedApiResource<Move>> UseBefore { get; set; }
 
         /// <summary>
         /// A list of moves to use after this move.
         /// </summary>
         [JsonProperty("use_after")]
-        public List<NamedApiResource> UseAfter { get; set; }
+        public List<NamedApiResource<Move>> UseAfter { get; set; }
     }
 
     public class MoveFlavorText
@@ -191,13 +191,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The language this name is in.
         /// </summary>
-        public NamedApiResource Language { get; set; }
+        public NamedApiResource<Language> Language { get; set; }
 
         /// <summary>
         /// The version group that uses this flavor text.
         /// </summary>
         [JsonProperty("version_group")]
-        public NamedApiResource VersionGroup { get; set; }
+        public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
     public class MoveMetaData
@@ -205,41 +205,41 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The status ailment this move inflicts on its target.
         /// </summary>
-        public NamedApiResource Ailment { get; set; }
+        public NamedApiResource<MoveAilment> Ailment { get; set; }
 
         /// <summary>
         /// The category of move this move falls under, e.g. damage or
         /// ailment.
         /// </summary>
-        public NamedApiResource Category { get; set; }
+        public NamedApiResource<Move> Category { get; set; }
 
         /// <summary>
         /// The minimum number of times this move hits. Null if it always
         /// only hits once.
         /// </summary>
         [JsonProperty("min_hits")]
-        public int MinHits { get; set; }
+        public int? MinHits { get; set; }
 
         /// <summary>
         /// The maximum number of times this move hits. Null if it always
         /// only hits once.
         /// </summary>
         [JsonProperty("max_hits")]
-        public int MaxHits { get; set; }
+        public int? MaxHits { get; set; }
 
         /// <summary>
         /// The minimum number of turns this move continues to take effect.
         /// Null if it always only lasts one turn.
         /// </summary>
         [JsonProperty("min_turns")]
-        public int MinTurns { get; set; }
+        public int? MinTurns { get; set; }
 
         /// <summary>
         /// The maximum number of turns this move continues to take effect.
         /// Null if it always only lasts one turn.
         /// </summary>
         [JsonProperty("max_turns")]
-        public int MaxTurns { get; set; }
+        public int? MaxTurns { get; set; }
 
         /// <summary>
         /// HP drain (if positive) or Recoil damage (if negative), in percent
@@ -289,7 +289,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The stat being affected.
         /// </summary>
-        public NamedApiResource Stat { get; set; }
+        public NamedApiResource<Stat> Stat { get; set; }
     }
 
     public class PastMoveStatValues
@@ -297,25 +297,26 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The percent value of how likely this move is to be successful.
         /// </summary>
-        public int Accuracy { get; set; }
+        public int? Accuracy { get; set; }
 
         /// <summary>
         /// The percent value of how likely it is this moves effect will
         /// take effect.
         /// </summary>
         [JsonProperty("effect_chance")]
-        public int EffectChance { get; set; }
+        public int? EffectChance { get; set; }
 
         /// <summary>
         /// The base power of this move with a value of 0 if it does not have
         /// a base power.
         /// </summary>
-        public int Power { get; set; }
+        /// <remarks>The docs lie - this is null</remarks>
+        public int? Power { get; set; }
 
         /// <summary>
         /// Power points. The number of times this move can be used.
         /// </summary>
-        public int Pp { get; set; }
+        public int? Pp { get; set; }
 
         /// <summary>
         /// The effect of this move listed in different languages.
@@ -326,13 +327,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The elemental type of this move.
         /// </summary>
-        public NamedApiResource Type { get; set; }
+        public NamedApiResource<Type> Type { get; set; }
 
         /// <summary>
         /// The version group in which these move stat values were in effect.
         /// </summary>
         [JsonProperty("version_group")]
-        public NamedApiResource VersionGroup { get; set; }
+        public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
     /// <summary>
@@ -354,7 +355,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of moves that cause this ailment.
         /// </summary>
-        public List<NamedApiResource> Moves { get; set; }
+        public List<NamedApiResource<Move>> Moves { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.
@@ -403,7 +404,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of moves that fall into this category.
         /// </summary>
-        public List<NamedApiResource> Moves { get; set; }
+        public List<NamedApiResource<Move>> Moves { get; set; }
 
         /// <summary>
         /// The description of this resource listed in different languages.
@@ -430,7 +431,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of moves that fall into this damage public class.
         /// </summary>
-        public List<NamedApiResource> Moves { get; set; }
+        public List<NamedApiResource<Move>> Moves { get; set; }
 
         /// <summary>
         /// The description of this resource listed in different languages.
@@ -473,7 +474,7 @@ namespace PokeApiNet.Models
         /// A list of version groups where moves can be learned through this method.
         /// </summary>
         [JsonProperty("version_groups")]
-        public List<NamedApiResource> VersionGroups { get; set; }
+        public List<NamedApiResource<VersionGroup>> VersionGroups { get; set; }
     }
 
     /// <summary>
@@ -501,7 +502,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of moves that that are directed at this target.
         /// </summary>
-        public List<NamedApiResource> Moves { get; set; }
+        public List<NamedApiResource<Move>> Moves { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.

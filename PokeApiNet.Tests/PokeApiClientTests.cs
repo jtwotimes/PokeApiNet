@@ -3,6 +3,8 @@ using PokeApiNet.Data;
 using PokeApiNet.Models;
 using RichardSzalay.MockHttp;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -126,6 +128,72 @@ public class PokeApiClientTests
 
         // assert
         mockHttp.VerifyNoOutstandingExpectation();
+    }
+
+    [Fact]
+    [Trait("Category", "Unit")]
+    public async Task UrlNavigationResolveAsyncSingleTest()
+    {
+        // assemble
+        Pokemon responsePikachu = new Pokemon
+        {
+            Name = "pikachu",
+            Id = 25,
+            Species = new NamedApiResource<PokemonSpecies>
+            {
+                Name = "pikachu",
+                Url = "https://pokeapi.co/api/v2/pokemon-species/25/"
+            }
+        };
+        PokemonSpecies responseSpecies = new PokemonSpecies { Name = "pikachu" };
+
+        MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
+        mockHttp.Expect("*pokemon/pikachu/").Respond("application/json", JsonConvert.SerializeObject(responsePikachu));
+        mockHttp.Expect("*pokemon-species/25/").Respond("application/json", JsonConvert.SerializeObject(responseSpecies));
+        PokeApiClient client = new PokeApiClient(mockHttp);
+
+        Pokemon pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
+
+        // act
+        PokemonSpecies species = await pikachu.Species.ResolveAsync(client);
+
+        // assert
+        mockHttp.VerifyNoOutstandingExpectation();
+    }
+
+    [Fact]
+    [Trait("Category", "Unit")]
+    public async Task UrlNavigationResolveAsyncSingleCachedTest()
+    {
+        // assemble
+        Pokemon responsePikachu = new Pokemon
+        {
+            Name = "pikachu",
+            Id = 25,
+            Species = new NamedApiResource<PokemonSpecies>
+            {
+                Name = "pikachu",
+                Url = "https://pokeapi.co/api/v2/pokemon-species/25/"
+            }
+        };
+        PokemonSpecies responseSpecies = new PokemonSpecies { Name = "pikachu", Id = 25 };
+
+        MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
+        mockHttp.Expect("*pokemon/pikachu/").Respond("application/json", JsonConvert.SerializeObject(responsePikachu));
+        mockHttp.Expect("*pokemon-species/25/").Respond("application/json", JsonConvert.SerializeObject(responseSpecies));
+        PokeApiClient client = new PokeApiClient(mockHttp);
+
+        Pokemon pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
+        PokemonSpecies species = await pikachu.Species.ResolveAsync(client);
+
+        mockHttp.ResetExpectations();
+        mockHttp.Expect("*pokemon-species/25/").Respond("application/json", JsonConvert.SerializeObject(responseSpecies));
+
+        // act
+        species = await pikachu.Species.ResolveAsync(client);
+
+        // assert
+        Assert.Throws<InvalidOperationException>(() => mockHttp.VerifyNoOutstandingExpectation());
     }
 
     [Fact]

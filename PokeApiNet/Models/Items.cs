@@ -34,18 +34,18 @@ namespace PokeApiNet.Models
         /// The power of the move Fling when used with this item.
         /// </summary>
         [JsonProperty("fling_power")]
-        public int FlingPower { get; set; }
+        public int? FlingPower { get; set; }
 
         /// <summary>
         /// The effect of the move Fling when used with this item.
         /// </summary>
         [JsonProperty("fling_effect")]
-        public NamedApiResource FlingEffect { get; set; }
+        public NamedApiResource<ItemFlingEffect> FlingEffect { get; set; }
 
         /// <summary>
         /// A list of attributes this item has.
         /// </summary>
-        public List<NamedApiResource> Attributes { get; set; }
+        public List<NamedApiResource<ItemAttribute>> Attributes { get; set; }
 
         /// <summary>
         /// The category of items this item falls into.
@@ -90,7 +90,7 @@ namespace PokeApiNet.Models
         /// An evolution chain this item requires to produce a baby during mating.
         /// </summary>
         [JsonProperty("baby_trigger_for")]
-        public ApiResource BabyTriggerFor { get; set; }
+        public ApiResource<EvolutionChain> BabyTriggerFor { get; set; }
 
         /// <summary>
         /// A list of the machines related to this item.
@@ -130,7 +130,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The version that this item is held in by the Pokémon.
         /// </summary>
-        public NamedApiResource Version { get; set; }
+        public NamedApiResource<Version> Version { get; set; }
     }
 
     /// <summary>
@@ -153,7 +153,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of items that have this attribute.
         /// </summary>
-        public List<NamedApiResource> Items { get; set; }
+        public List<NamedApiResource<Item>> Items { get; set; }
 
         /// <summary>
         /// The name of this item attribute listed in different languages.
@@ -185,7 +185,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of items that are a part of this category.
         /// </summary>
-        public List<NamedApiResource> Items { get; set; }
+        public List<NamedApiResource<Item>> Items { get; set; }
 
         /// <summary>
         /// The name of this item category listed in different languages.
@@ -195,7 +195,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The pocket items in this category would be put in.
         /// </summary>
-        public NamedApiResource Pocket { get; set; }
+        public NamedApiResource<ItemPocket> Pocket { get; set; }
     }
 
     /// <summary>
@@ -223,7 +223,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of items that have this fling effect.
         /// </summary>
-        public List<NamedApiResource> Items { get; set; }
+        public List<NamedApiResource<Item>> Items { get; set; }
     }
 
     /// <summary>
@@ -245,7 +245,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of item categories that are relevant to this item pocket.
         /// </summary>
-        public List<NamedApiResource> Categories { get; set; }
+        public List<NamedApiResource<ItemCategory>> Categories { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.

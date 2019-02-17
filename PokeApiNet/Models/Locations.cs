@@ -26,7 +26,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The region this location can be found in.
         /// </summary>
-        public NamedApiResource Region { get; set; }
+        public NamedApiResource<Region> Region { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.
@@ -42,7 +42,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// Areas that can be found within this location
         /// </summary>
-        public List<NamedApiResource> Areas { get; set; }
+        public List<NamedApiResource<LocationArea>> Areas { get; set; }
     }
 
     /// <summary>
@@ -79,7 +79,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The region this location can be found in.
         /// </summary>
-        public NamedApiResource Location { get; set; }
+        public NamedApiResource<Location> Location { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.
@@ -100,7 +100,7 @@ namespace PokeApiNet.Models
         /// The method in which Pokémon may be encountered in an area.
         /// </summary>
         [JsonProperty("encounter_method")]
-        public NamedApiResource EncounterMethod { get; set; }
+        public NamedApiResource<EncounterMethod> EncounterMethod { get; set; }
 
         /// <summary>
         /// The chance of the encounter to occur on a version of the game.
@@ -120,7 +120,7 @@ namespace PokeApiNet.Models
         /// The version of the game in which the encounter can occur with
         /// the given chance.
         /// </summary>
-        public NamedApiResource Version { get; set; }
+        public NamedApiResource<Version> Version { get; set; }
     }
 
     public class PokemonEncounter
@@ -128,7 +128,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The Pokémon being encountered.
         /// </summary>
-        public NamedApiResource Pokemon { get; set; }
+        public NamedApiResource<Pokemon> Pokemon { get; set; }
 
         /// <summary>
         /// A list of versions and encounters with Pokémon that might happen
@@ -186,7 +186,7 @@ namespace PokeApiNet.Models
         /// The Pokémon species being encountered.
         /// </summary>
         [JsonProperty("pokemon_species")]
-        public NamedApiResource PokemonSpecies { get; set; }
+        public NamedApiResource<PokemonSpecies> PokemonSpecies { get; set; }
     }
 
     /// <summary>
@@ -205,7 +205,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of locations that can be found in this region.
         /// </summary>
-        public List<NamedApiResource> Locations { get; set; }
+        public List<NamedApiResource<Location>> Locations { get; set; }
 
         /// <summary>
         /// The name for this resource.
@@ -221,17 +221,17 @@ namespace PokeApiNet.Models
         /// The generation this region was introduced in.
         /// </summary>
         [JsonProperty("main_generation")]
-        public NamedApiResource MainGeneration { get; set; }
+        public NamedApiResource<Generation> MainGeneration { get; set; }
 
         /// <summary>
         /// A list of pokédexes that catalogue Pokémon in this region.
         /// </summary>
-        public List<NamedApiResource> Pokedexes { get; set; }
+        public List<NamedApiResource<Pokedex>> Pokedexes { get; set; }
 
         /// <summary>
         /// A list of version groups where this region can be visited.
         /// </summary>
         [JsonProperty("version_groups")]
-        public List<NamedApiResource> VersionGroups { get; set; }
+        public List<NamedApiResource<VersionGroup>> VersionGroups { get; set; }
     }
 }

@@ -44,6 +44,13 @@ namespace PokeApiNet.Data
             _client.Dispose();
         }
 
+        /// <summary>
+        /// Send a request to the api and serialize the response into the specified type
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="apiParam">The name or id of the resource</param>
+        /// <exception cref="HttpRequestException">Something went wrong with your request</exception>
+        /// <returns>An instance of the specified type with data from the request</returns>
         private async Task<T> GetResourcesWithParamsAsync<T>(string apiParam) where T : ICanBeCached
         {
             // lowercase the resource name as the API doesn't recognize upper case and lower case as the same
@@ -57,6 +64,36 @@ namespace PokeApiNet.Data
 
             string resp = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(resp);
+        }
+
+        /// <summary>
+        /// Gets a resource from a navigation url; resource is retrieved from cache if possible
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="url">Navigation url</param>
+        /// <exception cref="NotSupportedException">Navigation url doesn't contain the resource id</exception>
+        /// <returns>The object of the resource</returns>
+        internal async Task<T> GetResourceByUrlAsync<T>(string url) where T : class, ICanBeCached
+        {
+            // need to parse out the id in order to check if it's cached.
+            // navigation urls always use the id of the resource
+            string trimmedUrl = url.TrimEnd('/');
+            string resourceId = trimmedUrl.Substring(trimmedUrl.LastIndexOf('/') + 1);
+
+            if (!int.TryParse(resourceId, out int id))
+            {
+                // not sure what to do here...
+                throw new NotSupportedException($"Navigation url '{url}' is in an unexpected format");
+            }
+
+            T resource = _cacheManager.Get<T>(id);
+            if (resource == null)
+            {
+                resource = await GetResourcesWithParamsAsync<T>(resourceId);
+                _cacheManager.Store<T>(resource);
+            }
+
+            return resource;
         }
 
         /// <summary>
