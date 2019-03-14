@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using PokeApiNet.Data;
 using PokeApiNet.Models;
+using PokeApiNet.Directives;
 using RichardSzalay.MockHttp;
 using System;
 using System.Collections.Generic;
