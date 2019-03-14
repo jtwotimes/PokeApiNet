@@ -111,7 +111,8 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The Pokémon that holds this item.
         /// </summary>
-        public string Pokemon { get; set; }
+        /// <remarks>The docs lie; this is not a string</remarks>
+        public NamedApiResource<Pokemon> Pokemon { get; set; }
 
         /// <summary>
         /// The details for the version that this item is held in by the Pokémon.
