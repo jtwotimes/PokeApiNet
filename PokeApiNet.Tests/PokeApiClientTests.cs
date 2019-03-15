@@ -219,8 +219,8 @@ public class PokeApiClientTests
     public async Task UrlNavigationResolveAllAsyncTest()
     {
         // assemble
-        ItemAttribute holdable = new ItemAttribute { Name = "holdable" };
-        ItemAttribute consumable = new ItemAttribute { Name = "consumable" };
+        ItemAttribute holdable = new ItemAttribute { Name = "holdable", Id = 1 };
+        ItemAttribute consumable = new ItemAttribute { Name = "consumable", Id = 2 };
         Item hyperPotion = new Item
         {
             Attributes = new List<NamedApiResource<ItemAttribute>>
