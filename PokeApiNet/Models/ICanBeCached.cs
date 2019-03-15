@@ -1,4 +1,4 @@
-﻿namespace PokeApiNet.Directives
+﻿namespace PokeApiNet.Models
 {
     /// <summary>
     /// Contract for PokeApi resource classes that can be cached

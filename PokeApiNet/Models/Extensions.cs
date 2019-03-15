@@ -1,5 +1,4 @@
 ﻿using PokeApiNet.Data;
-using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
