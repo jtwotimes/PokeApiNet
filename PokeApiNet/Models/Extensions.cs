@@ -19,7 +19,7 @@ namespace PokeApiNet.Models
         /// <param name="collection">The collection of navigation objects</param>
         /// <param name="client">PokeApiClient object to make requests</param>
         /// <returns>A list of resolved objects</returns>
-        public static async Task<List<T>> ResolveAll<T>(this IEnumerable<UrlNavigation<T>> collection, PokeApiClient client)
+        public static async Task<List<T>> ResolveAllAsync<T>(this IEnumerable<UrlNavigation<T>> collection, PokeApiClient client)
             where T : class, ICanBeCached
         {
             return (await Task.WhenAll(collection.Select(m => m.ResolveAsync(client)))).ToList();

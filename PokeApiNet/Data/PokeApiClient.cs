@@ -115,8 +115,7 @@ namespace PokeApiNet.Data
         }
 
         /// <summary>
-        /// Gets a resource by name; resource is retrieved from cache if possible. If the resource name
-        /// contains spaces, replace spaces with dashes (-). Omit all punctuation marks. This lookup
+        /// Gets a resource by name; resource is retrieved from cache if possible. This lookup
         /// is case insensitive.
         /// </summary>
         /// <typeparam name="T">The type of resource</typeparam>
@@ -124,10 +123,17 @@ namespace PokeApiNet.Data
         /// <returns>The object of the resource</returns>
         public async Task<T> GetResourceAsync<T>(string name) where T : class, ICanBeCached
         {
-            T resource = _cacheManager.Get<T>(name);
+            string sanitizedName = name
+                .Replace(" ", "-")      // no resource can have a space in the name; API uses -'s in their place
+                .Replace("'", "")       // looking at you, Farfetch'd
+                .Replace(".", "");      // looking at you, Mime Jr. and Mr. Mime
+
+            // Nidoran is interesting as the API wants 'nidoran-f' or 'nidoran-m'
+
+            T resource = _cacheManager.Get<T>(sanitizedName);
             if (resource == null)
             {
-                resource = await GetResourcesWithParamsAsync<T>(name);
+                resource = await GetResourcesWithParamsAsync<T>(sanitizedName);
                 _cacheManager.Store(resource);
             }
 

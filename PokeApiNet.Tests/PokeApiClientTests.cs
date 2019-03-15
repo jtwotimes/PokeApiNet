@@ -57,6 +57,23 @@ public class PokeApiClientTests
 
     [Fact]
     [Trait("Category", "Unit")]
+    public async Task GetResourceAsyncByNameWithPunctuationTest()
+    {
+        // assemble
+        MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
+        mockHttp.Expect("*hi-im-a-berry*").Respond("application/json", JsonConvert.SerializeObject(new Berry { Name = "cheri" }));
+
+        PokeApiClient client = new PokeApiClient(mockHttp);
+
+        // act
+        Berry cleanNamedBerry = await client.GetResourceAsync<Berry>("hi I'm a berry.");
+
+        // assert
+        mockHttp.VerifyNoOutstandingExpectation();
+    }
+
+    [Fact]
+    [Trait("Category", "Unit")]
     public async Task ClearCacheTypedTest()
     {
         // assemble
@@ -195,6 +212,45 @@ public class PokeApiClientTests
 
         // assert
         Assert.Throws<InvalidOperationException>(() => mockHttp.VerifyNoOutstandingExpectation());
+    }
+
+    [Fact]
+    [Trait("Category", "Unit")]
+    public async Task UrlNavigationResolveAllAsyncTest()
+    {
+        // assemble
+        ItemAttribute holdable = new ItemAttribute { Name = "holdable" };
+        ItemAttribute consumable = new ItemAttribute { Name = "consumable" };
+        Item hyperPotion = new Item
+        {
+            Attributes = new List<NamedApiResource<ItemAttribute>>
+            {
+                new NamedApiResource<ItemAttribute>
+                {
+                    Name = "holdable",
+                    Url = "https://pokeapi.co/api/v2/item-attribute/5/"
+                },
+                new NamedApiResource<ItemAttribute>
+                {
+                    Name = "consumable",
+                    Url = "https://pokeapi.co/api/v2/item-attribute/2/"
+                }
+            }
+        };
+
+        MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
+        mockHttp.Expect("*item/hyper-potion/").Respond("application/json", JsonConvert.SerializeObject(hyperPotion));
+        mockHttp.Expect("*item-attribute/5/").Respond("application/json", JsonConvert.SerializeObject(holdable));
+        mockHttp.Expect("*item-attribute/2/").Respond("application/json", JsonConvert.SerializeObject(consumable));
+
+        PokeApiClient client = new PokeApiClient(mockHttp);
+        Item item = await client.GetResourceAsync<Item>("hyper-potion");
+
+        // act
+        List<ItemAttribute> attributes = await item.Attributes.ResolveAllAsync(client);
+
+        // assert
+        mockHttp.VerifyNoOutstandingExpectation();
     }
 
     [Fact]
@@ -839,6 +895,21 @@ public class PokeApiClientTests
 
         // assert
         Assert.True(pokemonSpecies.Id != default(int));
+    }
+
+    [Fact]
+    [Trait("Category", "Integration")]
+    public async Task GetPokemonSpeciesResolveAllAsyncIntegrationTest()
+    {
+        // assemble
+        PokeApiClient client = new PokeApiClient();
+        PokemonSpecies pokemonSpecies = await client.GetResourceAsync<PokemonSpecies>(1);
+
+        // act
+        List<EggGroup> eggGroups = await pokemonSpecies.EggGroups.ResolveAllAsync(client);
+
+        // assert
+        Assert.True(eggGroups.Any());
     }
 
     [Fact]
