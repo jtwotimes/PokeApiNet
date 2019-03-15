@@ -3,6 +3,8 @@ A .Net wrapper for the Pokemon API at [https://pokeapi.co](https://pokeapi.co).
 
 Targets .Net Standard 2.0.
 
+[![CircleCI](https://circleci.com/gh/mtrdp642/PokeApiNet/tree/master.svg?style=svg)](https://circleci.com/gh/mtrdp642/PokeApiNet/tree/master)
+
 # Use
 ```cs
 using PokeApiNet.Data;
