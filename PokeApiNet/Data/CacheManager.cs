@@ -1,6 +1,7 @@
 ﻿using PokeApiNet.Directives;
 using PokeApiNet.Models;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -121,14 +122,14 @@ namespace PokeApiNet.Data
             /// <summary>
             /// The underlying data store for the cache
             /// </summary>
-            public readonly Dictionary<int, T> Cache;
+            public readonly ConcurrentDictionary<int, T> Cache;
 
             /// <summary>
             /// Constructor
             /// </summary>
             public GenericCache()
             {
-                Cache = new Dictionary<int, T>();
+                Cache = new ConcurrentDictionary<int, T>();
             }
 
             /// <summary>
@@ -137,7 +138,7 @@ namespace PokeApiNet.Data
             /// <param name="obj">The object to store</param>
             public void Store(T obj)
             {
-                Cache.Add(obj.Id, obj);
+                Cache.TryAdd(obj.Id, obj);
             }
 
             /// <summary>
