@@ -36,7 +36,7 @@ Each navigation object (specifically classes `NamedApiResource` and `ApiResource
 PokemonSpecies species = await pikachu.Species.ResolveAsync(client);
 
 // to resolve a list of them
-List<Move> allMoves = pikachu.Moves.Select(move => move.Move).ResolveAll(client);
+List<Move> allMoves = pikachu.Moves.Select(move => move.Move).ResolveAllAsync(client);
 ```
 
 ## Caching
