@@ -33,10 +33,10 @@ Pokemon pikachu = await pokeClient.GetResourceAsync<Pokemon>("pikachu");
 Each navigation object (specifically classes `NamedApiResource` and `ApiResource`) includes a method to help with resolving these resources. Example:
 ```cs
 // to resolve a single navigation url property
-PokemonSpecies species = await pikachu.Species.ResolveAsync(client);
+PokemonSpecies species = await pikachu.Species.ResolveAsync(pokeClient);
 
 // to resolve a list of them
-List<Move> allMoves = pikachu.Moves.Select(move => move.Move).ResolveAllAsync(client);
+List<Move> allMoves = pikachu.Moves.Select(move => move.Move).ResolveAllAsync(pokeClient);
 ```
 
 ## Caching
