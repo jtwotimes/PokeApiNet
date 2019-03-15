@@ -8,3 +8,6 @@ jobs:
       - run:
           name: Building the project
           command: dotnet build
+      - run:
+          name: Run unit tests
+          command: dotnet test --filter "Category = Unit"
