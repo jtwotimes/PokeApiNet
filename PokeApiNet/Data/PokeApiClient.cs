@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PokeApiNet.Directives;
 using PokeApiNet.Models;
 using System;
 using System.Collections.Generic;
@@ -51,13 +50,13 @@ namespace PokeApiNet.Data
         /// <param name="apiParam">The name or id of the resource</param>
         /// <exception cref="HttpRequestException">Something went wrong with your request</exception>
         /// <returns>An instance of the specified type with data from the request</returns>
-        private async Task<T> GetResourcesWithParamsAsync<T>(string apiParam) where T : ICanBeCached
+        private async Task<T> GetResourcesWithParamsAsync<T>(string apiParam) where T : ResourceBase
         {
             // lowercase the resource name as the API doesn't recognize upper case and lower case as the same
             string sanitizedApiParam = apiParam.ToLowerInvariant();
 
-            ApiEndpointAttribute attribute = typeof(T).GetCustomAttribute(typeof(ApiEndpointAttribute)) as ApiEndpointAttribute;
-            string apiEndpoint = attribute.ApiEndpoint;
+            PropertyInfo propertyInfo = typeof(T).GetProperty("ApiEndpoint", BindingFlags.Static | BindingFlags.Public);
+            string apiEndpoint = propertyInfo.GetValue(null).ToString();
             HttpResponseMessage response = await _client.GetAsync($"{apiEndpoint}/{sanitizedApiParam}/");        // trailing slash is needed!
 
             response.EnsureSuccessStatusCode();
@@ -73,7 +72,7 @@ namespace PokeApiNet.Data
         /// <param name="url">Navigation url</param>
         /// <exception cref="NotSupportedException">Navigation url doesn't contain the resource id</exception>
         /// <returns>The object of the resource</returns>
-        internal async Task<T> GetResourceByUrlAsync<T>(string url) where T : class, ICanBeCached
+        internal async Task<T> GetResourceByUrlAsync<T>(string url) where T : ResourceBase
         {
             // need to parse out the id in order to check if it's cached.
             // navigation urls always use the id of the resource
@@ -102,7 +101,7 @@ namespace PokeApiNet.Data
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="id">Id of resource</param>
         /// <returns>The object of the resource</returns>
-        public async Task<T> GetResourceAsync<T>(int id) where T : class, ICanBeCached
+        public async Task<T> GetResourceAsync<T>(int id) where T : ResourceBase
         {
             T resource = _cacheManager.Get<T>(id);
             if (resource == null)
@@ -121,7 +120,7 @@ namespace PokeApiNet.Data
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="name">Name of resource</param>
         /// <returns>The object of the resource</returns>
-        public async Task<T> GetResourceAsync<T>(string name) where T : class, ICanBeCached
+        public async Task<T> GetResourceAsync<T>(string name) where T : ResourceBase
         {
             string sanitizedName = name
                 .Replace(" ", "-")      // no resource can have a space in the name; API uses -'s in their place
@@ -152,7 +151,7 @@ namespace PokeApiNet.Data
         /// Clears the cached data for a specific resource
         /// </summary>
         /// <typeparam name="T">The type of cache</typeparam>
-        public void ClearCache<T>() where T : ICanBeCached
+        public void ClearCache<T>() where T : ResourceBase
         {
             _cacheManager.Clear<T>();
         }

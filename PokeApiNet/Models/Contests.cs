@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,13 +9,14 @@ namespace PokeApiNet.Models
     /// Contest types are categories judges used to weigh
     /// a Pokémon's condition in Pokémon contests.
     /// </summary>
-    [ApiEndpoint("contest-type")]
-    public class ContestType : ICanBeCached
+    public class ContestType : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "contest-type";
 
         /// <summary>
         /// The name for this resource.
@@ -59,13 +59,14 @@ namespace PokeApiNet.Models
     /// Contest effects refer to the effects of moves
     /// when used in contests.
     /// </summary>
-    [ApiEndpoint("contest-effect")]
-    public class ContestEffect : ICanBeCached
+    public class ContestEffect : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "contest-effect";
 
         /// <summary>
         /// The base number of hearts the user of this move
@@ -98,13 +99,14 @@ namespace PokeApiNet.Models
     /// Super contest effects refer to the effects of moves
     /// when used in super contests.
     /// </summary>
-    [ApiEndpoint("super-contest-effect")]
-    public class SuperContestEffect : ICanBeCached
+    public class SuperContestEffect : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "super-contest-effect";
 
         /// <summary>
         /// The level of appeal this super contest effect has.

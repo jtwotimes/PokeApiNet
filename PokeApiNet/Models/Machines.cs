@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,13 +11,14 @@ namespace PokeApiNet.Models
     /// not certain that one specific TM or HM corresponds to a
     /// single Machine.
     /// </summary>
-    [ApiEndpoint("machine")]
-    public class Machine : ICanBeCached
+    public class Machine : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "machine";
 
         /// <summary>
         /// The TM or HM item that corresponds to this machine.

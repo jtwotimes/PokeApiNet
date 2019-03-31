@@ -20,7 +20,7 @@ namespace PokeApiNet.Models
         /// <param name="client">PokeApiClient object to make requests</param>
         /// <returns>A list of resolved objects</returns>
         public static async Task<List<T>> ResolveAllAsync<T>(this IEnumerable<UrlNavigation<T>> collection, PokeApiClient client)
-            where T : class, ICanBeCached
+            where T : ResourceBase
         {
             return (await Task.WhenAll(collection.Select(m => m.ResolveAsync(client)))).ToList();
         }

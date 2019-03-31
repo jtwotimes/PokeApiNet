@@ -1,5 +1,4 @@
-﻿using PokeApiNet.Directives;
-using PokeApiNet.Models;
+﻿using PokeApiNet.Models;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -16,10 +15,10 @@ namespace PokeApiNet.Data
     /// </summary>
     internal class CacheManager
     {
-        private readonly Dictionary<System.Type, GenericCache<ICanBeCached>> _allCaches;
+        private readonly Dictionary<System.Type, GenericCache<ResourceBase>> _allCaches;
         private readonly List<System.Type> ApiTypes =
             Assembly.GetExecutingAssembly().GetTypes()
-            .Where(type => type.IsDefined(typeof(ApiEndpointAttribute), false))
+            .Where(type => type.IsSubclassOf(typeof(ResourceBase)))
             .ToList();
 
         /// <summary>
@@ -27,10 +26,10 @@ namespace PokeApiNet.Data
         /// </summary>
         public CacheManager()
         {
-            _allCaches = new Dictionary<System.Type, GenericCache<ICanBeCached>>();
+            _allCaches = new Dictionary<System.Type, GenericCache<ResourceBase>>();
             foreach (System.Type type in ApiTypes) 
             {
-                _allCaches.Add(type, new GenericCache<ICanBeCached>());
+                _allCaches.Add(type, new GenericCache<ResourceBase>());
             }
         }
 
@@ -41,7 +40,7 @@ namespace PokeApiNet.Data
         /// <param name="obj">Object to cache</param>
         /// <exception cref="NotSupportedException">The given type is not supported for searching
         /// via PokeAPI</exception>
-        public void Store<T>(T obj) where T : ICanBeCached
+        public void Store<T>(T obj) where T : ResourceBase
         {
             System.Type matchingType = ApiTypes.FirstOrDefault(type => type == obj.GetType());
             if (matchingType == null)
@@ -58,10 +57,10 @@ namespace PokeApiNet.Data
         /// <typeparam name="T">Type of object to get</typeparam>
         /// <param name="id">Id of the resource</param>
         /// <returns>The cached object or null if not found</returns>
-        public T Get<T>(int id) where T : class, ICanBeCached
+        public T Get<T>(int id) where T : ResourceBase
         {
             System.Type type = typeof(T);
-            _allCaches[type].Cache.TryGetValue(id, out ICanBeCached value);
+            _allCaches[type].Cache.TryGetValue(id, out ResourceBase value);
             return value as T;
         }
 
@@ -71,7 +70,7 @@ namespace PokeApiNet.Data
         /// <typeparam name="T">Type of object to get</typeparam>
         /// <param name="name">Name of the resource</param>
         /// <returns>The cached object or null if not found</returns>
-        public T Get<T>(string name) where T : class, ICanBeCached
+        public T Get<T>(string name) where T : ResourceBase
         {
             System.Type type = typeof(T);
             PropertyInfo nameProperty = type.GetProperties()
@@ -81,8 +80,8 @@ namespace PokeApiNet.Data
                 return null;
             }
 
-            ICanBeCached matchingObject = null;
-            foreach (ICanBeCached cacheObj in _allCaches[type].Cache.Values)
+            ResourceBase matchingObject = null;
+            foreach (ResourceBase cacheObj in _allCaches[type].Cache.Values)
             {
                 // we wouldn't be here without knowing that T has a Name property
                 string value = nameProperty.GetValue(cacheObj) as string;
@@ -101,7 +100,7 @@ namespace PokeApiNet.Data
         /// </summary>
         public void ClearAll()
         {
-            foreach (GenericCache<ICanBeCached> cache in _allCaches.Values)
+            foreach (GenericCache<ResourceBase> cache in _allCaches.Values)
             {
                 cache.Clear();
             }
@@ -111,13 +110,13 @@ namespace PokeApiNet.Data
         /// Clears a specific cache
         /// </summary>
         /// <typeparam name="T">The type of cache to clear</typeparam>
-        public void Clear<T>() where T : ICanBeCached
+        public void Clear<T>() where T : ResourceBase
         {
             System.Type type = typeof(T);
             _allCaches[type].Clear();
         }
 
-        private class GenericCache<T> where T : ICanBeCached
+        private class GenericCache<T> where T : ResourceBase
         {
             /// <summary>
             /// The underlying data store for the cache

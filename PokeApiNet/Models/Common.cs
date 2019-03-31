@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,13 +8,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Languages for translations of API resource information.
     /// </summary>
-    [ApiEndpoint("language")]
-    public class Language : ICanBeCached
+    public class Language : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "language";
 
         /// <summary>
         /// The name for this resource.
@@ -45,7 +45,7 @@ namespace PokeApiNet.Models
         public List<Names> Names { get; set; }
     }
 
-    public class ApiResource<T> : UrlNavigation<T> where T : class, ICanBeCached { }
+    public class ApiResource<T> : UrlNavigation<T> where T : ResourceBase { }
 
     public class Descriptions
     {
@@ -162,7 +162,7 @@ namespace PokeApiNet.Models
         public NamedApiResource<Language> Language { get; set; }
     }
 
-    public class NamedApiResource<T> : UrlNavigation<T> where T : class, ICanBeCached
+    public class NamedApiResource<T> : UrlNavigation<T> where T : ResourceBase
     {
         /// <summary>
         /// The name of the referenced resource.

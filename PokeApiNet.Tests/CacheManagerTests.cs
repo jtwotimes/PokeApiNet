@@ -1,5 +1,4 @@
 ﻿using PokeApiNet.Data;
-using PokeApiNet.Directives;
 using PokeApiNet.Models;
 using System;
 using System.Collections.Generic;
@@ -160,5 +159,10 @@ public class CacheManagerTests
         Assert.Same(berry, retrievedBerry);
     }
 
-    class TestClass : ICanBeCached { public int Id { get; set; } };
+    class TestClass : ResourceBase
+    {
+        public override int Id { get; set; } = 1;
+
+        public new static string ApiEndpoint => "";
+    };
 }

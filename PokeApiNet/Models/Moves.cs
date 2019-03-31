@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,13 +11,14 @@ namespace PokeApiNet.Models
     /// Hidden Machine) can be used outside of battle as well, usually
     /// for the purpose of removing obstacles or exploring new areas.
     /// </summary>
-    [ApiEndpoint("move")]
-    public class Move : ICanBeCached
+    public class Move : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "move";
 
         /// <summary>
         /// The name for this resource.
@@ -339,13 +339,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Move Ailments are status conditions caused by moves used during battle.
     /// </summary>
-    [ApiEndpoint("move-ailment")]
-    public class MoveAilment : ICanBeCached
+    public class MoveAilment : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "move-ailment";
 
         /// <summary>
         /// The name for this resource.
@@ -366,13 +367,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Styles of moves when used in the Battle Palace.
     /// </summary>
-    [ApiEndpoint("move-battle-style")]
-    public class MoveBattleStyle : ICanBeCached
+    public class MoveBattleStyle : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "move-battle-style";
 
         /// <summary>
         /// The name for this resource.
@@ -388,13 +390,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Very general categories that loosely group move effects.
     /// </summary>
-    [ApiEndpoint("move-category")]
-    public class MoveCategory : ICanBeCached
+    public class MoveCategory : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "move-category";
 
         /// <summary>
         /// The name for this resource.
@@ -415,13 +418,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Damage classes moves can have, e.g. physical, special, or non-damaging.
     /// </summary>
-    [ApiEndpoint("move-damage-class")]
-    public class MoveDamageClass : ICanBeCached
+    public class MoveDamageClass : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "move-damage-class";
 
         /// <summary>
         /// The name for this resource.
@@ -447,13 +451,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Methods by which Pokémon can learn moves.
     /// </summary>
-    [ApiEndpoint("move-learn-method")]
-    public class MoveLearnMethod : ICanBeCached
+    public class MoveLearnMethod : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "move-learn-method";
 
         /// <summary>
         /// The name for this resource.
@@ -481,13 +486,14 @@ namespace PokeApiNet.Models
     /// Targets moves can be directed at during battle. Targets can be Pokémon,
     /// environments or even other moves.
     /// </summary>
-    [ApiEndpoint("move-target")]
-    public class MoveTarget : ICanBeCached
+    public class MoveTarget : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "move-target";
 
         /// <summary>
         /// The name for this resource.

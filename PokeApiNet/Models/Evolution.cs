@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,13 +11,14 @@ namespace PokeApiNet.Models
     /// for each as well as Pokémon they can evolve into up through the
     /// hierarchy.
     /// </summary>
-    [ApiEndpoint("evolution-chain")]
-    public class EvolutionChain : ICanBeCached
+    public class EvolutionChain : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "evolution-chain";
 
         /// <summary>
         /// The item that a Pokémon would be holding
@@ -195,13 +195,14 @@ namespace PokeApiNet.Models
     /// Evolution triggers are the events and conditions that
     /// cause a Pokémon to evolve.
     /// </summary>
-    [ApiEndpoint("evolution-trigger")]
-    public class EvolutionTrigger : ICanBeCached
+    public class EvolutionTrigger : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "evolution-trigger";
 
         /// <summary>
         /// The name for this resource.

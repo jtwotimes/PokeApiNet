@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,13 +11,14 @@ namespace PokeApiNet.Models
     /// have various uses, including healing, powering up, helping
     /// catch Pokémon, or to access a new area.
     /// </summary>
-    [ApiEndpoint("item")]
-    public class Item : ICanBeCached
+    public class Item : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "item";
 
         /// <summary>
         /// The name for this resource.
@@ -138,13 +138,14 @@ namespace PokeApiNet.Models
     /// Item attributes define particular aspects of items,
     /// e.g. "usable in battle" or "consumable".
     /// </summary>
-    [ApiEndpoint("item-attribute")]
-    public class ItemAttribute : ICanBeCached
+    public class ItemAttribute : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "item-attribute";
 
         /// <summary>
         /// The name for this resource.
@@ -170,13 +171,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Item categories determine where items will be placed in the players bag.
     /// </summary>
-    [ApiEndpoint("item-category")]
-    public class ItemCategory : ICanBeCached
+    public class ItemCategory : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "item-category";
 
         /// <summary>
         /// The name for this resource.
@@ -202,13 +204,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// The various effects of the move "Fling" when used with different items.
     /// </summary>
-    [ApiEndpoint("item-fling-effect")]
-    public class ItemFlingEffect : ICanBeCached
+    public class ItemFlingEffect : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "item-fling-effect";
 
         /// <summary>
         /// The name for this resource.
@@ -230,13 +233,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Pockets within the players bag used for storing items by category.
     /// </summary>
-    [ApiEndpoint("item-pocket")]
-    public class ItemPocket : ICanBeCached
+    public class ItemPocket : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "item-pocket";
 
         /// <summary>
         /// The name for this resource.

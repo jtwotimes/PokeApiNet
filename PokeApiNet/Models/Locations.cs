@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,13 +9,14 @@ namespace PokeApiNet.Models
     /// Locations that can be visited within the games. Locations make
     /// up sizable portions of regions, like cities or routes.
     /// </summary>
-    [ApiEndpoint("location")]
-    public class Location : ICanBeCached
+    public class Location : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "location";
 
         /// <summary>
         /// The name for this resource.
@@ -49,13 +49,14 @@ namespace PokeApiNet.Models
     /// Location areas are sections of areas, such as floors in a building
     /// or cave. Each area has its own set of possible Pokémon encounters.
     /// </summary>
-    [ApiEndpoint("location-area")]
-    public class LocationArea : ICanBeCached
+    public class LocationArea : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "location-area";
 
         /// <summary>
         /// The name for this resource.
@@ -142,13 +143,14 @@ namespace PokeApiNet.Models
     /// Areas used for grouping Pokémon encounters in Pal Park. They're like
     /// habitats that are specific to Pal Park.
     /// </summary>
-    [ApiEndpoint("pal-park-area")]
-    public class PalParkArea : ICanBeCached
+    public class PalParkArea : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "pal-park-area";
 
         /// <summary>
         /// The name for this resource.
@@ -194,13 +196,14 @@ namespace PokeApiNet.Models
     /// the main difference between regions is the species of Pokémon
     /// that can be encountered within them.
     /// </summary>
-    [ApiEndpoint("region")]
-    public class Region : ICanBeCached
+    public class Region : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "region";
 
         /// <summary>
         /// A list of locations that can be found in this region.

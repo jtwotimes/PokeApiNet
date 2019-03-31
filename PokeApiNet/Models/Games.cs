@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,13 +11,14 @@ namespace PokeApiNet.Models
     /// set of Pokémon, Moves, Abilities and Types that did not exist in
     /// the previous generation are released.
     /// </summary>
-    [ApiEndpoint("generation")]
-    public class Generation : ICanBeCached
+    public class Generation : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "generation";
 
         /// <summary>
         /// The name for this resource.
@@ -72,13 +72,14 @@ namespace PokeApiNet.Models
     /// Pokémon in a given region with the exception of the national dex
     /// and some smaller dexes related to portions of a region.
     /// </summary>
-    [ApiEndpoint("pokedex")]
-    public class Pokedex : ICanBeCached
+    public class Pokedex : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "pokedex";
 
         /// <summary>
         /// The name for this resource.
@@ -137,13 +138,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Versions of the games, e.g., Red, Blue or Yellow.
     /// </summary>
-    [ApiEndpoint("version")]
-    public class Version : ICanBeCached
+    public class Version : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "version";
 
         /// <summary>
         /// The name for this resource.
@@ -165,13 +167,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Version groups categorize highly similar versions of the games.
     /// </summary>
-    [ApiEndpoint("version-group")]
-    public class VersionGroup : ICanBeCached
+    public class VersionGroup : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "version-group";
 
         /// <summary>
         /// The name for this resource.

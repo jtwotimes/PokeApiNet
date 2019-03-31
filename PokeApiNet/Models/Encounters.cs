@@ -1,5 +1,4 @@
-﻿using PokeApiNet.Directives;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,13 +8,14 @@ namespace PokeApiNet.Models
     /// Methods by which the player might can encounter Pokémon
     /// in the wild, e.g., walking in tall grass.
     /// </summary>
-    [ApiEndpoint("encounter-method")]
-    public class EncounterMethod : ICanBeCached
+    public class EncounterMethod : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "encounter-method";
 
         /// <summary>
         /// The name for this resource.
@@ -38,13 +38,14 @@ namespace PokeApiNet.Models
     /// Conditions which affect what pokemon might appear in the
     /// wild, e.g., day or night.
     /// </summary>
-    [ApiEndpoint("encounter-condition")]
-    public class EncounterCondition : ICanBeCached
+    public class EncounterCondition : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "encounter-condition";
 
         /// <summary>
         /// The name for this resource.
@@ -67,13 +68,14 @@ namespace PokeApiNet.Models
     /// Encounter condition values are the various states that an encounter
     /// condition can have, i.e., time of day can be either day or night.
     /// </summary>
-    [ApiEndpoint("encounter-condition-value")]
-    public class EncounterConditionValue : ICanBeCached
+    public class EncounterConditionValue : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "encounter-condition-value";
 
         /// <summary>
         /// The name for this resource.

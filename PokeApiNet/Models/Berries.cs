@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,14 +9,15 @@ namespace PokeApiNet.Models
     /// Berries are small fruits that can provide HP and status condition restoration,
     /// stat enhancement, and even damage negation when eaten by Pokémon.
     /// </summary>
-    [ApiEndpoint("berry")]
-    public class Berry : ICanBeCached
+    public class Berry : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
-    
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "berry";
+
         /// <summary>
         /// The name for this resource.
         /// </summary>
@@ -108,13 +108,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Berries can be soft or hard.
     /// </summary>
-    [ApiEndpoint("berry-firmness")]
-    public class BerryFirmness : ICanBeCached
+    public class BerryFirmness : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "berry-firmness";
 
         /// <summary>
         /// The name for this resource.
@@ -137,13 +138,14 @@ namespace PokeApiNet.Models
     /// Flavors determine whether a Pokémon will benefit or suffer from eating
     /// a berry based on their nature.
     /// </summary>
-    [ApiEndpoint("berry-flavor")]
-    public class BerryFlavor : ICanBeCached
+    public class BerryFlavor : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "berry-flavor";
 
         /// <summary>
         /// The name for this resource.

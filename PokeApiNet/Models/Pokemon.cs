@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using PokeApiNet.Directives;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,13 +10,14 @@ namespace PokeApiNet.Models
     /// the overworld. Pokémon have multiple possible abilities but
     /// can have only one ability at a time. 
     /// </summary>
-    [ApiEndpoint("ability")]
-    public class Ability : ICanBeCached
+    public class Ability : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "ability";
 
         /// <summary>
         /// The name for this resource.
@@ -125,13 +125,14 @@ namespace PokeApiNet.Models
     /// A Pokémon's Characteristic is determined by the remainder of its
     /// highest IV divided by 5 (gene_modulo).
     /// </summary>
-    [ApiEndpoint("characteristic")]
-    public class Characteristic : ICanBeCached
+    public class Characteristic : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "characteristic";
 
         /// <summary>
         /// The remainder of the highest stat/IV divided by 5.
@@ -151,13 +152,14 @@ namespace PokeApiNet.Models
     /// Egg Groups are categories which determine which Pokémon are able
     /// to interbreed. Pokémon may belong to either one or two Egg Groups.
     /// </summary>
-    [ApiEndpoint("egg-group")]
-    public class EggGroup : ICanBeCached
+    public class EggGroup : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "egg-group";
 
         /// <summary>
         /// The name for this resource.
@@ -181,13 +183,14 @@ namespace PokeApiNet.Models
     /// breeding Pokémon but can also result in visual differences or
     /// even different evolutionary lines
     /// </summary>
-    [ApiEndpoint("gender")]
-    public class Gender : ICanBeCached
+    public class Gender : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "gender";
 
         /// <summary>
         /// The name for this resource.
@@ -227,13 +230,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Growth rates are the speed with which Pokémon gain levels through experience.
     /// </summary>
-    [ApiEndpoint("growth-rate")]
-    public class GrowthRate : ICanBeCached
+    public class GrowthRate : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "growth-rate";
 
         /// <summary>
         /// The name for this resource.
@@ -280,13 +284,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Natures influence how a Pokémon's stats grow.
     /// </summary>
-    [ApiEndpoint("nature")]
-    public class Nature : ICanBeCached
+    public class Nature : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "nature";
 
         /// <summary>
         /// The name for this resource.
@@ -378,13 +383,14 @@ namespace PokeApiNet.Models
     /// in Pokéathlons. In Pokéathlons, competitions happen on different
     /// courses; one for each of the different Pokéathlon stats.
     /// </summary>
-    [ApiEndpoint("pokeathlon-stat")]
-    public class PokeathlonStat : ICanBeCached
+    public class PokeathlonStat : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "pokeathlon-stat";
 
         /// <summary>
         /// The name for this resource.
@@ -438,13 +444,14 @@ namespace PokeApiNet.Models
     /// makes it differ from other Pokémon of the same species, such as base stats,
     /// available abilities and typings.
     /// </summary>
-    [ApiEndpoint("pokemon")]
-    public class Pokemon : ICanBeCached
+    public class Pokemon : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "pokemon";
 
         /// <summary>
         /// The name for this resource.
@@ -721,13 +728,14 @@ namespace PokeApiNet.Models
     /// body. No orange category exists; Pokémon that are primarily orange are
     /// listed as red or brown.
     /// </summary>
-    [ApiEndpoint("pokemon-color")]
-    public class PokemonColor : ICanBeCached
+    public class PokemonColor : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "pokemon-color";
 
         /// <summary>
         /// The name for this resource.
@@ -752,13 +760,14 @@ namespace PokeApiNet.Models
     /// within a Pokémon species, which do differ in more than just visuals,
     /// the 'Pokémon' entity is used to represent such a variety.
     /// </summary>
-    [ApiEndpoint("pokemon-form")]
-    public class PokemonForm : ICanBeCached
+    public class PokemonForm : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "pokemon-form";
 
         /// <summary>
         /// The name for this resource.
@@ -863,13 +872,14 @@ namespace PokeApiNet.Models
     /// Habitats are generally different terrain Pokémon can be found in but
     /// can also be areas designated for rare or legendary Pokémon.
     /// </summary>
-    [ApiEndpoint("pokemon-habitat")]
-    public class PokemonHabitat : ICanBeCached
+    public class PokemonHabitat : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "pokemon-habitat";
 
         /// <summary>
         /// The name for this resource.
@@ -891,13 +901,14 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Shapes used for sorting Pokémon in a Pokédex.
     /// </summary>
-    [ApiEndpoint("pokemon-shape")]
-    public class PokemonShape : ICanBeCached
+    public class PokemonShape : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "pokemon-shape";
 
         /// <summary>
         /// The name for this resource.
@@ -945,13 +956,14 @@ namespace PokeApiNet.Models
     /// can be found in three different varieties, Wormadam-Trash,
     /// Wormadam-Sandy and Wormadam-Plant.
     /// </summary>
-    [ApiEndpoint("pokemon-species")]
-    public class PokemonSpecies : ICanBeCached
+    public class PokemonSpecies : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "pokemon-species";
 
         /// <summary>
         /// The name for this resource.
@@ -1166,13 +1178,14 @@ namespace PokeApiNet.Models
     /// for each stat which grows as they gain levels and can be altered
     /// momentarily by effects in battles.
     /// </summary>
-    [ApiEndpoint("stat")]
-    public class Stat : ICanBeCached
+    public class Stat : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "stat";
 
         /// <summary>
         /// The name for this resource.
@@ -1266,13 +1279,14 @@ namespace PokeApiNet.Models
     /// which types of Pokémon it is not very effective against, and which types
     /// of Pokémon it is completely ineffective against.
     /// </summary>
-    [ApiEndpoint("type")]
-    public class Type : ICanBeCached
+    public class Type : ResourceBase
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
-        public int Id { get; set; }
+        public override int Id { get; set; }
+
+        public new static string ApiEndpoint { get; } = "type";
 
         /// <summary>
         /// The name for this resource.
