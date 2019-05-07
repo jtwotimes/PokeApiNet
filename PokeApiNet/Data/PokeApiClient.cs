@@ -2,6 +2,7 @@
 using PokeApiNet.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
@@ -137,6 +138,28 @@ namespace PokeApiNet.Data
             }
 
             return resource;
+        }
+
+        /// <summary>
+        /// Resolves all navigation properties in a collection
+        /// </summary>
+        /// <typeparam name="T">Navigation type</typeparam>
+        /// <param name="collection">The collection of navigation objects</param>
+        /// <returns>A list of resolved objects</returns>
+        public async Task<List<T>> GetResourceAsync<T>(IEnumerable<UrlNavigation<T>> collection) where T : ResourceBase
+        {
+            return (await Task.WhenAll(collection.Select(m => GetResourceAsync(m)))).ToList();
+        }
+
+        /// <summary>
+        /// Resolves a single navigation property
+        /// </summary>
+        /// <typeparam name="T">Navigation type</typeparam>
+        /// <param name="urlResource">The single navigation object to resolve</param>
+        /// <returns>A resolved object</returns>
+        public async Task<T> GetResourceAsync<T>(UrlNavigation<T> urlResource) where T : ResourceBase
+        {
+            return await GetResourceByUrlAsync<T>(urlResource.Url);
         }
 
         /// <summary>

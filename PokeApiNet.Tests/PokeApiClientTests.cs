@@ -172,7 +172,7 @@ public class PokeApiClientTests
         Pokemon pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
 
         // act
-        PokemonSpecies species = await pikachu.Species.ResolveAsync(client);
+        PokemonSpecies species = await client.GetResourceAsync(pikachu.Species);
 
         // assert
         mockHttp.VerifyNoOutstandingExpectation();
@@ -201,13 +201,13 @@ public class PokeApiClientTests
         PokeApiClient client = new PokeApiClient(mockHttp);
 
         Pokemon pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
-        PokemonSpecies species = await pikachu.Species.ResolveAsync(client);
+        PokemonSpecies species = await client.GetResourceAsync(pikachu.Species);
 
         mockHttp.ResetExpectations();
         mockHttp.Expect("*pokemon-species/25/").Respond("application/json", JsonConvert.SerializeObject(responseSpecies));
 
         // act
-        species = await pikachu.Species.ResolveAsync(client);
+        species = await client.GetResourceAsync(pikachu.Species);
 
         // assert
         Assert.Throws<InvalidOperationException>(() => mockHttp.VerifyNoOutstandingExpectation());
@@ -246,7 +246,7 @@ public class PokeApiClientTests
         Item item = await client.GetResourceAsync<Item>("hyper-potion");
 
         // act
-        List<ItemAttribute> attributes = await item.Attributes.ResolveAllAsync(client);
+        List<ItemAttribute> attributes = await client.GetResourceAsync(item.Attributes);
 
         // assert
         mockHttp.VerifyNoOutstandingExpectation();
@@ -905,7 +905,7 @@ public class PokeApiClientTests
         PokemonSpecies pokemonSpecies = await client.GetResourceAsync<PokemonSpecies>(1);
 
         // act
-        List<EggGroup> eggGroups = await pokemonSpecies.EggGroups.ResolveAllAsync(client);
+        List<EggGroup> eggGroups = await client.GetResourceAsync(pokemonSpecies.EggGroups);
 
         // assert
         Assert.True(eggGroups.Any());
