@@ -117,7 +117,7 @@ namespace PokeApiNet.Models
         /// evolve into this Pokémon species.
         /// </summary>
         [JsonProperty("min_level")]
-        public int MinLevel { get; set; }
+        public int? MinLevel { get; set; }
 
         /// <summary>
         /// The minimum required level of happiness the evolving Pokémon

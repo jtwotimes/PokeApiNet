@@ -620,7 +620,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The method by which the move is learned.
         /// </summary>
-        [JsonProperty("move_learned_method")]
+        [JsonProperty("move_learn_method")]
         public NamedApiResource<MoveLearnMethod> MoveLearnMethod { get; set; }
 
         /// <summary>
