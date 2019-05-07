@@ -8,7 +8,7 @@ namespace PokeApiNet.Models
     /// Methods by which the player might can encounter Pokémon
     /// in the wild, e.g., walking in tall grass.
     /// </summary>
-    public class EncounterMethod : ResourceBase
+    public class EncounterMethod : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -20,7 +20,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// A good value for sorting.
@@ -38,7 +38,7 @@ namespace PokeApiNet.Models
     /// Conditions which affect what pokemon might appear in the
     /// wild, e.g., day or night.
     /// </summary>
-    public class EncounterCondition : ResourceBase
+    public class EncounterCondition : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -50,7 +50,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different
@@ -68,7 +68,7 @@ namespace PokeApiNet.Models
     /// Encounter condition values are the various states that an encounter
     /// condition can have, i.e., time of day can be either day or night.
     /// </summary>
-    public class EncounterConditionValue : ResourceBase
+    public class EncounterConditionValue : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -80,7 +80,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The condition this encounter condition value pertains

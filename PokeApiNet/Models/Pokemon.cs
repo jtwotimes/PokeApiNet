@@ -10,7 +10,7 @@ namespace PokeApiNet.Models
     /// the overworld. Pokémon have multiple possible abilities but
     /// can have only one ability at a time. 
     /// </summary>
-    public class Ability : ResourceBase
+    public class Ability : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -22,7 +22,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// Whether or not this ability originated in the main series of the video games.
@@ -125,7 +125,7 @@ namespace PokeApiNet.Models
     /// A Pokémon's Characteristic is determined by the remainder of its
     /// highest IV divided by 5 (gene_modulo).
     /// </summary>
-    public class Characteristic : ResourceBase
+    public class Characteristic : ApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -152,7 +152,7 @@ namespace PokeApiNet.Models
     /// Egg Groups are categories which determine which Pokémon are able
     /// to interbreed. Pokémon may belong to either one or two Egg Groups.
     /// </summary>
-    public class EggGroup : ResourceBase
+    public class EggGroup : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -164,7 +164,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         ///	The name of this resource listed in different languages.
@@ -183,7 +183,7 @@ namespace PokeApiNet.Models
     /// breeding Pokémon but can also result in visual differences or
     /// even different evolutionary lines
     /// </summary>
-    public class Gender : ResourceBase
+    public class Gender : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -195,7 +195,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// A list of Pokémon species that can be this gender and how likely it
@@ -230,7 +230,7 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Growth rates are the speed with which Pokémon gain levels through experience.
     /// </summary>
-    public class GrowthRate : ResourceBase
+    public class GrowthRate : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -242,7 +242,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The formula used to calculate the rate at which the Pokémon species
@@ -284,7 +284,7 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Natures influence how a Pokémon's stats grow.
     /// </summary>
-    public class Nature : ResourceBase
+    public class Nature : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -296,7 +296,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The stat decreased by 10% in Pokémon with this nature.
@@ -383,7 +383,7 @@ namespace PokeApiNet.Models
     /// in Pokéathlons. In Pokéathlons, competitions happen on different
     /// courses; one for each of the different Pokéathlon stats.
     /// </summary>
-    public class PokeathlonStat : ResourceBase
+    public class PokeathlonStat : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -395,7 +395,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.
@@ -444,7 +444,7 @@ namespace PokeApiNet.Models
     /// makes it differ from other Pokémon of the same species, such as base stats,
     /// available abilities and typings.
     /// </summary>
-    public class Pokemon : ResourceBase
+    public class Pokemon : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -456,7 +456,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The base experience gained for defeating this Pokémon.
@@ -728,7 +728,7 @@ namespace PokeApiNet.Models
     /// body. No orange category exists; Pokémon that are primarily orange are
     /// listed as red or brown.
     /// </summary>
-    public class PokemonColor : ResourceBase
+    public class PokemonColor : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -740,7 +740,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.
@@ -760,7 +760,7 @@ namespace PokeApiNet.Models
     /// within a Pokémon species, which do differ in more than just visuals,
     /// the 'Pokémon' entity is used to represent such a variety.
     /// </summary>
-    public class PokemonForm : ResourceBase
+    public class PokemonForm : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -772,7 +772,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The order in which forms should be sorted within all forms.
@@ -872,7 +872,7 @@ namespace PokeApiNet.Models
     /// Habitats are generally different terrain Pokémon can be found in but
     /// can also be areas designated for rare or legendary Pokémon.
     /// </summary>
-    public class PokemonHabitat : ResourceBase
+    public class PokemonHabitat : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -884,7 +884,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.
@@ -901,7 +901,7 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Shapes used for sorting Pokémon in a Pokédex.
     /// </summary>
-    public class PokemonShape : ResourceBase
+    public class PokemonShape : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -913,7 +913,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The "scientific" name of this Pokémon shape listed in
@@ -956,7 +956,7 @@ namespace PokeApiNet.Models
     /// can be found in three different varieties, Wormadam-Trash,
     /// Wormadam-Sandy and Wormadam-Plant.
     /// </summary>
-    public class PokemonSpecies : ResourceBase
+    public class PokemonSpecies : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -968,7 +968,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The order in which species should be sorted. Based on National Dex
@@ -1178,7 +1178,7 @@ namespace PokeApiNet.Models
     /// for each stat which grows as they gain levels and can be altered
     /// momentarily by effects in battles.
     /// </summary>
-    public class Stat : ResourceBase
+    public class Stat : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -1190,7 +1190,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// ID the games use for this stat.
@@ -1279,7 +1279,7 @@ namespace PokeApiNet.Models
     /// which types of Pokémon it is not very effective against, and which types
     /// of Pokémon it is completely ineffective against.
     /// </summary>
-    public class Type : ResourceBase
+    public class Type : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -1291,7 +1291,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// A detail of how effective this type is toward others and vice versa.

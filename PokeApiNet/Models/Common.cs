@@ -8,7 +8,7 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Languages for translations of API resource information.
     /// </summary>
-    public class Language : ResourceBase
+    public class Language : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -20,7 +20,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// Whether or not the games are published in this language.
@@ -241,5 +241,51 @@ namespace PokeApiNet.Models
         /// </summary>
         [JsonProperty("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
+    }
+
+    public class ApiResourceList<T> where T : ApiResource
+    {
+        /// <summary>
+        /// The total number of resources available from this API
+        /// </summary>
+        public int Count { get; set; }
+
+        /// <summary>
+        /// The URL for the next page in the list.
+        /// </summary>
+        public string Next { get; set; }
+
+        /// <summary>
+        /// The URL for the previous page in the list.
+        /// </summary>
+        public string Previous { get; set; }
+
+        /// <summary>
+        /// A list of un-named API resources.
+        /// </summary>
+        public List<ApiResource<T>> Results { get; set; }
+    }
+
+    public class NamedApiResourceList<T> where T : NamedApiResource
+    {
+        /// <summary>
+        /// The total number of resources available from this API
+        /// </summary>
+        public int Count { get; set; }
+
+        /// <summary>
+        /// The URL for the next page in the list.
+        /// </summary>
+        public string Next { get; set; }
+
+        /// <summary>
+        /// The URL for the previous page in the list.
+        /// </summary>
+        public string Previous { get; set; }
+
+        /// <summary>
+        /// A list of named API resources.
+        /// </summary>
+        public List<NamedApiResource<T>> Results { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace PokeApiNet.Models
     /// Contest types are categories judges used to weigh
     /// a Pokémon's condition in Pokémon contests.
     /// </summary>
-    public class ContestType : ResourceBase
+    public class ContestType : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -21,7 +21,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The berry flavor that correlates with this contest
@@ -59,7 +59,7 @@ namespace PokeApiNet.Models
     /// Contest effects refer to the effects of moves
     /// when used in contests.
     /// </summary>
-    public class ContestEffect : ResourceBase
+    public class ContestEffect : ApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -99,7 +99,7 @@ namespace PokeApiNet.Models
     /// Super contest effects refer to the effects of moves
     /// when used in super contests.
     /// </summary>
-    public class SuperContestEffect : ResourceBase
+    public class SuperContestEffect : ApiResource
     {
         /// <summary>
         /// The identifier for this resource.

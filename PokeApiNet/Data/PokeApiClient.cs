@@ -155,5 +155,23 @@ namespace PokeApiNet.Data
         {
             _cacheManager.Clear<T>();
         }
+
+        public async Task<NamedApiResource<T>> GetResourcePageAsync<T>() where T : ResourceBase
+        {
+            if (typeof(T) != typeof(NamedApiResource))
+            {
+                throw new NotSupportedException();
+
+            }
+
+            PropertyInfo propertyInfo = typeof(T).GetProperty("ApiEndpoint", BindingFlags.Static | BindingFlags.Public);
+            string apiEndpoint = propertyInfo.GetValue(null).ToString();
+            HttpResponseMessage response = await _client.GetAsync($"{apiEndpoint}");
+
+            response.EnsureSuccessStatusCode();
+
+            string resp = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<NamedApiResource<T>>(resp);
+        }
     }
 }

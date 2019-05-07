@@ -11,7 +11,7 @@ namespace PokeApiNet.Models
     /// Hidden Machine) can be used outside of battle as well, usually
     /// for the purpose of removing obstacles or exploring new areas.
     /// </summary>
-    public class Move : ResourceBase
+    public class Move : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -23,7 +23,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The percent value of how likely this move is to be successful.
@@ -339,7 +339,7 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Move Ailments are status conditions caused by moves used during battle.
     /// </summary>
-    public class MoveAilment : ResourceBase
+    public class MoveAilment : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -351,7 +351,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// A list of moves that cause this ailment.
@@ -367,7 +367,7 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Styles of moves when used in the Battle Palace.
     /// </summary>
-    public class MoveBattleStyle : ResourceBase
+    public class MoveBattleStyle : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -379,7 +379,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.
@@ -390,7 +390,7 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Very general categories that loosely group move effects.
     /// </summary>
-    public class MoveCategory : ResourceBase
+    public class MoveCategory : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -402,7 +402,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// A list of moves that fall into this category.
@@ -418,7 +418,7 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Damage classes moves can have, e.g. physical, special, or non-damaging.
     /// </summary>
-    public class MoveDamageClass : ResourceBase
+    public class MoveDamageClass : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -430,7 +430,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// A list of moves that fall into this damage public class.
@@ -451,7 +451,7 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Methods by which Pokémon can learn moves.
     /// </summary>
-    public class MoveLearnMethod : ResourceBase
+    public class MoveLearnMethod : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -463,7 +463,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The description of this resource listed in different languages.
@@ -486,7 +486,7 @@ namespace PokeApiNet.Models
     /// Targets moves can be directed at during battle. Targets can be Pokémon,
     /// environments or even other moves.
     /// </summary>
-    public class MoveTarget : ResourceBase
+    public class MoveTarget : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -498,7 +498,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The description of this resource listed in different languages.

@@ -11,7 +11,7 @@ namespace PokeApiNet.Models
     /// set of Pokémon, Moves, Abilities and Types that did not exist in
     /// the previous generation are released.
     /// </summary>
-    public class Generation : ResourceBase
+    public class Generation : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -23,7 +23,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// A list of abilities that were introduced in this generation.
@@ -72,7 +72,7 @@ namespace PokeApiNet.Models
     /// Pokémon in a given region with the exception of the national dex
     /// and some smaller dexes related to portions of a region.
     /// </summary>
-    public class Pokedex : ResourceBase
+    public class Pokedex : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -84,7 +84,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// Whether or not this Pokédex originated in the main series of the video games.
@@ -138,7 +138,7 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Versions of the games, e.g., Red, Blue or Yellow.
     /// </summary>
-    public class Version : ResourceBase
+    public class Version : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -150,7 +150,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.
@@ -167,7 +167,7 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Version groups categorize highly similar versions of the games.
     /// </summary>
-    public class VersionGroup : ResourceBase
+    public class VersionGroup : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
@@ -179,7 +179,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// Order for sorting. Almost by date of release,

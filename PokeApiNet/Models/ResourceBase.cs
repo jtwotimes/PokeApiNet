@@ -16,4 +16,20 @@
         /// </summary>
         public static string ApiEndpoint { get; }
     }
+
+    /// <summary>
+    /// The base class for API resources that have a name property
+    /// </summary>
+    public abstract class NamedApiResource : ResourceBase
+    {
+        /// <summary>
+        /// The name of this resource
+        /// </summary>
+        public abstract string Name { get; set; }
+    }
+
+    /// <summary>
+    /// The base class for API resources that don't have a name property
+    /// </summary>
+    public abstract class ApiResource : ResourceBase { }
 }
