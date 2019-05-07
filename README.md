@@ -32,13 +32,13 @@ Pokemon pikachu = await pokeClient.GetResourceAsync<Pokemon>("pikachu");
 
 `pikachu.Species` only has a `Name` and `Url` property. In order to load this data, an additonal request is needed; this is more of a problem when the property is a list of navigation URLs, such as the `pikachu.Moves.Move` collection.
 
-Each navigation object (specifically classes `NamedApiResource` and `ApiResource`) includes a method to help with resolving these resources. Example:
+`GetResouceAsync` includes overloads to assist with resolving these navigation properties. Example:
 ```cs
 // to resolve a single navigation url property
-PokemonSpecies species = await pikachu.Species.ResolveAsync(pokeClient);
+PokemonSpecies species = await pokeClient.GetResourceAsync(pikachu.Species);
 
 // to resolve a list of them
-List<Move> allMoves = await pikachu.Moves.Select(move => move.Move).ResolveAllAsync(pokeClient);
+List<Move> allMoves = await pokeClient.GetResourceAsync(pikachu.Moves.Select(move => move.Move));
 ```
 
 ## Caching
