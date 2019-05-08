@@ -16,7 +16,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "location";
+        internal new static string ApiEndpoint { get; } = "location";
 
         /// <summary>
         /// The name for this resource.
@@ -56,7 +56,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "location-area";
+        internal new static string ApiEndpoint { get; } = "location-area";
 
         /// <summary>
         /// The name for this resource.
@@ -150,7 +150,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "pal-park-area";
+        internal new static string ApiEndpoint { get; } = "pal-park-area";
 
         /// <summary>
         /// The name for this resource.
@@ -203,7 +203,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "region";
+        internal new static string ApiEndpoint { get; } = "region";
 
         /// <summary>
         /// A list of locations that can be found in this region.

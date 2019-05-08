@@ -18,7 +18,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "item";
+        internal new static string ApiEndpoint { get; } = "item";
 
         /// <summary>
         /// The name for this resource.
@@ -145,7 +145,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "item-attribute";
+        internal new static string ApiEndpoint { get; } = "item-attribute";
 
         /// <summary>
         /// The name for this resource.
@@ -178,7 +178,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "item-category";
+        internal new static string ApiEndpoint { get; } = "item-category";
 
         /// <summary>
         /// The name for this resource.
@@ -211,7 +211,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "item-fling-effect";
+        internal new static string ApiEndpoint { get; } = "item-fling-effect";
 
         /// <summary>
         /// The name for this resource.
@@ -240,7 +240,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "item-pocket";
+        internal new static string ApiEndpoint { get; } = "item-pocket";
 
         /// <summary>
         /// The name for this resource.

@@ -17,7 +17,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "ability";
+        internal new static string ApiEndpoint { get; } = "ability";
 
         /// <summary>
         /// The name for this resource.
@@ -132,7 +132,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "characteristic";
+        internal new static string ApiEndpoint { get; } = "characteristic";
 
         /// <summary>
         /// The remainder of the highest stat/IV divided by 5.
@@ -159,7 +159,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "egg-group";
+        internal new static string ApiEndpoint { get; } = "egg-group";
 
         /// <summary>
         /// The name for this resource.
@@ -190,7 +190,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "gender";
+        internal new static string ApiEndpoint { get; } = "gender";
 
         /// <summary>
         /// The name for this resource.
@@ -237,7 +237,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "growth-rate";
+        internal new static string ApiEndpoint { get; } = "growth-rate";
 
         /// <summary>
         /// The name for this resource.
@@ -291,7 +291,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "nature";
+        internal new static string ApiEndpoint { get; } = "nature";
 
         /// <summary>
         /// The name for this resource.
@@ -390,7 +390,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "pokeathlon-stat";
+        internal new static string ApiEndpoint { get; } = "pokeathlon-stat";
 
         /// <summary>
         /// The name for this resource.
@@ -451,7 +451,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "pokemon";
+        internal new static string ApiEndpoint { get; } = "pokemon";
 
         /// <summary>
         /// The name for this resource.
@@ -735,7 +735,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "pokemon-color";
+        internal new static string ApiEndpoint { get; } = "pokemon-color";
 
         /// <summary>
         /// The name for this resource.
@@ -767,7 +767,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "pokemon-form";
+        internal new static string ApiEndpoint { get; } = "pokemon-form";
 
         /// <summary>
         /// The name for this resource.
@@ -879,7 +879,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "pokemon-habitat";
+        internal new static string ApiEndpoint { get; } = "pokemon-habitat";
 
         /// <summary>
         /// The name for this resource.
@@ -908,7 +908,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "pokemon-shape";
+        internal new static string ApiEndpoint { get; } = "pokemon-shape";
 
         /// <summary>
         /// The name for this resource.
@@ -963,7 +963,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "pokemon-species";
+        internal new static string ApiEndpoint { get; } = "pokemon-species";
 
         /// <summary>
         /// The name for this resource.
@@ -1185,7 +1185,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "stat";
+        internal new static string ApiEndpoint { get; } = "stat";
 
         /// <summary>
         /// The name for this resource.
@@ -1286,7 +1286,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "type";
+        internal new static string ApiEndpoint { get; } = "type";
 
         /// <summary>
         /// The name for this resource.

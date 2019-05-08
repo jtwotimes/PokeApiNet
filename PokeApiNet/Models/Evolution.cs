@@ -18,7 +18,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "evolution-chain";
+        internal new static string ApiEndpoint { get; } = "evolution-chain";
 
         /// <summary>
         /// The item that a Pokémon would be holding
@@ -202,7 +202,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "evolution-trigger";
+        internal new static string ApiEndpoint { get; } = "evolution-trigger";
 
         /// <summary>
         /// The name for this resource.

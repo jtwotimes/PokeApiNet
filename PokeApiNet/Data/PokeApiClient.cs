@@ -56,8 +56,7 @@ namespace PokeApiNet.Data
             // lowercase the resource name as the API doesn't recognize upper case and lower case as the same
             string sanitizedApiParam = apiParam.ToLowerInvariant();
 
-            PropertyInfo propertyInfo = typeof(T).GetProperty("ApiEndpoint", BindingFlags.Static | BindingFlags.Public);
-            string apiEndpoint = propertyInfo.GetValue(null).ToString();
+            string apiEndpoint = GetApiEndpointString<T>();
             HttpResponseMessage response = await _client.GetAsync($"{apiEndpoint}/{sanitizedApiParam}/");        // trailing slash is needed!
 
             response.EnsureSuccessStatusCode();
@@ -179,22 +178,80 @@ namespace PokeApiNet.Data
             _cacheManager.Clear<T>();
         }
 
-        public async Task<NamedApiResource<T>> GetResourcePageAsync<T>() where T : ResourceBase
+        /// <summary>
+        /// Gets a single page of named resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <returns>The paged resource object</returns>
+        public async Task<NamedApiResourceList<T>> GetNamedResourcePageAsync<T>() where T : NamedApiResource
         {
-            if (typeof(T) != typeof(NamedApiResource))
-            {
-                throw new NotSupportedException();
+            string resp = await GetPageAsync<T>();
+            return JsonConvert.DeserializeObject<NamedApiResourceList<T>>(resp);
+        }
 
+        /// <summary>
+        /// Gets the specified page of named resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="limit">The number of resources in a list page</param>
+        /// <param name="offset">Page offset</param>
+        /// <returns>The paged resource object</returns>
+        public async Task<NamedApiResourceList<T>> GetNamedResourcePageAsync<T>(int limit, int offset) where T : NamedApiResource
+        {
+            string resp = await GetPageAsync<T>(limit, offset);
+            return JsonConvert.DeserializeObject<NamedApiResourceList<T>>(resp);
+        }
+
+        /// <summary>
+        /// Gets a single page of unnamed resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <returns>The paged resource object</returns>
+        public async Task<ApiResourceList<T>> GetApiResourcePageAsync<T>() where T : ApiResource
+        {
+            string resp = await GetPageAsync<T>();
+            return JsonConvert.DeserializeObject<ApiResourceList<T>>(resp);
+        }
+
+        /// <summary>
+        /// Gets the specified page of unnamed resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="limit">The number of resources in a list page</param>
+        /// <param name="offset">Page offset</param>
+        /// <returns>The paged resource object</returns>
+        public async Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(int limit, int offset) where T : ApiResource
+        {
+            string resp = await GetPageAsync<T>(limit, offset);
+            return JsonConvert.DeserializeObject<ApiResourceList<T>>(resp);
+        }
+
+        private async Task<string> GetPageAsync<T>(int? limit = null, int? offset = null) where T : ResourceBase
+        {
+            string apiEndpoint = GetApiEndpointString<T>();
+            string queryParameters = String.Empty;
+
+            // limit and offset cannot both be null
+            if (limit != null)
+            {
+                queryParameters = $"?limit={limit}";
+                if (offset != null)
+                {
+                    queryParameters += $"&offset={offset}";
+                }
             }
 
-            PropertyInfo propertyInfo = typeof(T).GetProperty("ApiEndpoint", BindingFlags.Static | BindingFlags.Public);
-            string apiEndpoint = propertyInfo.GetValue(null).ToString();
-            HttpResponseMessage response = await _client.GetAsync($"{apiEndpoint}");
+            HttpResponseMessage response = await _client.GetAsync($"{apiEndpoint}{queryParameters}");
 
             response.EnsureSuccessStatusCode();
 
-            string resp = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<NamedApiResource<T>>(resp);
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        private string GetApiEndpointString<T>()
+        {
+            PropertyInfo propertyInfo = typeof(T).GetProperty("ApiEndpoint", BindingFlags.Static | BindingFlags.NonPublic);
+            return propertyInfo.GetValue(null).ToString();
         }
     }
 }

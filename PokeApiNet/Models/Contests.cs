@@ -16,7 +16,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "contest-type";
+        internal new static string ApiEndpoint { get; } = "contest-type";
 
         /// <summary>
         /// The name for this resource.
@@ -66,7 +66,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "contest-effect";
+        internal new static string ApiEndpoint { get; } = "contest-effect";
 
         /// <summary>
         /// The base number of hearts the user of this move
@@ -106,7 +106,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "super-contest-effect";
+        internal new static string ApiEndpoint { get; } = "super-contest-effect";
 
         /// <summary>
         /// The level of appeal this super contest effect has.

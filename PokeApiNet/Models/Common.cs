@@ -15,7 +15,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "language";
+        internal new static string ApiEndpoint { get; } = "language";
 
         /// <summary>
         /// The name for this resource.
@@ -241,51 +241,5 @@ namespace PokeApiNet.Models
         /// </summary>
         [JsonProperty("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
-    }
-
-    public class ApiResourceList<T> where T : ApiResource
-    {
-        /// <summary>
-        /// The total number of resources available from this API
-        /// </summary>
-        public int Count { get; set; }
-
-        /// <summary>
-        /// The URL for the next page in the list.
-        /// </summary>
-        public string Next { get; set; }
-
-        /// <summary>
-        /// The URL for the previous page in the list.
-        /// </summary>
-        public string Previous { get; set; }
-
-        /// <summary>
-        /// A list of un-named API resources.
-        /// </summary>
-        public List<ApiResource<T>> Results { get; set; }
-    }
-
-    public class NamedApiResourceList<T> where T : NamedApiResource
-    {
-        /// <summary>
-        /// The total number of resources available from this API
-        /// </summary>
-        public int Count { get; set; }
-
-        /// <summary>
-        /// The URL for the next page in the list.
-        /// </summary>
-        public string Next { get; set; }
-
-        /// <summary>
-        /// The URL for the previous page in the list.
-        /// </summary>
-        public string Previous { get; set; }
-
-        /// <summary>
-        /// A list of named API resources.
-        /// </summary>
-        public List<NamedApiResource<T>> Results { get; set; }
     }
 }

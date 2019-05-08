@@ -18,7 +18,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "move";
+        internal new static string ApiEndpoint { get; } = "move";
 
         /// <summary>
         /// The name for this resource.
@@ -346,7 +346,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "move-ailment";
+        internal new static string ApiEndpoint { get; } = "move-ailment";
 
         /// <summary>
         /// The name for this resource.
@@ -374,7 +374,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "move-battle-style";
+        internal new static string ApiEndpoint { get; } = "move-battle-style";
 
         /// <summary>
         /// The name for this resource.
@@ -397,7 +397,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "move-category";
+        internal new static string ApiEndpoint { get; } = "move-category";
 
         /// <summary>
         /// The name for this resource.
@@ -425,7 +425,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "move-damage-class";
+        internal new static string ApiEndpoint { get; } = "move-damage-class";
 
         /// <summary>
         /// The name for this resource.
@@ -458,7 +458,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "move-learn-method";
+        internal new static string ApiEndpoint { get; } = "move-learn-method";
 
         /// <summary>
         /// The name for this resource.
@@ -493,7 +493,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "move-target";
+        internal new static string ApiEndpoint { get; } = "move-target";
 
         /// <summary>
         /// The name for this resource.

@@ -15,7 +15,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "encounter-method";
+        internal new static string ApiEndpoint { get; } = "encounter-method";
 
         /// <summary>
         /// The name for this resource.
@@ -45,7 +45,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "encounter-condition";
+        internal new static string ApiEndpoint { get; } = "encounter-condition";
 
         /// <summary>
         /// The name for this resource.
@@ -75,7 +75,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "encounter-condition-value";
+        internal new static string ApiEndpoint { get; } = "encounter-condition-value";
 
         /// <summary>
         /// The name for this resource.

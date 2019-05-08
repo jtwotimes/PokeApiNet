@@ -18,7 +18,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "machine";
+        internal new static string ApiEndpoint { get; } = "machine";
 
         /// <summary>
         /// The TM or HM item that corresponds to this machine.

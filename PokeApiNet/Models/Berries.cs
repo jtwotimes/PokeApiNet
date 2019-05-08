@@ -16,7 +16,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "berry";
+        internal new static string ApiEndpoint { get; } = "berry";
 
         /// <summary>
         /// The name for this resource.
@@ -115,7 +115,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "berry-firmness";
+        internal new static string ApiEndpoint { get; } = "berry-firmness";
 
         /// <summary>
         /// The name for this resource.
@@ -145,7 +145,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "berry-flavor";
+        internal new static string ApiEndpoint { get; } = "berry-flavor";
 
         /// <summary>
         /// The name for this resource.

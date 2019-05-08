@@ -18,7 +18,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "generation";
+        internal new static string ApiEndpoint { get; } = "generation";
 
         /// <summary>
         /// The name for this resource.
@@ -79,7 +79,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "pokedex";
+        internal new static string ApiEndpoint { get; } = "pokedex";
 
         /// <summary>
         /// The name for this resource.
@@ -145,7 +145,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "version";
+        internal new static string ApiEndpoint { get; } = "version";
 
         /// <summary>
         /// The name for this resource.
@@ -174,7 +174,7 @@ namespace PokeApiNet.Models
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "version-group";
+        internal new static string ApiEndpoint { get; } = "version-group";
 
         /// <summary>
         /// The name for this resource.

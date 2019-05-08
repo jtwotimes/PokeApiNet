@@ -938,4 +938,18 @@ public class PokeApiClientTests
         // assert
         Assert.True(type.Id != default(int));
     }
+
+    [Fact]
+    [Trait("Category", "Integration")]
+    public async Task GetPagedResourceIntegrationTest()
+    {
+        // assemble
+        PokeApiClient client = new PokeApiClient();
+
+        // act
+        NamedApiResourceList<Berry> page = await client.GetNamedResourcePageAsync<Berry>();
+
+        // assert
+        
+    }
 }
