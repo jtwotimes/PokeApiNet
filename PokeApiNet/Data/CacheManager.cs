@@ -18,7 +18,7 @@ namespace PokeApiNet.Data
         private readonly Dictionary<System.Type, GenericCache<ResourceBase>> _allCaches;
         private readonly List<System.Type> ApiTypes =
             Assembly.GetExecutingAssembly().GetTypes()
-            .Where(type => type.IsSubclassOf(typeof(ResourceBase)))
+            .Where(type => type.IsSubclassOf(typeof(ApiResource)) || type.IsSubclassOf(typeof(NamedApiResource)))
             .ToList();
 
         /// <summary>
