@@ -41,8 +41,30 @@ PokemonSpecies species = await pokeClient.GetResourceAsync(pikachu.Species);
 List<Move> allMoves = await pokeClient.GetResourceAsync(pikachu.Moves.Select(move => move.Move));
 ```
 
+## Paging
+PokeAPI supports the paging of resources, allowing users to get a list of available resources for that API. Depending on the shape of the resource data, two methods for paging are included, along with overloads to allow for the specification of the page count limit and the page offset. Example:
+```cs
+// get a page of data (defaults to a limit of 20)
+NamedApiResourceList<Berry> firstBerryPage = await client.GetNamedResourcePageAsync<Berry>();
+
+// to specify a certain page, use the provided overloads
+NamedApiResourceList<Berry> lotsMoreBerriesPage = await client.GetNamedResourcePageAsync<Berry>(60, 2);
+```
+
+Because the `Berry` resource has a `Name` property, the `GetNamedResourcePageAsync()` method is used. For resources that do not have a `Name` property, use the `GetApiResourcePageAsync()` method. Example:
+```cs
+ApiResourceList<ContestEffect> contestEffectPage = await client.GetApiResourcePageAsync<ContestEffect>();
+```
+
+Regardless of which method is used, the returning object includes a `Results` collection that can be used to pull the full resource data. Example:
+```cs
+Berry cheri = await client.GetResourceAsync<Berry>(firstBerryPage.Results[0]);
+```
+
+Refer to the PokeAPI documention to see which resources include a `Name` property.
+
 ## Caching
-Every request response is automatically cached in memory, making all subsequent requests for the same resource pull cached data. Example:
+Every resource response is automatically cached in memory, making all subsequent requests for the same resource pull cached data. Example:
 ```cs
 // this will fetch the data from the API
 Pokemon mew = await pokeClient.GetResourceAsync<Pokemon>(151);
