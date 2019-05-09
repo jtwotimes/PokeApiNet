@@ -11,19 +11,19 @@ namespace PokeApiNet.Models
     /// have various uses, including healing, powering up, helping
     /// catch Pokémon, or to access a new area.
     /// </summary>
-    public class Item : ResourceBase
+    public class Item : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "item";
+        internal new static string ApiEndpoint { get; } = "item";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The price of this item in stores.
@@ -138,19 +138,19 @@ namespace PokeApiNet.Models
     /// Item attributes define particular aspects of items,
     /// e.g. "usable in battle" or "consumable".
     /// </summary>
-    public class ItemAttribute : ResourceBase
+    public class ItemAttribute : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "item-attribute";
+        internal new static string ApiEndpoint { get; } = "item-attribute";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// A list of items that have this attribute.
@@ -171,19 +171,19 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Item categories determine where items will be placed in the players bag.
     /// </summary>
-    public class ItemCategory : ResourceBase
+    public class ItemCategory : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "item-category";
+        internal new static string ApiEndpoint { get; } = "item-category";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// A list of items that are a part of this category.
@@ -204,19 +204,19 @@ namespace PokeApiNet.Models
     /// <summary>
     /// The various effects of the move "Fling" when used with different items.
     /// </summary>
-    public class ItemFlingEffect : ResourceBase
+    public class ItemFlingEffect : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "item-fling-effect";
+        internal new static string ApiEndpoint { get; } = "item-fling-effect";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The result of this fling effect listed in different languages.
@@ -233,19 +233,19 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Pockets within the players bag used for storing items by category.
     /// </summary>
-    public class ItemPocket : ResourceBase
+    public class ItemPocket : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "item-pocket";
+        internal new static string ApiEndpoint { get; } = "item-pocket";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// A list of item categories that are relevant to this item pocket.

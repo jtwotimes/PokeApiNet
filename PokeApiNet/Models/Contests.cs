@@ -9,19 +9,19 @@ namespace PokeApiNet.Models
     /// Contest types are categories judges used to weigh
     /// a Pokémon's condition in Pokémon contests.
     /// </summary>
-    public class ContestType : ResourceBase
+    public class ContestType : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "contest-type";
+        internal new static string ApiEndpoint { get; } = "contest-type";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The berry flavor that correlates with this contest
@@ -59,14 +59,14 @@ namespace PokeApiNet.Models
     /// Contest effects refer to the effects of moves
     /// when used in contests.
     /// </summary>
-    public class ContestEffect : ResourceBase
+    public class ContestEffect : ApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "contest-effect";
+        internal new static string ApiEndpoint { get; } = "contest-effect";
 
         /// <summary>
         /// The base number of hearts the user of this move
@@ -99,14 +99,14 @@ namespace PokeApiNet.Models
     /// Super contest effects refer to the effects of moves
     /// when used in super contests.
     /// </summary>
-    public class SuperContestEffect : ResourceBase
+    public class SuperContestEffect : ApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "super-contest-effect";
+        internal new static string ApiEndpoint { get; } = "super-contest-effect";
 
         /// <summary>
         /// The level of appeal this super contest effect has.

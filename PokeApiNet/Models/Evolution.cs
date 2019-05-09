@@ -11,14 +11,14 @@ namespace PokeApiNet.Models
     /// for each as well as Pokémon they can evolve into up through the
     /// hierarchy.
     /// </summary>
-    public class EvolutionChain : ResourceBase
+    public class EvolutionChain : ApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "evolution-chain";
+        internal new static string ApiEndpoint { get; } = "evolution-chain";
 
         /// <summary>
         /// The item that a Pokémon would be holding
@@ -195,19 +195,19 @@ namespace PokeApiNet.Models
     /// Evolution triggers are the events and conditions that
     /// cause a Pokémon to evolve.
     /// </summary>
-    public class EvolutionTrigger : ResourceBase
+    public class EvolutionTrigger : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "evolution-trigger";
+        internal new static string ApiEndpoint { get; } = "evolution-trigger";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.

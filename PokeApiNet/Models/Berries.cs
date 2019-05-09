@@ -9,19 +9,19 @@ namespace PokeApiNet.Models
     /// Berries are small fruits that can provide HP and status condition restoration,
     /// stat enhancement, and even damage negation when eaten by Pokémon.
     /// </summary>
-    public class Berry : ResourceBase
+    public class Berry : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "berry";
+        internal new static string ApiEndpoint { get; } = "berry";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// Time it takes the tree to grow one stage, in hours.
@@ -108,19 +108,19 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Berries can be soft or hard.
     /// </summary>
-    public class BerryFirmness : ResourceBase
+    public class BerryFirmness : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "berry-firmness";
+        internal new static string ApiEndpoint { get; } = "berry-firmness";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// A list of berries with this firmness.
@@ -138,19 +138,19 @@ namespace PokeApiNet.Models
     /// Flavors determine whether a Pokémon will benefit or suffer from eating
     /// a berry based on their nature.
     /// </summary>
-    public class BerryFlavor : ResourceBase
+    public class BerryFlavor : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "berry-flavor";
+        internal new static string ApiEndpoint { get; } = "berry-flavor";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// A list of berries with this firmness.

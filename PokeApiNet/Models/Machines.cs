@@ -11,14 +11,14 @@ namespace PokeApiNet.Models
     /// not certain that one specific TM or HM corresponds to a
     /// single Machine.
     /// </summary>
-    public class Machine : ResourceBase
+    public class Machine : ApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "machine";
+        internal new static string ApiEndpoint { get; } = "machine";
 
         /// <summary>
         /// The TM or HM item that corresponds to this machine.

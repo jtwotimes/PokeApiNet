@@ -9,19 +9,19 @@ namespace PokeApiNet.Models
     /// Locations that can be visited within the games. Locations make
     /// up sizable portions of regions, like cities or routes.
     /// </summary>
-    public class Location : ResourceBase
+    public class Location : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "location";
+        internal new static string ApiEndpoint { get; } = "location";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The region this location can be found in.
@@ -49,19 +49,19 @@ namespace PokeApiNet.Models
     /// Location areas are sections of areas, such as floors in a building
     /// or cave. Each area has its own set of possible Pokémon encounters.
     /// </summary>
-    public class LocationArea : ResourceBase
+    public class LocationArea : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "location-area";
+        internal new static string ApiEndpoint { get; } = "location-area";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The internal id of an API resource within game data.
@@ -143,19 +143,19 @@ namespace PokeApiNet.Models
     /// Areas used for grouping Pokémon encounters in Pal Park. They're like
     /// habitats that are specific to Pal Park.
     /// </summary>
-    public class PalParkArea : ResourceBase
+    public class PalParkArea : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "pal-park-area";
+        internal new static string ApiEndpoint { get; } = "pal-park-area";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.
@@ -196,14 +196,14 @@ namespace PokeApiNet.Models
     /// the main difference between regions is the species of Pokémon
     /// that can be encountered within them.
     /// </summary>
-    public class Region : ResourceBase
+    public class Region : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "region";
+        internal new static string ApiEndpoint { get; } = "region";
 
         /// <summary>
         /// A list of locations that can be found in this region.
@@ -213,7 +213,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// The name of this resource listed in different languages.

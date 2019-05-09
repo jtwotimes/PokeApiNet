@@ -8,19 +8,19 @@ namespace PokeApiNet.Models
     /// <summary>
     /// Languages for translations of API resource information.
     /// </summary>
-    public class Language : ResourceBase
+    public class Language : NamedApiResource
     {
         /// <summary>
         /// The identifier for this resource.
         /// </summary>
         public override int Id { get; set; }
 
-        public new static string ApiEndpoint { get; } = "language";
+        internal new static string ApiEndpoint { get; } = "language";
 
         /// <summary>
         /// The name for this resource.
         /// </summary>
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
         /// <summary>
         /// Whether or not the games are published in this language.
