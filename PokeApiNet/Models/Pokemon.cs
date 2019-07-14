@@ -302,7 +302,7 @@ namespace PokeApiNet.Models
         /// The stat decreased by 10% in Pokémon with this nature.
         /// </summary>
         [JsonProperty("decreased_stat")]
-        public NamedApiResource<Stat> DescreasedStat { get; set; }
+        public NamedApiResource<Stat> DecreasedStat { get; set; }
 
         /// <summary>
         /// The stat increased by 10% in Pokémon with this nature.

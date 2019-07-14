@@ -162,7 +162,7 @@ namespace PokeApiNet.Models
         /// flavor.
         /// </summary>
         [JsonProperty("contest_type")]
-        public NamedApiResource<ContestType> ContentType { get; set; }
+        public NamedApiResource<ContestType> ContestType { get; set; }
 
         /// <summary>
         /// The name of this resource in different languages.
