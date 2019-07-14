@@ -70,7 +70,7 @@ namespace PokeApiNet.Models
         /// The previous effect of this ability listed in different languages.
         /// </summary>
         [JsonProperty("effect_entries")]
-        public List<Names> EffectEntries { get; set; }
+        public List<Effects> EffectEntries { get; set; }
 
         /// <summary>
         /// The version group in which the previous effect of this ability originated.
