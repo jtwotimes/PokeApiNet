@@ -1102,7 +1102,7 @@ namespace PokeApiNet.Models
         /// A list of flavor text entries for this Pokémon species.
         /// </summary>
         [JsonProperty("flavor_text_entries")]
-        public List<FlavorTexts> FlavorTextEntries { get; set; }
+        public List<PokemonSpeciesFlavorTexts> FlavorTextEntries { get; set; }
 
         /// <summary>
         /// Descriptions of different forms Pokémon take on within the Pokémon
@@ -1120,6 +1120,25 @@ namespace PokeApiNet.Models
         /// A list of the Pokémon that exist within this Pokémon species.
         /// </summary>
         public List<PokemonSpeciesVariety> Varieties { get; set; }
+    }
+
+    public class PokemonSpeciesFlavorTexts
+    {
+        /// <summary>
+        /// The localized flavor text for an api resource in a specific language
+        /// </summary>
+        [JsonProperty("flavor_text")]
+        public string FlavorText { get; set; }
+
+        /// <summary>
+        /// The version.
+        /// </summary>
+        public NamedApiResource<Version> Version { get; set; }
+
+        /// <summary>
+        /// The language this flavor text is in.
+        /// </summary>
+        public NamedApiResource<Language> Language { get; set; }
     }
 
     public class Genuses
