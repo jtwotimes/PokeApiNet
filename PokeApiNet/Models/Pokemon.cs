@@ -365,7 +365,7 @@ namespace PokeApiNet.Models
         /// The stat being affected.
         /// </summary>
         [JsonProperty("pokeathlon_stat")]
-        public NamedApiResource<Stat> PokeathlonStat { get; set; }
+        public NamedApiResource<PokeathlonStat> PokeathlonStat { get; set; }
     }
 
     public class MoveBattleStylePreference
