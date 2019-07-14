@@ -146,6 +146,17 @@ namespace PokeApiNet.Models
         /// </summary>
         [JsonProperty("possible_values")]
         public List<int> PossibleValues { get; set; }
+
+        /// <summary>
+        /// The highest stat of this characteristic.
+        /// </summary>
+        [JsonProperty("highest_stat")]
+        public Stat HighestStat { get; set; }
+
+        /// <summary>
+        /// The descriptions of this characteristic listed in different languages.
+        /// </summary>
+        public List<Descriptions> Descriptions { get; set; }
     }
 
     /// <summary>
