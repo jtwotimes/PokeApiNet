@@ -1131,7 +1131,7 @@ namespace PokeApiNet.Models
         public string FlavorText { get; set; }
 
         /// <summary>
-        /// The version.
+        /// The game version this flavor text is extracted from.
         /// </summary>
         public NamedApiResource<Version> Version { get; set; }
 
