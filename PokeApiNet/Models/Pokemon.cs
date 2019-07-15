@@ -151,7 +151,7 @@ namespace PokeApiNet.Models
         /// The highest stat of this characteristic.
         /// </summary>
         [JsonProperty("highest_stat")]
-        public Stat HighestStat { get; set; }
+        public NamedApiResource<Stat> HighestStat { get; set; }
 
         /// <summary>
         /// The descriptions of this characteristic listed in different languages.
