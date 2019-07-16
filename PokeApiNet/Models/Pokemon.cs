@@ -942,7 +942,7 @@ namespace PokeApiNet.Models
         /// A list of the Pokémon species that have this shape.
         /// </summary>
         [JsonProperty("pokemon_species")]
-        public List<PokemonSpecies> PokemonSpecies { get; set; }
+        public List<NamedApiResource<PokemonSpecies>> PokemonSpecies { get; set; }
     }
 
     public class AwesomeNames
