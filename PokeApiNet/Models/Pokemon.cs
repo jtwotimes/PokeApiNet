@@ -70,7 +70,7 @@ namespace PokeApiNet.Models
         /// The previous effect of this ability listed in different languages.
         /// </summary>
         [JsonProperty("effect_entries")]
-        public List<Names> EffectEntries { get; set; }
+        public List<Effects> EffectEntries { get; set; }
 
         /// <summary>
         /// The version group in which the previous effect of this ability originated.
@@ -146,6 +146,17 @@ namespace PokeApiNet.Models
         /// </summary>
         [JsonProperty("possible_values")]
         public List<int> PossibleValues { get; set; }
+
+        /// <summary>
+        /// The highest stat of this characteristic.
+        /// </summary>
+        [JsonProperty("highest_stat")]
+        public NamedApiResource<Stat> HighestStat { get; set; }
+
+        /// <summary>
+        /// The descriptions of this characteristic listed in different languages.
+        /// </summary>
+        public List<Descriptions> Descriptions { get; set; }
     }
 
     /// <summary>
@@ -354,7 +365,7 @@ namespace PokeApiNet.Models
         /// The stat being affected.
         /// </summary>
         [JsonProperty("pokeathlon_stat")]
-        public NamedApiResource<Stat> PokeathlonStat { get; set; }
+        public NamedApiResource<PokeathlonStat> PokeathlonStat { get; set; }
     }
 
     public class MoveBattleStylePreference
@@ -931,7 +942,7 @@ namespace PokeApiNet.Models
         /// A list of the Pokémon species that have this shape.
         /// </summary>
         [JsonProperty("pokemon_species")]
-        public List<PokemonSpecies> PokemonSpecies { get; set; }
+        public List<NamedApiResource<PokemonSpecies>> PokemonSpecies { get; set; }
     }
 
     public class AwesomeNames
@@ -1091,7 +1102,7 @@ namespace PokeApiNet.Models
         /// A list of flavor text entries for this Pokémon species.
         /// </summary>
         [JsonProperty("flavor_text_entries")]
-        public List<FlavorTexts> FlavorTextEntries { get; set; }
+        public List<PokemonSpeciesFlavorTexts> FlavorTextEntries { get; set; }
 
         /// <summary>
         /// Descriptions of different forms Pokémon take on within the Pokémon
@@ -1109,6 +1120,25 @@ namespace PokeApiNet.Models
         /// A list of the Pokémon that exist within this Pokémon species.
         /// </summary>
         public List<PokemonSpeciesVariety> Varieties { get; set; }
+    }
+
+    public class PokemonSpeciesFlavorTexts
+    {
+        /// <summary>
+        /// The localized flavor text for an api resource in a specific language
+        /// </summary>
+        [JsonProperty("flavor_text")]
+        public string FlavorText { get; set; }
+
+        /// <summary>
+        /// The game version this flavor text is extracted from.
+        /// </summary>
+        public NamedApiResource<Version> Version { get; set; }
+
+        /// <summary>
+        /// The language this flavor text is in.
+        /// </summary>
+        public NamedApiResource<Language> Language { get; set; }
     }
 
     public class Genuses

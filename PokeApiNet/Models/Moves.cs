@@ -211,7 +211,7 @@ namespace PokeApiNet.Models
         /// The category of move this move falls under, e.g. damage or
         /// ailment.
         /// </summary>
-        public NamedApiResource<Move> Category { get; set; }
+        public NamedApiResource<MoveCategory> Category { get; set; }
 
         /// <summary>
         /// The minimum number of times this move hits. Null if it always
