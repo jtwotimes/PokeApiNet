@@ -44,7 +44,7 @@ namespace PokeApiNet.Models
         /// The effect of this ability listed in different languages.
         /// </summary>
         [JsonProperty("effect_entries")]
-        public List<Names> EffectEntries { get; set; }
+        public List<VerboseEffect> EffectEntries { get; set; }
 
         /// <summary>
         /// The list of previous effects this ability has had across version groups.
