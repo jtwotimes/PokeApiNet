@@ -33,7 +33,8 @@ namespace PokeApiNet.Data
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PokeApiClient"/> with 
+        /// a given value for the `User-Agent` header
         /// </summary>
         /// <param name="userAgent">The value for the default `User-Agent` header.</param>
         public PokeApiClient(ProductHeaderValue userAgent)
@@ -57,7 +58,7 @@ namespace PokeApiNet.Data
         }
 
         /// <summary>
-        /// Constructor with message handler
+        /// Constructor with message handler and `User-Agent` header value
         /// </summary>
         /// <param name="messageHandler">Message handler implementation</param>
         /// <param name="userAgent">The value for the default `User-Agent` header.</param>
