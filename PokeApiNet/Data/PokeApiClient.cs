@@ -82,7 +82,7 @@ namespace PokeApiNet.Data
         private static ProductHeaderValue GetDefaultUserAgent()
         {
             var version = typeof(PokeApiClient).Assembly.GetName().Version;
-            return new ProductHeaderValue("PokeApiNet", $"{version.Major}.${version.Minor}");
+            return new ProductHeaderValue("PokeApiNet", $"{version.Major}.{version.Minor}");
         }
 
         /// <summary>
