@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PokeApiNet.Models
 {
@@ -39,7 +37,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// Power points. The number of times this move can be used.
         /// </summary>
-        public int Pp { get; set; }
+        public int? Pp { get; set; }
 
         /// <summary>
         /// A value between -8 and 8. Sets the order in which moves are executed
@@ -211,7 +209,7 @@ namespace PokeApiNet.Models
         /// The category of move this move falls under, e.g. damage or
         /// ailment.
         /// </summary>
-        public NamedApiResource<Move> Category { get; set; }
+        public NamedApiResource<MoveCategory> Category { get; set; }
 
         /// <summary>
         /// The minimum number of times this move hits. Null if it always

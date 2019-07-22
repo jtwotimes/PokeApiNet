@@ -1,10 +1,4 @@
-﻿using PokeApiNet.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PokeApiNet.Models
+﻿namespace PokeApiNet.Models
 {
     /// <summary>
     /// Allows for automatic fetching of a resource via a url

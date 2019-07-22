@@ -1,8 +1,6 @@
 ﻿using PokeApiNet.Data;
 using PokeApiNet.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 public class CacheManagerTests

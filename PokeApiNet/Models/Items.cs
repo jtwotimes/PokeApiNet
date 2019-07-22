@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PokeApiNet.Models
 {
@@ -50,7 +48,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The category of items this item falls into.
         /// </summary>
-        public ItemCategory Category { get; set; }
+        public NamedApiResource<ItemCategory> Category { get; set; }
 
         /// <summary>
         /// The effect of this ability listed in different languages.

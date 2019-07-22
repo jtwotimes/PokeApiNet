@@ -9,6 +9,9 @@ namespace PokeApiNet.Tests
 {
     public class IntegrationTests
     {
+        public static IEnumerable<object[]> GenerateIds(int start, int count) =>
+            Enumerable.Range(start, count).Select(index => new object[] { index });
+
         [Fact]
         [Trait("Category", "Integration")]
         public async Task GetBerryResourceAsyncIntegrationTest()
@@ -373,15 +376,17 @@ namespace PokeApiNet.Tests
             Assert.True(machine.Id != default(int));
         }
 
-        [Fact]
+        [Theory]
+        [MemberData(nameof(GenerateIds), 1, 1)]
+        [MemberData(nameof(GenerateIds), 10_016, 3)]
         [Trait("Category", "Integration")]
-        public async Task GetMoveResourceAsyncIntegrationTest()
+        public async Task GetMoveResourceAsyncIntegrationTest(int id)
         {
             // assemble
             PokeApiClient client = new PokeApiClient();
 
             // act
-            Move move = await client.GetResourceAsync<Move>(1);
+            Move move = await client.GetResourceAsync<Move>(id);
 
             // assert
             Assert.True(move.Id != default(int));
@@ -1367,5 +1372,5 @@ namespace PokeApiNet.Tests
             // assert
             Assert.True(page.Results.Any());
         }
-    }
+    } 
 }
