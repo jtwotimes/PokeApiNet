@@ -6,12 +6,53 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
 public class PokeApiClientTests
 {
+    [Fact]
+    [Trait("Category", "Unit")]
+    public async Task DefaultUserAgentHeaderIsSet()
+    {
+        // assemble
+        ProductHeaderValue userAgent = PokeApiClient.DefaultUserAgent;
+        MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
+        mockHttp.When("*")
+            .WithHeaders("User-Agent", userAgent.ToString())
+            .Respond("application/json", JsonConvert.SerializeObject(new Berry { Id = 1 }));
+
+        PokeApiClient client = new PokeApiClient(mockHttp);
+
+        // act
+        Berry berry = await client.GetResourceAsync<Berry>(1);
+
+        // assert
+        mockHttp.VerifyNoOutstandingExpectation();
+    }
+
+    [Fact]
+    [Trait("Category", "Unit")]
+    public async Task CustomUserAgentHeaderIsSet()
+    {
+        // assemble
+        ProductHeaderValue userAgent = ProductHeaderValue.Parse("CustomUserAgent/2.0");
+        MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
+        mockHttp.When("*")
+            .WithHeaders("User-Agent", userAgent.ToString())
+            .Respond("application/json", JsonConvert.SerializeObject(new Berry { Id = 1 }));
+
+        PokeApiClient client = new PokeApiClient(mockHttp, userAgent);
+
+        // act
+        Berry berry = await client.GetResourceAsync<Berry>(1);
+        
+        // assert
+        mockHttp.VerifyNoOutstandingExpectation();
+    }
+
     [Fact]
     [Trait("Category", "Unit")]
     public async Task GetResourceAsyncByIdAutoCacheTest()

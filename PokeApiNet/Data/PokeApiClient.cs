@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +16,10 @@ namespace PokeApiNet.Data
     /// </summary>
     public class PokeApiClient : IDisposable
     {
+        /// <summary>
+        /// The default `User-Agent` header value used by instances of <see cref="PokeApiClient"/>.
+        /// </summary>
+        public static readonly ProductHeaderValue DefaultUserAgent = GetDefaultUserAgent();
         private readonly HttpClient _client;
         private readonly Uri _baseUri = new Uri("https://pokeapi.co/api/v2/");
         private readonly CacheManager _cacheManager = new CacheManager();
@@ -23,8 +28,24 @@ namespace PokeApiNet.Data
         /// Default constructor
         /// </summary>
         public PokeApiClient()
+            : this(DefaultUserAgent)
         {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PokeApiClient"/> with 
+        /// a given value for the `User-Agent` header
+        /// </summary>
+        /// <param name="userAgent">The value for the default `User-Agent` header.</param>
+        public PokeApiClient(ProductHeaderValue userAgent)
+        {
+            if (userAgent == null)
+            {
+                throw new ArgumentNullException(nameof(userAgent));
+            }
+
             _client = new HttpClient() { BaseAddress = _baseUri };
+            _client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(userAgent));
         }
 
         /// <summary>
@@ -32,8 +53,24 @@ namespace PokeApiNet.Data
         /// </summary>
         /// <param name="messageHandler">Message handler implementation</param>
         public PokeApiClient(HttpMessageHandler messageHandler)
+            : this(messageHandler, DefaultUserAgent)
         {
+        }
+
+        /// <summary>
+        /// Constructor with message handler and `User-Agent` header value
+        /// </summary>
+        /// <param name="messageHandler">Message handler implementation</param>
+        /// <param name="userAgent">The value for the default `User-Agent` header.</param>
+        public PokeApiClient(HttpMessageHandler messageHandler, ProductHeaderValue userAgent)
+        {
+            if (userAgent == null)
+            {
+                throw new ArgumentNullException(nameof(userAgent));
+            }
+
             _client = new HttpClient(messageHandler) { BaseAddress = _baseUri };
+            _client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(userAgent));
         }
 
         /// <summary>
@@ -42,6 +79,12 @@ namespace PokeApiNet.Data
         public void Dispose()
         {
             _client.Dispose();
+        }
+
+        private static ProductHeaderValue GetDefaultUserAgent()
+        {
+            var version = typeof(PokeApiClient).Assembly.GetName().Version;
+            return new ProductHeaderValue("PokeApiNet", $"{version.Major}.{version.Minor}");
         }
 
         /// <summary>
