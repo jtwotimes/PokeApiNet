@@ -9,61 +9,61 @@ namespace PokeApiNet.Tests.Cache
     {
         [Fact]
         [Trait("Category", "Unit")]
-        public void CacheManagerGetByIdTest()
+        public void Get_StoredId_ReturnsResource()
         {
             // assemble
-            ResourceCacheManager cacheManager = new ResourceCacheManager();
-            Berry berry = new Berry { Id = 1 };
+            ResourceCacheManager sut = new ResourceCacheManager();
+            Berry berry = new Berry { Name = "cheri", Id = 1 };
+            sut.Store(berry);
 
             // act
-            cacheManager.Store(berry);
+            Berry retrievedBerry = sut.Get<Berry>(berry.Id);
 
             // assert
-            Berry retrievedBerry = cacheManager.Get<Berry>(1);
             Assert.Same(berry, retrievedBerry);
         }
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void CacheManagerGetByIdDoesNotExistTest()
+        public void Get_NonStoredId_ReturnsNull()
         {
             // assemble
-            ResourceCacheManager cacheManager = new ResourceCacheManager();
-            Berry berry = new Berry { Id = 1 };
+            ResourceCacheManager sut = new ResourceCacheManager();
+            Berry berry = new Berry { Name = "cheri", Id = 1 };
+            sut.Store(berry);
 
             // act
-            cacheManager.Store(berry);
+            Berry retrievedBerry = sut.Get<Berry>(2);
 
             // assert
-            Berry retrievedBerry = cacheManager.Get<Berry>(2);
             Assert.Null(retrievedBerry);
         }
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void CacheManagerStoreThrowsTest()
+        public void StoreThrowsIfTypeNotSupported()
         {
             // assemble
-            ResourceCacheManager cacheManager = new ResourceCacheManager();
+            ResourceCacheManager sut = new ResourceCacheManager();
             TestClass test = new TestClass { Id = 1 };
 
             // assert
             Assert.Throws<NotSupportedException>(() =>
             {
                 // act
-                cacheManager.Store(test);
+                sut.Store(test);
             });
         }
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void CacheManagerGetEmptyIsNullTest()
+        public void Get_ByIdOnEmptyCache_ReturnsNull()
         {
             // assemble
-            ResourceCacheManager cacheManager = new ResourceCacheManager();
+            ResourceCacheManager sut = new ResourceCacheManager();
 
             // act
-            Pokedex retrievedPokedex = cacheManager.Get<Pokedex>(1);
+            Pokedex retrievedPokedex = sut.Get<Pokedex>(1);
 
             // assert
             Assert.Null(retrievedPokedex);
@@ -71,15 +71,29 @@ namespace PokeApiNet.Tests.Cache
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void CacheManagerGetByNameTest()
+        public void Get_ByNameOnEmptyCache_ReturnsNull()
         {
             // assemble
-            ResourceCacheManager cacheManager = new ResourceCacheManager();
-            Berry berry = new Berry { Name = "cheri", Id = 1 };
-            cacheManager.Store(berry);
+            ResourceCacheManager sut = new ResourceCacheManager();
 
             // act
-            Berry retrievedBerry = cacheManager.Get<Berry>("cheri");
+            Pokemon retrievedPokemon = sut.Get<Pokemon>("pikachu");
+
+            // assert
+            Assert.Null(retrievedPokemon);
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public void Get_StoredName_ReturnsResource()
+        {
+            // assemble
+            ResourceCacheManager sut = new ResourceCacheManager();
+            Berry berry = new Berry { Name = "cheri", Id = 1 };
+            sut.Store(berry);
+
+            // act
+            Berry retrievedBerry = sut.Get<Berry>("cheri");
 
             // assert
             Assert.Same(berry, retrievedBerry);
@@ -87,15 +101,15 @@ namespace PokeApiNet.Tests.Cache
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void CacheManagerGetByNameDoesNotExistTest()
+        public void Get_NonStoredName_ReturnsNull()
         {
             // assemble
-            ResourceCacheManager cacheManager = new ResourceCacheManager();
+            ResourceCacheManager sut = new ResourceCacheManager();
             Berry berry = new Berry { Name = "cheri", Id = 1 };
-            cacheManager.Store(berry);
+            sut.Store(berry);
 
             // act
-            Berry retrievedBerry = cacheManager.Get<Berry>("abc123");
+            Berry retrievedBerry = sut.Get<Berry>("abc123");
 
             // assert
             Assert.Null(retrievedBerry);
@@ -103,57 +117,57 @@ namespace PokeApiNet.Tests.Cache
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void CacheManagerClearAllTest()
+        public void AllCacheIsCleared()
         {
             // assemble
-            ResourceCacheManager cacheManager = new ResourceCacheManager();
-            Berry berry = new Berry { Id = 1 };
-            Pokedex pokedex = new Pokedex { Id = 1 };
-            cacheManager.Store(berry);
-            cacheManager.Store(pokedex);
+            ResourceCacheManager sut = new ResourceCacheManager();
+            Berry berry = new Berry { Name = "cheri", Id = 1 };
+            Pokedex pokedex = new Pokedex { Name = "dex", Id = 1 };
+            sut.Store(berry);
+            sut.Store(pokedex);
 
             // act
-            cacheManager.ClearAll();
+            sut.ClearAll();
 
             // assert
-            Berry retrievedBerry = cacheManager.Get<Berry>(1);
-            Pokedex retrievedPokedex = cacheManager.Get<Pokedex>(1);
+            Berry retrievedBerry = sut.Get<Berry>(1);
+            Pokedex retrievedPokedex = sut.Get<Pokedex>(1);
             Assert.Null(retrievedBerry);
             Assert.Null(retrievedPokedex);
         }
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void CacheManageClearTypeTest()
+        public void CacheIsClearedForSpecificType()
         {
             // assemble
-            ResourceCacheManager cacheManager = new ResourceCacheManager();
-            Berry berry = new Berry { Id = 1 };
-            Pokedex pokedex = new Pokedex { Id = 1 };
-            cacheManager.Store(berry);
-            cacheManager.Store(pokedex);
+            ResourceCacheManager sut = new ResourceCacheManager();
+            Berry berry = new Berry { Name = "cheri", Id = 1 };
+            Pokedex pokedex = new Pokedex { Name = "cheri", Id = 1 };
+            sut.Store(berry);
+            sut.Store(pokedex);
 
             // act
-            cacheManager.Clear<Berry>();
+            sut.Clear<Berry>();
 
             // assert
-            Berry retrievedBerry = cacheManager.Get<Berry>(1);
-            Pokedex retrievedPokedex = cacheManager.Get<Pokedex>(1);
+            Berry retrievedBerry = sut.Get<Berry>(1);
+            Pokedex retrievedPokedex = sut.Get<Pokedex>(1);
             Assert.Null(retrievedBerry);
             Assert.NotNull(retrievedPokedex);
         }
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void CacheManagerGetsAreCaseInsensitive()
+        public void Get_StoredNameWithDifferentCasing_ReturnsResource()
         {
             // assemble
-            ResourceCacheManager cacheManager = new ResourceCacheManager();
+            ResourceCacheManager sut = new ResourceCacheManager();
             Berry berry = new Berry { Name = "CHERI" };
-            cacheManager.Store(berry);
+            sut.Store(berry);
 
             // act
-            Berry retrievedBerry = cacheManager.Get<Berry>("cheri");
+            Berry retrievedBerry = sut.Get<Berry>("cheri");
 
             // assert
             Assert.Same(berry, retrievedBerry);
