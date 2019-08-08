@@ -1,7 +1,7 @@
 ﻿using PokeApiNet.Models;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 
@@ -10,24 +10,16 @@ namespace PokeApiNet.Cache
     /// <summary>
     /// Manages caches for instances of subclasses from <see cref="ResourceBase"/>
     /// </summary>
-    internal sealed class ResourceCacheManager
+    internal sealed class ResourceCacheManager : BaseCacheManager
     {
-        private readonly Dictionary<System.Type, GenericCache<ResourceBase>> _allCaches;
-        private readonly List<System.Type> ApiTypes =
-            Assembly.GetExecutingAssembly().GetTypes()
-            .Where(type => type.IsSubclassOf(typeof(ApiResource)) || type.IsSubclassOf(typeof(NamedApiResource)))
-            .ToList();
+        private readonly IImmutableDictionary<System.Type, ResourceCache> _allCaches;
 
         /// <summary>
         /// Constructor
         /// </summary>
         public ResourceCacheManager()
         {
-            _allCaches = new Dictionary<System.Type, GenericCache<ResourceBase>>();
-            foreach (System.Type type in ApiTypes) 
-            {
-                _allCaches.Add(type, new GenericCache<ResourceBase>());
-            }
+            _allCaches = ResourceTypes.ToImmutableDictionary(x => x, _ => new ResourceCache());
         }
 
         /// <summary>
@@ -39,13 +31,13 @@ namespace PokeApiNet.Cache
         /// via PokeAPI</exception>
         public void Store<T>(T obj) where T : ResourceBase
         {
-            System.Type matchingType = ApiTypes.FirstOrDefault(type => type == obj.GetType());
-            if (matchingType == null)
+            System.Type targetType = typeof(T);
+            if (!IsTypeSupported(targetType))
             {
-                throw new NotSupportedException();
+                throw new NotSupportedException($"{targetType.FullName} is not supported.");
             }
 
-            _allCaches[matchingType].Store(obj);
+            _allCaches[targetType].Store(obj);
         }
 
         /// <summary>
@@ -97,7 +89,7 @@ namespace PokeApiNet.Cache
         /// </summary>
         public void ClearAll()
         {
-            foreach (GenericCache<ResourceBase> cache in _allCaches.Values)
+            foreach (ResourceCache cache in _allCaches.Values)
             {
                 cache.Clear();
             }
@@ -113,26 +105,26 @@ namespace PokeApiNet.Cache
             _allCaches[type].Clear();
         }
 
-        private class GenericCache<T> where T : ResourceBase
+        private sealed class ResourceCache
         {
             /// <summary>
             /// The underlying data store for the cache
             /// </summary>
-            public readonly ConcurrentDictionary<int, T> Cache;
+            public readonly ConcurrentDictionary<int, ResourceBase> Cache;
 
             /// <summary>
             /// Constructor
             /// </summary>
-            public GenericCache()
+            public ResourceCache()
             {
-                Cache = new ConcurrentDictionary<int, T>();
+                Cache = new ConcurrentDictionary<int, ResourceBase>();
             }
 
             /// <summary>
             /// Stores an object in cache
             /// </summary>
             /// <param name="obj">The object to store</param>
-            public void Store(T obj)
+            public void Store(ResourceBase obj)
             {
                 Cache.TryAdd(obj.Id, obj);
             }
