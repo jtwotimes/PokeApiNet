@@ -178,7 +178,7 @@ namespace PokeApiNet
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="name">Name of resource</param>
         /// <returns>The object of the resource</returns>
-        public async Task<T> GetResourceAsync<T>(string name) where T : ResourceBase
+        public async Task<T> GetResourceAsync<T>(string name) where T : NamedApiResource
         {
             return await GetResourceAsync<T>(name, CancellationToken.None);
         }
@@ -191,7 +191,7 @@ namespace PokeApiNet
         /// <param name="name">Name of resource</param>
         /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
         /// <returns>The object of the resource</returns>
-        public async Task<T> GetResourceAsync<T>(string name, CancellationToken cancellationToken) where T : ResourceBase
+        public async Task<T> GetResourceAsync<T>(string name, CancellationToken cancellationToken) where T : NamedApiResource
         {
             string sanitizedName = name
                 .Replace(" ", "-")      // no resource can have a space in the name; API uses -'s in their place
