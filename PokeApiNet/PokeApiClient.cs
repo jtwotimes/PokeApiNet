@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PokeApiNet.Data;
 using PokeApiNet.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PokeApiNet.Data
+namespace PokeApiNet
 {
     /// <summary>
     /// Gets data from the PokeAPI service
