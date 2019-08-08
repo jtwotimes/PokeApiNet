@@ -1,9 +1,9 @@
-﻿using PokeApiNet.Data;
+﻿using PokeApiNet.Cache;
 using PokeApiNet.Models;
 using System;
 using Xunit;
 
-namespace PokeApiNet.Tests.Data
+namespace PokeApiNet.Tests.Cache
 {
     public class CacheManagerTests
     {

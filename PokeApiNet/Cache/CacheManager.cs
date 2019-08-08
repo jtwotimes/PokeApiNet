@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace PokeApiNet.Data
+namespace PokeApiNet.Cache
 {
     /// <summary>
     /// Manages caches for all types

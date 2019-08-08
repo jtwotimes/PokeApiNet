@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using PokeApiNet.Data;
+using PokeApiNet.Cache;
 using PokeApiNet.Models;
 using System;
 using System.Collections.Generic;
