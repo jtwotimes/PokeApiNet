@@ -8,9 +8,9 @@ using System.Reflection;
 namespace PokeApiNet.Cache
 {
     /// <summary>
-    /// Manages caches for all types
+    /// Manages caches for instances of subclasses from <see cref="ResourceBase"/>
     /// </summary>
-    internal class CacheManager
+    internal sealed class ResourceCacheManager
     {
         private readonly Dictionary<System.Type, GenericCache<ResourceBase>> _allCaches;
         private readonly List<System.Type> ApiTypes =
@@ -21,7 +21,7 @@ namespace PokeApiNet.Cache
         /// <summary>
         /// Constructor
         /// </summary>
-        public CacheManager()
+        public ResourceCacheManager()
         {
             _allCaches = new Dictionary<System.Type, GenericCache<ResourceBase>>();
             foreach (System.Type type in ApiTypes) 

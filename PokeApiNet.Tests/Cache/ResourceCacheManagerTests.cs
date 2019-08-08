@@ -5,14 +5,14 @@ using Xunit;
 
 namespace PokeApiNet.Tests.Cache
 {
-    public class CacheManagerTests
+    public class ResourceCacheManagerTests
     {
         [Fact]
         [Trait("Category", "Unit")]
         public void CacheManagerGetByIdTest()
         {
             // assemble
-            CacheManager cacheManager = new CacheManager();
+            ResourceCacheManager cacheManager = new ResourceCacheManager();
             Berry berry = new Berry { Id = 1 };
 
             // act
@@ -28,7 +28,7 @@ namespace PokeApiNet.Tests.Cache
         public void CacheManagerGetByIdDoesNotExistTest()
         {
             // assemble
-            CacheManager cacheManager = new CacheManager();
+            ResourceCacheManager cacheManager = new ResourceCacheManager();
             Berry berry = new Berry { Id = 1 };
 
             // act
@@ -44,7 +44,7 @@ namespace PokeApiNet.Tests.Cache
         public void CacheManagerStoreThrowsTest()
         {
             // assemble
-            CacheManager cacheManager = new CacheManager();
+            ResourceCacheManager cacheManager = new ResourceCacheManager();
             TestClass test = new TestClass { Id = 1 };
 
             // assert
@@ -60,7 +60,7 @@ namespace PokeApiNet.Tests.Cache
         public void CacheManagerGetEmptyIsNullTest()
         {
             // assemble
-            CacheManager cacheManager = new CacheManager();
+            ResourceCacheManager cacheManager = new ResourceCacheManager();
 
             // act
             Pokedex retrievedPokedex = cacheManager.Get<Pokedex>(1);
@@ -74,7 +74,7 @@ namespace PokeApiNet.Tests.Cache
         public void CacheManagerGetByNameTest()
         {
             // assemble
-            CacheManager cacheManager = new CacheManager();
+            ResourceCacheManager cacheManager = new ResourceCacheManager();
             Berry berry = new Berry { Name = "cheri", Id = 1 };
             cacheManager.Store(berry);
 
@@ -90,7 +90,7 @@ namespace PokeApiNet.Tests.Cache
         public void CacheManagerGetByNameDoesNotExistTest()
         {
             // assemble
-            CacheManager cacheManager = new CacheManager();
+            ResourceCacheManager cacheManager = new ResourceCacheManager();
             Berry berry = new Berry { Name = "cheri", Id = 1 };
             cacheManager.Store(berry);
 
@@ -106,7 +106,7 @@ namespace PokeApiNet.Tests.Cache
         public void CacheManagerClearAllTest()
         {
             // assemble
-            CacheManager cacheManager = new CacheManager();
+            ResourceCacheManager cacheManager = new ResourceCacheManager();
             Berry berry = new Berry { Id = 1 };
             Pokedex pokedex = new Pokedex { Id = 1 };
             cacheManager.Store(berry);
@@ -127,7 +127,7 @@ namespace PokeApiNet.Tests.Cache
         public void CacheManageClearTypeTest()
         {
             // assemble
-            CacheManager cacheManager = new CacheManager();
+            ResourceCacheManager cacheManager = new ResourceCacheManager();
             Berry berry = new Berry { Id = 1 };
             Pokedex pokedex = new Pokedex { Id = 1 };
             cacheManager.Store(berry);
@@ -148,7 +148,7 @@ namespace PokeApiNet.Tests.Cache
         public void CacheManagerGetsAreCaseInsensitive()
         {
             // assemble
-            CacheManager cacheManager = new CacheManager();
+            ResourceCacheManager cacheManager = new ResourceCacheManager();
             Berry berry = new Berry { Name = "CHERI" };
             cacheManager.Store(berry);
 

@@ -23,7 +23,7 @@ namespace PokeApiNet
         public static readonly ProductHeaderValue DefaultUserAgent = GetDefaultUserAgent();
         private readonly HttpClient _client;
         private readonly Uri _baseUri = new Uri("https://pokeapi.co/api/v2/");
-        private readonly CacheManager _cacheManager = new CacheManager();
+        private readonly ResourceCacheManager _resourceCache = new ResourceCacheManager();
 
         /// <summary>
         /// Default constructor
@@ -131,11 +131,11 @@ namespace PokeApiNet
                 throw new NotSupportedException($"Navigation url '{url}' is in an unexpected format");
             }
 
-            T resource = _cacheManager.Get<T>(id);
+            T resource = _resourceCache.Get<T>(id);
             if (resource == null)
             {
                 resource = await GetResourcesWithParamsAsync<T>(resourceId, cancellationToken);
-                _cacheManager.Store<T>(resource);
+                _resourceCache.Store<T>(resource);
             }
 
             return resource;
@@ -161,11 +161,11 @@ namespace PokeApiNet
         /// <returns>The object of the resource</returns>
         public async Task<T> GetResourceAsync<T>(int id, CancellationToken cancellationToken) where T : ResourceBase
         {
-            T resource = _cacheManager.Get<T>(id);
+            T resource = _resourceCache.Get<T>(id);
             if (resource == null)
             {
                 resource = await GetResourcesWithParamsAsync<T>(id.ToString(), cancellationToken);
-                _cacheManager.Store(resource);
+                _resourceCache.Store(resource);
             }
 
             return resource;
@@ -200,11 +200,11 @@ namespace PokeApiNet
 
             // Nidoran is interesting as the API wants 'nidoran-f' or 'nidoran-m'
 
-            T resource = _cacheManager.Get<T>(sanitizedName);
+            T resource = _resourceCache.Get<T>(sanitizedName);
             if (resource == null)
             {
                 resource = await GetResourcesWithParamsAsync<T>(sanitizedName, cancellationToken);
-                _cacheManager.Store(resource);
+                _resourceCache.Store(resource);
             }
 
             return resource;
@@ -261,7 +261,7 @@ namespace PokeApiNet
         /// </summary>
         public void ClearCache()
         {
-            _cacheManager.ClearAll();
+            _resourceCache.ClearAll();
         }
 
         /// <summary>
@@ -270,7 +270,7 @@ namespace PokeApiNet
         /// <typeparam name="T">The type of cache</typeparam>
         public void ClearCache<T>() where T : ResourceBase
         {
-            _cacheManager.Clear<T>();
+            _resourceCache.Clear<T>();
         }
 
         /// <summary>
