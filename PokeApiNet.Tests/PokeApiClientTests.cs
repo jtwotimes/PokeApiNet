@@ -14,6 +14,120 @@ namespace PokeApiNet.Tests
 {
     public class PokeApiClientTests
     {
+        private readonly MockHttpMessageHandler mockHttp;
+
+        public PokeApiClientTests()
+        {
+            mockHttp = new MockHttpMessageHandler();
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task ClearsListCacheOfSpecificType()
+        {
+            // assemble
+            PokeApiClient sut = CreateSut();
+            mockHttp.Expect("*machine")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+            mockHttp.Expect("*berry")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+            mockHttp.Expect("*machine")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+            mockHttp.Expect("*berry")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+
+            // act
+            await sut.GetApiResourcePageAsync<Machine>();
+            await sut.GetNamedResourcePageAsync<Berry>();
+            sut.ClearListCache<Machine>();
+            sut.ClearListCache<Berry>();
+            await sut.GetApiResourcePageAsync<Machine>();
+            await sut.GetNamedResourcePageAsync<Berry>();
+
+            // assert
+            mockHttp.VerifyNoOutstandingExpectation();
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task GetApiResourcePage_WithSamePaginationParams_CacheHit()
+        {
+            // assemble
+            PokeApiClient sut = CreateSut();
+            mockHttp.Expect("*")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+            mockHttp.When("*")
+                .Throw(new Exception("Cache miss"));
+
+            // act
+            await sut.GetApiResourcePageAsync<Machine>();
+            await sut.GetApiResourcePageAsync<Machine>();
+
+            // assert
+            mockHttp.VerifyNoOutstandingExpectation();
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task GetApiResourcePage_WithDifferentPaginationParams_CacheMiss()
+        {
+            // assemble
+            (int limit, int offset) = (30, 2);
+            PokeApiClient sut = CreateSut();
+            mockHttp.Expect("*")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+            mockHttp.Expect("*")
+                .WithExactQueryString(ToPairs(limit, offset))
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+
+            // act
+            await sut.GetApiResourcePageAsync<Machine>();
+            await sut.GetApiResourcePageAsync<Machine>(limit, offset);
+
+            // assert
+            mockHttp.VerifyNoOutstandingExpectation();
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task GetNamedApiResourcePage_WithSamePaginationParams_CacheHit()
+        {
+            // assemble
+            PokeApiClient sut = CreateSut();
+            mockHttp.Expect("*")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+            mockHttp.When("*")
+                .Throw(new Exception("Cache miss"));
+
+            // act
+            await sut.GetNamedResourcePageAsync<Berry>();
+            await sut.GetNamedResourcePageAsync<Berry>();
+
+            // assert
+            mockHttp.VerifyNoOutstandingExpectation();
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task GetNamedApiResourcePage_WithDifferentPaginationParams_CacheMiss()
+        {
+            // assemble
+            (int limit, int offset) = (30, 2);
+            PokeApiClient sut = CreateSut();
+            mockHttp.Expect("*")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+            mockHttp.Expect("*")
+                .WithExactQueryString(ToPairs(limit, offset))
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+
+            // act
+            await sut.GetNamedResourcePageAsync<Berry>();
+            await sut.GetNamedResourcePageAsync<Berry>(limit, offset);
+
+            // assert
+            mockHttp.VerifyNoOutstandingExpectation();
+        }
+
         [Fact]
         [Trait("Category", "Unit")]
         public async Task DefaultUserAgentHeaderIsSet()
@@ -56,7 +170,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetResourceAsyncByIdAutoCacheTest()
+        public async Task GetResourceAsyncByIdAutoCache()
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
@@ -77,7 +191,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetResourceAsyncByNameAutoCacheTest()
+        public async Task GetResourceAsyncByNameAutoCache()
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
@@ -98,7 +212,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetResourceAsyncByNameWithPunctuationTest()
+        public async Task GetResourceAsyncByNameWithPunctuation()
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
@@ -115,7 +229,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetResourceByIdCancellationTest()
+        public async Task GetResourceByIdCancellation()
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
@@ -129,7 +243,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetResourceByNameCancellationTest()
+        public async Task GetResourceByNameCancellation()
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
@@ -143,7 +257,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task ClearCacheTypedTest()
+        public async Task ClearCacheTyped()
         {
             // assemble
             Berry returnedBerry = new Berry { Id = 1 };
@@ -166,7 +280,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task ClearCacheTest()
+        public async Task ClearCache()
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
@@ -190,7 +304,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task ResourceNotFoundTest()
+        public async Task ResourceNotFound()
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
@@ -203,7 +317,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetResourceAsyncByNameCaseTest()
+        public async Task GetResourceAsyncByNameCase()
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
@@ -219,7 +333,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task UrlNavigationResolveAsyncSingleTest()
+        public async Task UrlNavigationResolveAsyncSingle()
         {
             // assemble
             Pokemon responsePikachu = new Pokemon
@@ -250,7 +364,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task UrlNavigationCancellationAsyncSingleTest()
+        public async Task UrlNavigationCancellationAsyncSingle()
         {
             // assemble
             Pokemon responsePikachu = new Pokemon
@@ -279,7 +393,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task UrlNavigationResolveAsyncSingleCachedTest()
+        public async Task UrlNavigationResolveAsyncSingleCached()
         {
             // assemble
             Pokemon responsePikachu = new Pokemon
@@ -314,7 +428,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task UrlNavigationResolveAllAsyncTest()
+        public async Task UrlNavigationResolveAllAsync()
         {
             // assemble
             ItemAttribute holdable = new ItemAttribute { Name = "holdable", Id = 1 };
@@ -353,7 +467,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task UrlNavigationCancellationAllAsyncTest()
+        public async Task UrlNavigationCancellationAllAsync()
         {
             // assemble
             ItemAttribute holdable = new ItemAttribute { Name = "holdable", Id = 1 };
@@ -391,7 +505,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetNamedResourcePageAsyncTest()
+        public async Task GetNamedResourcePageAsync()
         {
             // assemble
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
@@ -410,7 +524,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetNamedResourcePageAsyncCancellationTest()
+        public async Task GetNamedResourcePageAsyncCancellation()
         {
             // assemble
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
@@ -427,7 +541,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetNamedResourcePageLimitOffsetAsyncTest()
+        public async Task GetNamedResourcePageLimitOffsetAsync()
         {
             // assemble
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
@@ -446,7 +560,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetNamedResourcePageLimitOffsetAsyncCancellationTest()
+        public async Task GetNamedResourcePageLimitOffsetAsyncCancellation()
         {
             // assemble
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
@@ -463,7 +577,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetApiResourcePageAsyncTest()
+        public async Task GetApiResourcePageAsync()
         {
             // assemble
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
@@ -482,7 +596,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetApiResourcePageAsyncCancellationTest()
+        public async Task GetApiResourcePageAsyncCancellation()
         {
             // assemble
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
@@ -499,7 +613,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetApiResourcePageLimitOffsetAsyncTest()
+        public async Task GetApiResourcePageLimitOffsetAsync()
         {
             // assemble
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
@@ -518,7 +632,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task GetApiResourcePageLimitOffsetAsyncCancellationTest()
+        public async Task GetApiResourcePageLimitOffsetAsyncCancellation()
         {
             // assemble
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
@@ -532,5 +646,36 @@ namespace PokeApiNet.Tests
             // act / assert
             await Assert.ThrowsAsync<OperationCanceledException>(async () => { await client.GetApiResourcePageAsync<EvolutionChain>(1, 50, cancellationToken); });
         }
+
+        private PokeApiClient CreateSut() => new PokeApiClient(mockHttp);
+
+        private ApiResourceList<T> CreateFakeApiResourceList<T>()
+            where T : ApiResource
+        {
+            return new ApiResourceList<T>()
+            {
+                Next = "test-next",
+                Previous = "test-previous",
+                Results = new List<ApiResource<T>>()
+            };
+        }
+
+        private NamedApiResourceList<T> CreateFakeNamedResourceList<T>()
+            where T : NamedApiResource
+        {
+            return new NamedApiResourceList<T>()
+            {
+                Next = "test-next",
+                Previous = "test-previous",
+                Results = new List<NamedApiResource<T>>()
+            };
+        }
+
+        private IEnumerable<KeyValuePair<string, string>> ToPairs(int limit, int offset)
+            => new KeyValuePair<string, string>[] 
+            {
+                new KeyValuePair<string, string>(nameof(limit),limit.ToString()),
+                new KeyValuePair<string, string>(nameof(offset),offset.ToString())
+            };
     }
 }

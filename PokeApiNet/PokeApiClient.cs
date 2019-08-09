@@ -24,6 +24,7 @@ namespace PokeApiNet
         private readonly HttpClient _client;
         private readonly Uri _baseUri = new Uri("https://pokeapi.co/api/v2/");
         private readonly ResourceCacheManager _resourceCache = new ResourceCacheManager();
+        private readonly ResourceListCacheManager _resoutListCache = new ResourceListCacheManager();
 
         /// <summary>
         /// Default constructor
@@ -262,6 +263,7 @@ namespace PokeApiNet
         public void ClearCache()
         {
             _resourceCache.ClearAll();
+            _resoutListCache.ClearAll();
         }
 
         /// <summary>
@@ -274,13 +276,12 @@ namespace PokeApiNet
         }
 
         /// <summary>
-        /// Gets a single page of named resource data
+        /// Clears the cached data for a specific resource list
         /// </summary>
-        /// <typeparam name="T">The type of resource</typeparam>
-        /// <returns>The paged resource object</returns>
-        public async Task<NamedApiResourceList<T>> GetNamedResourcePageAsync<T>() where T : NamedApiResource
+        /// <typeparam name="T">The type of cache</typeparam>
+        public void ClearListCache<T>() where T : ResourceBase
         {
-            return await GetNamedResourcePageAsync<T>(CancellationToken.None);
+            _resoutListCache.Clear<T>();
         }
 
         /// <summary>
@@ -289,22 +290,10 @@ namespace PokeApiNet
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
         /// <returns>The paged resource object</returns>
-        public async Task<NamedApiResourceList<T>> GetNamedResourcePageAsync<T>(CancellationToken cancellationToken) where T : NamedApiResource
+        public Task<NamedApiResourceList<T>> GetNamedResourcePageAsync<T>(CancellationToken cancellationToken = default(CancellationToken))
+            where T : NamedApiResource
         {
-            string resp = await GetPageAsync<T>(cancellationToken);
-            return JsonConvert.DeserializeObject<NamedApiResourceList<T>>(resp);
-        }
-
-        /// <summary>
-        /// Gets the specified page of named resource data
-        /// </summary>
-        /// <typeparam name="T">The type of resource</typeparam>
-        /// <param name="limit">The number of resources in a list page</param>
-        /// <param name="offset">Page offset</param>
-        /// <returns>The paged resource object</returns>
-        public async Task<NamedApiResourceList<T>> GetNamedResourcePageAsync<T>(int limit, int offset) where T : NamedApiResource
-        {
-            return await GetNamedResourcePageAsync<T>(limit, offset, CancellationToken.None);
+            return GetNamedResourcePageAsync<T>(AddPaginationParamsToUrl(), cancellationToken);
         }
 
         /// <summary>
@@ -315,83 +304,104 @@ namespace PokeApiNet
         /// <param name="offset">Page offset</param>
         /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
         /// <returns>The paged resource object</returns>
-        public async Task<NamedApiResourceList<T>> GetNamedResourcePageAsync<T>(int limit, int offset, CancellationToken cancellationToken) where T : NamedApiResource
+        public Task<NamedApiResourceList<T>> GetNamedResourcePageAsync<T>(int limit, int offset, CancellationToken cancellationToken = default(CancellationToken))
+            where T : NamedApiResource
         {
-            string resp = await GetPageAsync<T>(cancellationToken, limit, offset);
-            return JsonConvert.DeserializeObject<NamedApiResourceList<T>>(resp);
+            return GetNamedResourcePageAsync<T>(AddPaginationParamsToUrl(limit, offset), cancellationToken);
         }
 
         /// <summary>
-        /// Gets a single page of unnamed resource data
+        /// Handles cache manipulation
         /// </summary>
-        /// <typeparam name="T">The type of resource</typeparam>
-        /// <returns>The paged resource object</returns>
-        public async Task<ApiResourceList<T>> GetApiResourcePageAsync<T>() where T : ApiResource
+        private async Task<NamedApiResourceList<T>> GetNamedResourcePageAsync<T>(Func<string, string> urlFn, CancellationToken cancellationToken)
+            where T : NamedApiResource
         {
-            return await GetApiResourcePageAsync<T>(CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Gets a single page of unnamed resource data
-        /// </summary>
-        /// <typeparam name="T">The type of resource</typeparam>
-        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
-        /// <returns>The paged resource object</returns>
-        public async Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(CancellationToken cancellationToken) where T : ApiResource
-        {
-            string resp = await GetPageAsync<T>(cancellationToken);
-            return JsonConvert.DeserializeObject<ApiResourceList<T>>(resp);
-        }
-
-        /// <summary>
-        /// Gets the specified page of unnamed resource data
-        /// </summary>
-        /// <typeparam name="T">The type of resource</typeparam>
-        /// <param name="limit">The number of resources in a list page</param>
-        /// <param name="offset">Page offset</param>
-        /// <returns>The paged resource object</returns>
-        public async Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(int limit, int offset) where T : ApiResource
-        {
-            return await GetApiResourcePageAsync<T>(limit, offset, CancellationToken.None);
-        }
-
-        /// <summary>
-        /// Gets the specified page of unnamed resource data
-        /// </summary>
-        /// <typeparam name="T">The type of resource</typeparam>
-        /// <param name="limit">The number of resources in a list page</param>
-        /// <param name="offset">Page offset</param>
-        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
-        /// <returns>The paged resource object</returns>
-        public async Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(int limit, int offset, CancellationToken cancellationToken) where T : ApiResource
-        {
-            string resp = await GetPageAsync<T>(cancellationToken, limit, offset);
-            return JsonConvert.DeserializeObject<ApiResourceList<T>>(resp);
-        }
-
-        private async Task<string> GetPageAsync<T>(CancellationToken cancellationToken, int? limit = null, int? offset = null) where T : ResourceBase
-        {
-            string apiEndpoint = GetApiEndpointString<T>();
-            string queryParameters = String.Empty;
-
-            // limit and offset cannot both be null
-            if (limit != null)
+            string pageUrl = urlFn(GetApiEndpointString<T>());
+            NamedApiResourceList<T> resources = _resoutListCache.GetNamedResources<T>(pageUrl);
+            if (resources == null)
             {
-                queryParameters = $"?limit={limit}";
-                if (offset != null)
-                {
-                    queryParameters += $"&offset={offset}";
-                }
+                resources = await GetPageAsync(JsonConvert.DeserializeObject<NamedApiResourceList<T>>, cancellationToken)(pageUrl) as NamedApiResourceList<T>;
+                _resoutListCache.Store(pageUrl, resources);
             }
-
-            HttpResponseMessage response = await _client.GetAsync($"{apiEndpoint}{queryParameters}", cancellationToken);
-
-            response.EnsureSuccessStatusCode();
-
-            return await response.Content.ReadAsStringAsync();
+            return resources;
         }
 
-        private string GetApiEndpointString<T>()
+        /// <summary>
+        /// Gets a single page of unnamed resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
+        /// <returns>The paged resource object</returns>
+        public Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(CancellationToken cancellationToken = default(CancellationToken))
+            where T : ApiResource
+        {
+            return GetApiResourcePageAsync<T>(AddPaginationParamsToUrl(), cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets the specified page of unnamed resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="limit">The number of resources in a list page</param>
+        /// <param name="offset">Page offset</param>
+        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
+        /// <returns>The paged resource object</returns>
+        public Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(int limit, int offset, CancellationToken cancellationToken = default(CancellationToken))
+            where T : ApiResource
+        {
+            return GetApiResourcePageAsync<T>(AddPaginationParamsToUrl(limit, offset), cancellationToken);
+        }
+
+        /// <summary>
+        /// Handles cache manipulation
+        /// </summary>
+        private async Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(Func<string, string> urlFn, CancellationToken cancellationToken)
+            where T : ApiResource
+        {
+            string pageUrl = urlFn(GetApiEndpointString<T>());
+            ApiResourceList<T> resources = _resoutListCache.GetApiResources<T>(pageUrl);
+            if(resources == null)
+            {
+                resources = await GetPageAsync(JsonConvert.DeserializeObject<ApiResourceList<T>>, cancellationToken)(pageUrl) as ApiResourceList<T>;
+                _resoutListCache.Store(pageUrl, resources);
+            }
+            return resources;
+        }
+
+        /// <summary>
+        /// Handles fetch and deserialization of a resource page
+        /// </summary>
+        private Func<string, Task<ResourceList<T>>> GetPageAsync<T>(Func<string, ResourceList<T>> deserializeFn, CancellationToken cancellationToken)
+            where T : ResourceBase
+        {
+            return async pageUrl =>
+            {
+                HttpResponseMessage response = await _client.GetAsync(pageUrl, cancellationToken);
+
+                response.EnsureSuccessStatusCode();
+
+                return deserializeFn(await response.Content.ReadAsStringAsync());
+            };
+        }
+
+        private static Func<string, string> AddPaginationParamsToUrl(int? limit = null, int? offset = null)
+        {
+            Dictionary<string, string> queryParameters = new Dictionary<string, string>();
+
+            // TODO consider to always set the limit parameter when not present to the default "20"
+            // in order to have a single cached resource list for requests with explicit or implicit default limit
+            if (limit.HasValue)
+            {
+                queryParameters.Add(nameof(limit), limit.Value.ToString());
+            }
+            if (offset.HasValue)
+            {
+                queryParameters.Add(nameof(offset), offset.Value.ToString());
+            }
+            return uri => QueryHelpers.AddQueryString(uri, queryParameters);
+        }
+
+        private static string GetApiEndpointString<T>()
         {
             PropertyInfo propertyInfo = typeof(T).GetProperty("ApiEndpoint", BindingFlags.Static | BindingFlags.NonPublic);
             return propertyInfo.GetValue(null).ToString();
