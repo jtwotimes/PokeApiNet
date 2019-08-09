@@ -81,6 +81,7 @@ namespace PokeApiNet
         public void Dispose()
         {
             _client.Dispose();
+            _resourceCache.Dispose();
         }
 
         private static ProductHeaderValue GetDefaultUserAgent()

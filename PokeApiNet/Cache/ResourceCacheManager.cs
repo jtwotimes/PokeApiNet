@@ -10,9 +10,9 @@ namespace PokeApiNet.Cache
     /// <summary>
     /// Manages caches for instances of subclasses from <see cref="ResourceBase"/>
     /// </summary>
-    internal sealed class ResourceCacheManager : BaseCacheManager
+    internal sealed class ResourceCacheManager : BaseCacheManager, IDisposable
     {
-        private readonly IImmutableDictionary<System.Type, ResourceCache> resourceCaches;
+        private IImmutableDictionary<System.Type, ResourceCache> resourceCaches;
 
         /// <summary>
         /// Constructor
@@ -89,10 +89,19 @@ namespace PokeApiNet.Cache
             resourceCaches[type].Clear();
         }
 
-        private sealed class ResourceCache
+        public void Dispose()
         {
-            private readonly MemoryCache IdCache;
-            private readonly MemoryCache NameCache;
+            foreach(ResourceCache cache in this.resourceCaches.Values)
+            {
+                cache.Dispose();
+            }
+            this.resourceCaches = null;
+        }
+
+        private sealed class ResourceCache : IDisposable
+        {
+            private MemoryCache IdCache;
+            private MemoryCache NameCache;
 
             /// <summary>
             /// Constructor
@@ -120,7 +129,7 @@ namespace PokeApiNet.Cache
             public void Store(NamedApiResource obj)
             {
                 // TODO enforce non-nullable name
-                if(obj.Name != null)
+                if (obj.Name != null)
                 {
                     NameCache.Set(obj.Name.ToLowerInvariant(), obj, CreateEntryOptions());
                 }
@@ -153,6 +162,16 @@ namespace PokeApiNet.Cache
             /// </remarks>
             private MemoryCacheEntryOptions CreateEntryOptions() => new MemoryCacheEntryOptions()
                     .AddExpirationToken(new CancellationChangeToken(ClearToken.Token));
+
+            public void Dispose()
+            {
+                this.Clear();
+                this.ClearToken = null;
+                this.IdCache.Dispose();
+                this.NameCache.Dispose();
+                this.IdCache = null;
+                this.NameCache = null;
+            }
         }
     }
 }
