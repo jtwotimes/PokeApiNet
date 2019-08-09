@@ -10,9 +10,9 @@ namespace PokeApiNet.Cache
     /// <summary>
     /// Manages caches for instances of subclasses from <see cref="ResourceList{T}"/>
     /// </summary>
-    internal sealed class ResourceListCacheManager : BaseCacheManager
+    internal sealed class ResourceListCacheManager : BaseCacheManager, IDisposable
     {
-        private readonly IImmutableDictionary<System.Type, ListCache> listCaches;
+        private IImmutableDictionary<System.Type, ListCache> listCaches;
 
         public ResourceListCacheManager()
         {
@@ -74,9 +74,18 @@ namespace PokeApiNet.Cache
             listCaches[type].Clear();
         }
 
-        private sealed class ListCache
+        public void Dispose()
         {
-            private readonly MemoryCache uriCache;
+            foreach(ListCache cache in listCaches.Values)
+            {
+                cache.Dispose();
+            }
+            listCaches = null;
+        }
+
+        private sealed class ListCache : IDisposable
+        {
+            private MemoryCache uriCache;
 
             public ListCache()
             {
@@ -116,6 +125,14 @@ namespace PokeApiNet.Cache
                     .AddExpirationToken(new CancellationChangeToken(ClearToken.Token));
 
             public ResourceList<T> Get<T>(string uri) where T : ResourceBase => uriCache.Get<ResourceList<T>>(uri);
+
+            public void Dispose()
+            {
+                this.Clear();
+                ClearToken = null;
+                uriCache.Dispose();
+                uriCache = null;
+            }
         }
     }
 }
