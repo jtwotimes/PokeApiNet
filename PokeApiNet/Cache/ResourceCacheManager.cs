@@ -1,9 +1,9 @@
-﻿using PokeApiNet.Models;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Primitives;
+using PokeApiNet.Models;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Reflection;
+using System.Threading;
 
 namespace PokeApiNet.Cache
 {
@@ -12,14 +12,15 @@ namespace PokeApiNet.Cache
     /// </summary>
     internal sealed class ResourceCacheManager : BaseCacheManager
     {
-        private readonly IImmutableDictionary<System.Type, ResourceCache> _allCaches;
+        private readonly IImmutableDictionary<System.Type, ResourceCache> resourceCaches;
 
         /// <summary>
         /// Constructor
         /// </summary>
         public ResourceCacheManager()
         {
-            _allCaches = ResourceTypes.ToImmutableDictionary(x => x, _ => new ResourceCache());
+            // TODO allow configuration of experiation policies
+            resourceCaches = ResourceTypes.ToImmutableDictionary(x => x, _ => new ResourceCache());
         }
 
         /// <summary>
@@ -27,17 +28,20 @@ namespace PokeApiNet.Cache
         /// </summary>
         /// <typeparam name="T">Type of object to be cached</typeparam>
         /// <param name="obj">Object to cache</param>
-        /// <exception cref="NotSupportedException">The given type is not supported for searching
-        /// via PokeAPI</exception>
+        /// <exception cref="NotSupportedException">
+        /// The given type is not supported for searching via PokeAPI
+        /// </exception>
         public void Store<T>(T obj) where T : ResourceBase
         {
-            System.Type targetType = typeof(T);
-            if (!IsTypeSupported(targetType))
+            System.Type resourceType = typeof(T);
+            if (!IsTypeSupported(resourceType))
             {
-                throw new NotSupportedException($"{targetType.FullName} is not supported.");
+                throw new NotSupportedException($"{resourceType.FullName} is not supported.");
             }
 
-            _allCaches[targetType].Store(obj);
+            // Defer type inference to runtime, so that the correct
+            // overload of Store is invoked
+            resourceCaches[resourceType].Store(obj as dynamic);
         }
 
         /// <summary>
@@ -48,9 +52,8 @@ namespace PokeApiNet.Cache
         /// <returns>The cached object or null if not found</returns>
         public T Get<T>(int id) where T : ResourceBase
         {
-            System.Type type = typeof(T);
-            _allCaches[type].Cache.TryGetValue(id, out ResourceBase value);
-            return value as T;
+            System.Type resourceType = typeof(T);
+            return resourceCaches[resourceType].Get(id) as T;
         }
 
         /// <summary>
@@ -59,29 +62,10 @@ namespace PokeApiNet.Cache
         /// <typeparam name="T">Type of object to get</typeparam>
         /// <param name="name">Name of the resource</param>
         /// <returns>The cached object or null if not found</returns>
-        public T Get<T>(string name) where T : ResourceBase
+        public T Get<T>(string name) where T : NamedApiResource
         {
-            System.Type type = typeof(T);
-            PropertyInfo nameProperty = type.GetProperties()
-                .FirstOrDefault(property => property.Name.Equals("Name"));
-            if (nameProperty == null)
-            {
-                return null;
-            }
-
-            ResourceBase matchingObject = null;
-            foreach (ResourceBase cacheObj in _allCaches[type].Cache.Values)
-            {
-                // we wouldn't be here without knowing that T has a Name property
-                string value = nameProperty.GetValue(cacheObj) as string;
-                if (value.Equals(name, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    matchingObject = cacheObj;
-                    break;
-                }
-            }
-
-            return matchingObject as T;
+            System.Type resourceType = typeof(T);
+            return resourceCaches[resourceType].Get(name) as T;
         }
 
         /// <summary>
@@ -89,7 +73,7 @@ namespace PokeApiNet.Cache
         /// </summary>
         public void ClearAll()
         {
-            foreach (ResourceCache cache in _allCaches.Values)
+            foreach (ResourceCache cache in resourceCaches.Values)
             {
                 cache.Clear();
             }
@@ -102,31 +86,46 @@ namespace PokeApiNet.Cache
         public void Clear<T>() where T : ResourceBase
         {
             System.Type type = typeof(T);
-            _allCaches[type].Clear();
+            resourceCaches[type].Clear();
         }
 
         private sealed class ResourceCache
         {
-            /// <summary>
-            /// The underlying data store for the cache
-            /// </summary>
-            public readonly ConcurrentDictionary<int, ResourceBase> Cache;
+            private readonly MemoryCache IdCache;
+            private readonly MemoryCache NameCache;
 
             /// <summary>
             /// Constructor
             /// </summary>
             public ResourceCache()
             {
-                Cache = new ConcurrentDictionary<int, ResourceBase>();
+                // TODO allow configuration of expiration policies
+                IdCache = new MemoryCache(new MemoryCacheOptions());
+                NameCache = new MemoryCache(new MemoryCacheOptions());
+                this.ClearToken = new CancellationTokenSource();
             }
+
+            private CancellationTokenSource ClearToken { get; set; }
+
 
             /// <summary>
             /// Stores an object in cache
             /// </summary>
             /// <param name="obj">The object to store</param>
-            public void Store(ResourceBase obj)
+            public void Store(ApiResource obj)
             {
-                Cache.TryAdd(obj.Id, obj);
+                IdCache.Set(obj.Id, obj, CreateEntryOptions());
+            }
+
+            public void Store(NamedApiResource obj)
+            {
+                // TODO enforce non-nullable name
+                if(obj.Name != null)
+                {
+                    NameCache.Set(obj.Name.ToLowerInvariant(), obj, CreateEntryOptions());
+                }
+
+                IdCache.Set(obj.Id, obj, CreateEntryOptions());
             }
 
             /// <summary>
@@ -134,8 +133,26 @@ namespace PokeApiNet.Cache
             /// </summary>
             public void Clear()
             {
-                Cache.Clear();
+                // TODO add lock?
+                if (ClearToken != null && !ClearToken.IsCancellationRequested && ClearToken.Token.CanBeCanceled)
+                {
+                    ClearToken.Cancel();
+                    ClearToken.Dispose();
+                }
+
+                ClearToken = new CancellationTokenSource();
             }
+
+            public ResourceBase Get(int id) => IdCache.Get<ResourceBase>(id);
+
+            public ResourceBase Get(string name) => NameCache.Get<ResourceBase>(name.ToLowerInvariant());
+
+            /// <remarks>
+            /// New options instance has to be constantly instantiated instead of shared
+            /// as a consecuence of <see cref="ClearToken"/> being mutable
+            /// </remarks>
+            private MemoryCacheEntryOptions CreateEntryOptions() => new MemoryCacheEntryOptions()
+                    .AddExpirationToken(new CancellationChangeToken(ClearToken.Token));
         }
     }
 }
