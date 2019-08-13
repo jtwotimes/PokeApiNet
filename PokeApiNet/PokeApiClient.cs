@@ -260,7 +260,7 @@ namespace PokeApiNet
         }
 
         /// <summary>
-        /// Clears all cached data
+        /// Clears all cached data for both resources and resource lists
         /// </summary>
         public void ClearCache()
         {
@@ -272,16 +272,32 @@ namespace PokeApiNet
         /// Clears the cached data for a specific resource
         /// </summary>
         /// <typeparam name="T">The type of cache</typeparam>
-        public void ClearCache<T>() where T : ResourceBase
+        public void ClearResourceCache<T>() where T : ResourceBase
         {
             _resourceCache.Clear<T>();
+        }
+
+        /// <summary>
+        /// Clears the cached data for all resource types
+        /// </summary>
+        public void ClearResourceCache()
+        {
+            _resourceCache.ClearAll();
+        }
+
+        /// <summary>
+        /// Clears the cached data for all resource lists
+        /// </summary>
+        public void ClearResourceListCache()
+        {
+            _resourceListCache.ClearAll();
         }
 
         /// <summary>
         /// Clears the cached data for a specific resource list
         /// </summary>
         /// <typeparam name="T">The type of cache</typeparam>
-        public void ClearListCache<T>() where T : ResourceBase
+        public void ClearResourceListCache<T>() where T : ResourceBase
         {
             _resourceListCache.Clear<T>();
         }

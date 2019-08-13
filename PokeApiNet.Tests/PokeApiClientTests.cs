@@ -23,7 +23,7 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task ClearsListCacheOfSpecificType()
+        public async Task ClearResourceListCacheOfAllTypes()
         {
             // assemble
             PokeApiClient sut = CreateSut();
@@ -39,8 +39,31 @@ namespace PokeApiNet.Tests
             // act
             await sut.GetApiResourcePageAsync<Machine>();
             await sut.GetNamedResourcePageAsync<Berry>();
-            sut.ClearListCache<Machine>();
-            sut.ClearListCache<Berry>();
+            sut.ClearResourceListCache();
+            await sut.GetApiResourcePageAsync<Machine>();
+            await sut.GetNamedResourcePageAsync<Berry>();
+
+            // assert
+            mockHttp.VerifyNoOutstandingExpectation();
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task ClearResourceListCacheOfSpecificType()
+        {
+            // assemble
+            PokeApiClient sut = CreateSut();
+            mockHttp.Expect("*machine")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+            mockHttp.Expect("*berry")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+            mockHttp.Expect("*machine")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+
+            // act
+            await sut.GetApiResourcePageAsync<Machine>();
+            await sut.GetNamedResourcePageAsync<Berry>();
+            sut.ClearResourceListCache<Machine>();
             await sut.GetApiResourcePageAsync<Machine>();
             await sut.GetNamedResourcePageAsync<Berry>();
 
@@ -257,7 +280,35 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task ClearCacheTyped()
+        public async Task ClearResourceCacheOfAllTypes()
+        {
+            // assemble
+            Berry berry = new Berry { Name = "test", Id = 1 };
+            Machine machine = new Machine { Id = 1 };
+            PokeApiClient sut = CreateSut();
+            mockHttp.Expect("*machine*")
+                .Respond("application/json", JsonConvert.SerializeObject(machine));
+            mockHttp.Expect("*berry*")
+                .Respond("application/json", JsonConvert.SerializeObject(berry));
+            mockHttp.Expect("*machine*")
+                .Respond("application/json", JsonConvert.SerializeObject(machine));
+            mockHttp.Expect("*berry*")
+                 .Respond("application/json", JsonConvert.SerializeObject(berry));
+
+            // act
+            await sut.GetResourceAsync<Machine>(machine.Id);
+            await sut.GetResourceAsync<Berry>(berry.Id);
+            sut.ClearResourceCache();
+            await sut.GetResourceAsync<Machine>(machine.Id);
+            await sut.GetResourceAsync<Berry>(berry.Id);
+
+            // assert
+            mockHttp.VerifyNoOutstandingExpectation();
+        }
+
+        [Fact]
+        [Trait("Category", "Unit")]
+        public async Task ClearResourceCacheOfSpecificType()
         {
             // assemble
             Berry returnedBerry = new Berry { Id = 1 };
@@ -270,7 +321,7 @@ namespace PokeApiNet.Tests
             mockHttp.ResetExpectations();
 
             // act
-            client.ClearCache<Berry>();
+            client.ClearResourceCache<Berry>();
             mockHttp.Expect("*").Respond("application/json", JsonConvert.SerializeObject(returnedBerry));
             berry = await client.GetResourceAsync<Berry>(1);
 
@@ -280,23 +331,26 @@ namespace PokeApiNet.Tests
 
         [Fact]
         [Trait("Category", "Unit")]
-        public async Task ClearCache()
+        public async Task ClearCacheWipesAllCachedData()
         {
             // assemble
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*berry/1/").Respond("application/json", JsonConvert.SerializeObject(new Berry { Id = 1 }));
-            mockHttp.Expect("*pokemon/1/").Respond("application/json", JsonConvert.SerializeObject(new Pokemon { Id = 1 }));
-
-            PokeApiClient client = new PokeApiClient(mockHttp);
-            Berry berry = await client.GetResourceAsync<Berry>(1);
-            Pokemon pokemon = await client.GetResourceAsync<Pokemon>(1);
-
-            mockHttp.ResetExpectations();
+            PokeApiClient sut = CreateSut();
+            Berry berry = new Berry { Name = "test", Id = 1 };
+            mockHttp.Expect($"*berry/{berry.Id}*")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+            mockHttp.Expect("*berry")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+            mockHttp.Expect($"*berry/{berry.Id}*")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+            mockHttp.Expect("*berry")
+                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
 
             // act
-            client.ClearCache();
-            mockHttp.Expect("*berry/1/").Respond("application/json", JsonConvert.SerializeObject(new Berry { Id = 1 }));
-            berry = await client.GetResourceAsync<Berry>(1);
+            await sut.GetResourceAsync<Berry>(berry.Id);
+            await sut.GetNamedResourcePageAsync<Berry>();
+            sut.ClearCache();
+            await sut.GetResourceAsync<Berry>(berry.Id);
+            await sut.GetNamedResourcePageAsync<Berry>();
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
