@@ -24,7 +24,7 @@ namespace PokeApiNet
         private readonly HttpClient _client;
         private readonly Uri _baseUri = new Uri("https://pokeapi.co/api/v2/");
         private readonly ResourceCacheManager _resourceCache = new ResourceCacheManager();
-        private readonly ResourceListCacheManager _resoutListCache = new ResourceListCacheManager();
+        private readonly ResourceListCacheManager _resourceListCache = new ResourceListCacheManager();
 
         /// <summary>
         /// Default constructor
@@ -82,7 +82,7 @@ namespace PokeApiNet
         {
             _client.Dispose();
             _resourceCache.Dispose();
-            _resoutListCache.Dispose();
+            _resourceListCache.Dispose();
         }
 
         private static ProductHeaderValue GetDefaultUserAgent()
@@ -265,7 +265,7 @@ namespace PokeApiNet
         public void ClearCache()
         {
             _resourceCache.ClearAll();
-            _resoutListCache.ClearAll();
+            _resourceListCache.ClearAll();
         }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace PokeApiNet
         /// <typeparam name="T">The type of cache</typeparam>
         public void ClearListCache<T>() where T : ResourceBase
         {
-            _resoutListCache.Clear<T>();
+            _resourceListCache.Clear<T>();
         }
 
         /// <summary>
@@ -319,11 +319,11 @@ namespace PokeApiNet
             where T : NamedApiResource
         {
             string pageUrl = urlFn(GetApiEndpointString<T>());
-            NamedApiResourceList<T> resources = _resoutListCache.GetNamedResources<T>(pageUrl);
+            NamedApiResourceList<T> resources = _resourceListCache.GetNamedResources<T>(pageUrl);
             if (resources == null)
             {
                 resources = await GetPageAsync(JsonConvert.DeserializeObject<NamedApiResourceList<T>>, cancellationToken)(pageUrl) as NamedApiResourceList<T>;
-                _resoutListCache.Store(pageUrl, resources);
+                _resourceListCache.Store(pageUrl, resources);
             }
             return resources;
         }
@@ -361,11 +361,11 @@ namespace PokeApiNet
             where T : ApiResource
         {
             string pageUrl = urlFn(GetApiEndpointString<T>());
-            ApiResourceList<T> resources = _resoutListCache.GetApiResources<T>(pageUrl);
+            ApiResourceList<T> resources = _resourceListCache.GetApiResources<T>(pageUrl);
             if(resources == null)
             {
                 resources = await GetPageAsync(JsonConvert.DeserializeObject<ApiResourceList<T>>, cancellationToken)(pageUrl) as ApiResourceList<T>;
-                _resoutListCache.Store(pageUrl, resources);
+                _resourceListCache.Store(pageUrl, resources);
             }
             return resources;
         }

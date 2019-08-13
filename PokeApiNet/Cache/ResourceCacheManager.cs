@@ -158,7 +158,7 @@ namespace PokeApiNet.Cache
 
             /// <remarks>
             /// New options instance has to be constantly instantiated instead of shared
-            /// as a consecuence of <see cref="ClearToken"/> being mutable
+            /// as a consequence of <see cref="ClearToken"/> being mutable
             /// </remarks>
             private MemoryCacheEntryOptions CreateEntryOptions() => new MemoryCacheEntryOptions()
                     .AddExpirationToken(new CancellationChangeToken(ClearToken.Token));
