@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Primitives;
 using PokeApiNet.Models;
 using System;
 using System.Collections.Immutable;
-using System.Threading;
 
 namespace PokeApiNet.Cache
 {
@@ -98,10 +96,10 @@ namespace PokeApiNet.Cache
             this.resourceCaches = null;
         }
 
-        private sealed class ResourceCache : IDisposable
+        private sealed class ResourceCache : BaseExpirableCache, IDisposable
         {
-            private MemoryCache IdCache;
-            private MemoryCache NameCache;
+            private readonly MemoryCache IdCache;
+            private readonly MemoryCache NameCache;
 
             /// <summary>
             /// Constructor
@@ -111,10 +109,7 @@ namespace PokeApiNet.Cache
                 // TODO allow configuration of expiration policies
                 IdCache = new MemoryCache(new MemoryCacheOptions());
                 NameCache = new MemoryCache(new MemoryCacheOptions());
-                this.ClearToken = new CancellationTokenSource();
             }
-
-            private CancellationTokenSource ClearToken { get; set; }
 
 
             /// <summary>
@@ -123,7 +118,7 @@ namespace PokeApiNet.Cache
             /// <param name="obj">The object to store</param>
             public void Store(ApiResource obj)
             {
-                IdCache.Set(obj.Id, obj, CreateEntryOptions());
+                IdCache.Set(obj.Id, obj, CacheEntryOptions);
             }
 
             public void Store(NamedApiResource obj)
@@ -131,10 +126,10 @@ namespace PokeApiNet.Cache
                 // TODO enforce non-nullable name
                 if (obj.Name != null)
                 {
-                    NameCache.Set(obj.Name.ToLowerInvariant(), obj, CreateEntryOptions());
+                    NameCache.Set(obj.Name.ToLowerInvariant(), obj, CacheEntryOptions);
                 }
 
-                IdCache.Set(obj.Id, obj, CreateEntryOptions());
+                IdCache.Set(obj.Id, obj, CacheEntryOptions);
             }
 
             /// <summary>
@@ -142,35 +137,18 @@ namespace PokeApiNet.Cache
             /// </summary>
             public void Clear()
             {
-                // TODO add lock?
-                if (ClearToken != null && !ClearToken.IsCancellationRequested && ClearToken.Token.CanBeCanceled)
-                {
-                    ClearToken.Cancel();
-                    ClearToken.Dispose();
-                }
-
-                ClearToken = new CancellationTokenSource();
+                ExpireAll();
             }
 
             public ResourceBase Get(int id) => IdCache.Get<ResourceBase>(id);
 
             public ResourceBase Get(string name) => NameCache.Get<ResourceBase>(name.ToLowerInvariant());
 
-            /// <remarks>
-            /// New options instance has to be constantly instantiated instead of shared
-            /// as a consequence of <see cref="ClearToken"/> being mutable
-            /// </remarks>
-            private MemoryCacheEntryOptions CreateEntryOptions() => new MemoryCacheEntryOptions()
-                    .AddExpirationToken(new CancellationChangeToken(ClearToken.Token));
-
             public void Dispose()
             {
-                this.Clear();
-                this.ClearToken = null;
+                ExpireAll();
                 this.IdCache.Dispose();
                 this.NameCache.Dispose();
-                this.IdCache = null;
-                this.NameCache = null;
             }
         }
     }

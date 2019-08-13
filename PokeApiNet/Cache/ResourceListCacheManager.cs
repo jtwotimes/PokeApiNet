@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Primitives;
 using PokeApiNet.Models;
 using System;
 using System.Collections.Immutable;
-using System.Threading;
 
 namespace PokeApiNet.Cache
 {
@@ -99,7 +97,7 @@ namespace PokeApiNet.Cache
             listCaches = null;
         }
 
-        private sealed class ListCache : IDisposable
+        private sealed class ListCache : BaseExpirableCache, IDisposable
         {
             private MemoryCache urlCache;
 
@@ -107,15 +105,12 @@ namespace PokeApiNet.Cache
             {
                 // TODO allow configuration of expiration policies
                 urlCache = new MemoryCache(new MemoryCacheOptions());
-                this.ClearToken = new CancellationTokenSource();
             }
-
-            private CancellationTokenSource ClearToken { get; set; }
 
             public void Store<T>(string url, ResourceList<T> resourceList)
                 where T : ResourceBase
             {
-                urlCache.Set(url, resourceList, CreateEntryOptions());
+                urlCache.Set(url, resourceList, CacheEntryOptions);
             }
 
             /// <summary>
@@ -123,29 +118,14 @@ namespace PokeApiNet.Cache
             /// </summary>
             public void Clear()
             {
-                // TODO add lock?
-                if (ClearToken != null && !ClearToken.IsCancellationRequested && ClearToken.Token.CanBeCanceled)
-                {
-                    ClearToken.Cancel();
-                    ClearToken.Dispose();
-                }
-
-                ClearToken = new CancellationTokenSource();
+                ExpireAll();
             }
-
-            /// <remarks>
-            /// New options instance has to be constantly instantiated instead of shared
-            /// as a consequence of <see cref="ClearToken"/> being mutable
-            /// </remarks>
-            private MemoryCacheEntryOptions CreateEntryOptions() => new MemoryCacheEntryOptions()
-                    .AddExpirationToken(new CancellationChangeToken(ClearToken.Token));
 
             public ResourceList<T> Get<T>(string url) where T : ResourceBase => urlCache.Get<ResourceList<T>>(url);
 
             public void Dispose()
             {
                 this.Clear();
-                ClearToken = null;
                 urlCache.Dispose();
                 urlCache = null;
             }
