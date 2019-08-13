@@ -319,7 +319,7 @@ namespace PokeApiNet
             where T : NamedApiResource
         {
             string pageUrl = urlFn(GetApiEndpointString<T>());
-            NamedApiResourceList<T> resources = _resourceListCache.GetNamedResources<T>(pageUrl);
+            NamedApiResourceList<T> resources = _resourceListCache.GetNamedResourceList<T>(pageUrl);
             if (resources == null)
             {
                 resources = await GetPageAsync(JsonConvert.DeserializeObject<NamedApiResourceList<T>>, cancellationToken)(pageUrl) as NamedApiResourceList<T>;
@@ -361,7 +361,7 @@ namespace PokeApiNet
             where T : ApiResource
         {
             string pageUrl = urlFn(GetApiEndpointString<T>());
-            ApiResourceList<T> resources = _resourceListCache.GetApiResources<T>(pageUrl);
+            ApiResourceList<T> resources = _resourceListCache.GetApiResourceList<T>(pageUrl);
             if(resources == null)
             {
                 resources = await GetPageAsync(JsonConvert.DeserializeObject<ApiResourceList<T>>, cancellationToken)(pageUrl) as ApiResourceList<T>;

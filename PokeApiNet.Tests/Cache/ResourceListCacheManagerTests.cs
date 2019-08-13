@@ -7,24 +7,24 @@ namespace PokeApiNet.Tests.Cache
 {
     public class ResourceListCacheManagerTests
     {
-        private readonly string testUri;
+        private readonly string testUrl;
 
         public ResourceListCacheManagerTests()
         {
-            testUri = "unit-test";
+            testUrl = "unit-test";
         }
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void GetApiResources_WithStoredUri_ReturnsResource()
+        public void GetApiResourceList_WithStoredUri_ReturnsResource()
         {
             // assemble
             ResourceListCacheManager sut = CreateSut();
-            (string uri, ApiResourceList<Machine> list) = CreateFakeApiResourceList<Machine>();
-            sut.Store(uri, list);
+            (string url, ApiResourceList<Machine> list) = CreateFakeApiResourceList<Machine>();
+            sut.Store(url, list);
 
             // act
-            ApiResourceList<Machine> cached = sut.GetApiResources<Machine>(uri);
+            ApiResourceList<Machine> cached = sut.GetApiResourceList<Machine>(url);
 
             // assert
             Assert.Same(list, cached);
@@ -32,15 +32,15 @@ namespace PokeApiNet.Tests.Cache
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void GetApiResources_WithNonStoredUri_ReturnsNull()
+        public void GetApiResourceList_WithNonStoredUri_ReturnsNull()
         {
             // assemble
             ResourceListCacheManager sut = CreateSut();
-            (string uri, ApiResourceList<Machine> list) = CreateFakeApiResourceList<Machine>();
-            sut.Store(uri, list);
+            (string url, ApiResourceList<Machine> list) = CreateFakeApiResourceList<Machine>();
+            sut.Store(url, list);
 
             // act
-            ApiResourceList<Machine> cached = sut.GetApiResources<Machine>(testUri);
+            ApiResourceList<Machine> cached = sut.GetApiResourceList<Machine>(testUrl);
 
             // assert
             Assert.Null(cached);
@@ -48,13 +48,13 @@ namespace PokeApiNet.Tests.Cache
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void GetApiResources_OnEmptyCache_ReturnsNull()
+        public void GetApiResourceList_OnEmptyCache_ReturnsNull()
         {
             // assemble
             ResourceListCacheManager sut = CreateSut();
 
             // act
-            ApiResourceList<Machine> cached = sut.GetApiResources<Machine>(testUri);
+            ApiResourceList<Machine> cached = sut.GetApiResourceList<Machine>(testUrl);
 
             // assert
             Assert.Null(cached);
@@ -62,15 +62,15 @@ namespace PokeApiNet.Tests.Cache
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void GetNamedResources_WithStoredUri_ReturnsResource()
+        public void GetNamedResourceList_WithStoredUri_ReturnsResource()
         {
             // assemble
             ResourceListCacheManager sut = CreateSut();
-            (string uri, NamedApiResourceList<Berry> list) = CreateFakeNamedResourceList<Berry>();
-            sut.Store(uri, list);
+            (string url, NamedApiResourceList<Berry> list) = CreateFakeNamedResourceList<Berry>();
+            sut.Store(url, list);
 
             // act
-            NamedApiResourceList<Berry> cached = sut.GetNamedResources<Berry>(uri);
+            NamedApiResourceList<Berry> cached = sut.GetNamedResourceList<Berry>(url);
 
             // assert
             Assert.Same(list, cached);
@@ -78,15 +78,15 @@ namespace PokeApiNet.Tests.Cache
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void GetNamedResources_WithNonStoredUri_ReturnsNull()
+        public void GetNamedResourceList_WithNonStoredUri_ReturnsNull()
         {
             // assemble
             ResourceListCacheManager sut = CreateSut();
-            (string uri, NamedApiResourceList<Berry> list) = CreateFakeNamedResourceList<Berry>();
-            sut.Store(uri, list);
+            (string url, NamedApiResourceList<Berry> list) = CreateFakeNamedResourceList<Berry>();
+            sut.Store(url, list);
 
             // act
-            NamedApiResourceList<Berry> cached = sut.GetNamedResources<Berry>(testUri);
+            NamedApiResourceList<Berry> cached = sut.GetNamedResourceList<Berry>(testUrl);
 
             // assert
             Assert.Null(cached);
@@ -94,13 +94,13 @@ namespace PokeApiNet.Tests.Cache
 
         [Fact]
         [Trait("Category", "Unit")]
-        public void GetNamedResources_OnEmptyCache_ReturnsNull()
+        public void GetNamedResourceList_OnEmptyCache_ReturnsNull()
         {
             // assemble
             ResourceListCacheManager sut = CreateSut();
 
             // act
-            NamedApiResourceList<Berry> cached = sut.GetNamedResources<Berry>(testUri);
+            NamedApiResourceList<Berry> cached = sut.GetNamedResourceList<Berry>(testUrl);
 
             // assert
             Assert.Null(cached);
@@ -121,8 +121,8 @@ namespace PokeApiNet.Tests.Cache
             sut.ClearAll();
 
             // assert
-            NamedApiResourceList<Berry> cacheddBerryList = sut.GetNamedResources<Berry>(berryUri);
-            ApiResourceList<Machine> cachedMachineList = sut.GetApiResources<Machine>(machineUri);
+            NamedApiResourceList<Berry> cacheddBerryList = sut.GetNamedResourceList<Berry>(berryUri);
+            ApiResourceList<Machine> cachedMachineList = sut.GetApiResourceList<Machine>(machineUri);
             Assert.Null(cacheddBerryList);
             Assert.Null(cachedMachineList);
         }
@@ -142,8 +142,8 @@ namespace PokeApiNet.Tests.Cache
             sut.Clear<Berry>();
 
             // assert
-            NamedApiResourceList<Berry> cachedBerryList = sut.GetNamedResources<Berry>(berryUri);
-            ApiResourceList<Machine> cachedMachineList = sut.GetApiResources<Machine>(machineUri);
+            NamedApiResourceList<Berry> cachedBerryList = sut.GetNamedResourceList<Berry>(berryUri);
+            ApiResourceList<Machine> cachedMachineList = sut.GetApiResourceList<Machine>(machineUri);
             Assert.Null(cachedBerryList);
             Assert.NotNull(cachedMachineList);
         }
@@ -160,20 +160,20 @@ namespace PokeApiNet.Tests.Cache
             Assert.Throws<NotSupportedException>(() =>
             {
                 // act
-                sut.Store(testUri, list);
+                sut.Store(testUrl, list);
             });
         }
 
-        private (string, ApiResourceList<T>) CreateFakeApiResourceList<T>(string uri = null)
+        private (string, ApiResourceList<T>) CreateFakeApiResourceList<T>(string url = null)
             where T : ApiResource
         {
-            return (uri ?? typeof(T).Name, new ApiResourceList<T>());
+            return (url ?? typeof(T).Name, new ApiResourceList<T>());
         }
 
-        private (string, NamedApiResourceList<T>) CreateFakeNamedResourceList<T>(string uri = null)
+        private (string, NamedApiResourceList<T>) CreateFakeNamedResourceList<T>(string url = null)
             where T : NamedApiResource
         {
-            return (uri ?? typeof(T).Name, new NamedApiResourceList<T>());
+            return (url ?? typeof(T).Name, new NamedApiResourceList<T>());
         }
 
         private static ResourceListCacheManager CreateSut()
