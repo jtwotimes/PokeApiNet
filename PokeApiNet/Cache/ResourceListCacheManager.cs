@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using PokeApiNet.Models;
 using System;
-using System.Collections.Immutable;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PokeApiNet.Cache
 {
@@ -10,12 +11,12 @@ namespace PokeApiNet.Cache
     /// </summary>
     internal sealed class ResourceListCacheManager : BaseCacheManager, IDisposable
     {
-        private IImmutableDictionary<System.Type, ListCache> listCaches;
+        private IReadOnlyDictionary<System.Type, ListCache> listCaches;
 
         public ResourceListCacheManager()
         {
             // TODO allow configuration of experiation policies
-            this.listCaches = ResourceTypes.ToImmutableDictionary(x => x, _ => new ListCache());
+            this.listCaches = ResourceTypes.ToDictionary(x => x, _ => new ListCache());
         }
 
         /// <summary>

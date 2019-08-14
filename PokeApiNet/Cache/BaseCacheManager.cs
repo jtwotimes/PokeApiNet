@@ -1,5 +1,5 @@
 ﻿using PokeApiNet.Models;
-using System.Collections.Immutable;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -13,13 +13,12 @@ namespace PokeApiNet.Cache
     /// </remarks>
     internal abstract class BaseCacheManager
     {
-        protected static readonly ImmutableHashSet<System.Type> ResourceTypes;
+        protected static readonly IReadOnlyCollection<System.Type> ResourceTypes;
 
         static BaseCacheManager()
         {
-            ResourceTypes = Assembly.GetExecutingAssembly().GetTypes()
-            .Where(type => type.IsSubclassOf(typeof(ApiResource)) || type.IsSubclassOf(typeof(NamedApiResource)))
-            .ToImmutableHashSet();
+            ResourceTypes = new HashSet<System.Type>(Assembly.GetExecutingAssembly().GetTypes()
+            .Where(type => type.IsSubclassOf(typeof(ApiResource)) || type.IsSubclassOf(typeof(NamedApiResource))));
         }
 
         protected bool IsTypeSupported(System.Type type) => ResourceTypes.Contains(type);
