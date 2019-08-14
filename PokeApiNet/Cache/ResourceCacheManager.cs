@@ -13,13 +13,9 @@ namespace PokeApiNet.Cache
     {
         private IReadOnlyDictionary<System.Type, ResourceCache> resourceCaches;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public ResourceCacheManager()
+        public ResourceCacheManager(IObservable<CacheExpirationOptions> expirationOptionsProvider)
         {
-            // TODO allow configuration of experiation policies
-            resourceCaches = ResourceTypes.ToDictionary(x => x, _ => new ResourceCache());
+            resourceCaches = ResourceTypes.ToDictionary(x => x, _ => new ResourceCache(expirationOptionsProvider));
         }
 
         /// <summary>
@@ -102,12 +98,9 @@ namespace PokeApiNet.Cache
             private readonly MemoryCache IdCache;
             private readonly MemoryCache NameCache;
 
-            /// <summary>
-            /// Constructor
-            /// </summary>
-            public ResourceCache()
+            public ResourceCache(IObservable<CacheExpirationOptions> expirationOptionsProvider)
+                : base(expirationOptionsProvider)
             {
-                // TODO allow configuration of expiration policies
                 IdCache = new MemoryCache(new MemoryCacheOptions());
                 NameCache = new MemoryCache(new MemoryCacheOptions());
             }
@@ -145,9 +138,9 @@ namespace PokeApiNet.Cache
 
             public ResourceBase Get(string name) => NameCache.Get<ResourceBase>(name.ToLowerInvariant());
 
-            public void Dispose()
+            public override void Dispose()
             {
-                ExpireAll();
+                base.Dispose();
                 this.IdCache.Dispose();
                 this.NameCache.Dispose();
             }

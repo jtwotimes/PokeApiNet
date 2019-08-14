@@ -20,11 +20,18 @@ namespace PokeApiNet
         /// <summary>
         /// The default `User-Agent` header value used by instances of <see cref="PokeApiClient"/>.
         /// </summary>
-        public static readonly ProductHeaderValue DefaultUserAgent = GetDefaultUserAgent();
+        internal static readonly ProductHeaderValue DefaultUserAgent = GetDefaultUserAgent();
+
+        /// <summary>
+        /// The default base address to which requests are to be sent.
+        /// </summary>
+        internal static readonly Uri DefaultBaseUrl = new Uri("https://pokeapi.co/api/v2/");
+
         private readonly HttpClient _client;
-        private readonly Uri _baseUri = new Uri("https://pokeapi.co/api/v2/");
-        private readonly ResourceCacheManager _resourceCache = new ResourceCacheManager();
-        private readonly ResourceListCacheManager _resourceListCache = new ResourceListCacheManager();
+        private readonly ResourceCacheManager _resourceCache;
+        private readonly ResourceListCacheManager _resourceListCache;
+        private readonly CacheExpirationOptionsSource _resourceCacheExpirationSource;
+        private readonly CacheExpirationOptionsSource _resourceListCacheExpirationSource;
 
         /// <summary>
         /// Default constructor
@@ -40,14 +47,8 @@ namespace PokeApiNet
         /// </summary>
         /// <param name="userAgent">The value for the default `User-Agent` header.</param>
         public PokeApiClient(ProductHeaderValue userAgent)
+            : this(DefaultBaseUrl, userAgent)
         {
-            if (userAgent == null)
-            {
-                throw new ArgumentNullException(nameof(userAgent));
-            }
-
-            _client = new HttpClient() { BaseAddress = _baseUri };
-            _client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(userAgent));
         }
 
         /// <summary>
@@ -66,14 +67,69 @@ namespace PokeApiNet
         /// <param name="userAgent">The value for the default `User-Agent` header.</param>
         public PokeApiClient(HttpMessageHandler messageHandler, ProductHeaderValue userAgent)
         {
+            if (messageHandler == null)
+            {
+                throw new ArgumentNullException(nameof(messageHandler));
+            }
+
             if (userAgent == null)
             {
                 throw new ArgumentNullException(nameof(userAgent));
             }
 
-            _client = new HttpClient(messageHandler) { BaseAddress = _baseUri };
-            _client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(userAgent));
+            this._client = new HttpClient(messageHandler) { BaseAddress = DefaultBaseUrl };
+            this._client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(userAgent));
+            this._resourceCacheExpirationSource = new CacheExpirationOptionsSource();
+            this._resourceListCacheExpirationSource = new CacheExpirationOptionsSource();
+            this._resourceCache = new ResourceCacheManager(this._resourceCacheExpirationSource);
+            this._resourceListCache = new ResourceListCacheManager(this._resourceListCacheExpirationSource);
         }
+
+        internal PokeApiClient(
+            Uri baseUrl,
+            ProductHeaderValue userAgent)
+        {
+            if (baseUrl == null)
+            {
+                throw new ArgumentNullException(nameof(baseUrl));
+            }
+
+            if (userAgent == null)
+            {
+                throw new ArgumentNullException(nameof(userAgent));
+            }
+
+            this._client = new HttpClient { BaseAddress = baseUrl };
+            this._client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(userAgent));
+            this._resourceCacheExpirationSource = new CacheExpirationOptionsSource();
+            this._resourceListCacheExpirationSource = new CacheExpirationOptionsSource();
+            this._resourceCache = new ResourceCacheManager(this._resourceCacheExpirationSource);
+            this._resourceListCache = new ResourceListCacheManager(this._resourceListCacheExpirationSource);
+        }
+
+        /// <summary>
+        /// Sets the expiration options for both the resource and resource list cache.
+        /// </summary>
+        /// <param name="expirationOptions">The expiration options. If null is given, the options are set to default (no expiration).</param>
+        public void SetCacheExpirationOptions(CacheExpirationOptions expirationOptions)
+        {
+            this.SetResourceCacheExpirationOptions(expirationOptions ?? new CacheExpirationOptions());
+            this.SetResourceListCacheExpirationOptions(expirationOptions ?? new CacheExpirationOptions());
+        }
+
+        /// <summary>
+        /// Sets the expiration options for the resource cache.
+        /// </summary>
+        /// <param name="expirationOptions">The expiration options. If null is given, the options are set to default (no expiration).</param>
+        public void SetResourceCacheExpirationOptions(CacheExpirationOptions expirationOptions) 
+            => this._resourceCacheExpirationSource.UpdateOptions(expirationOptions ?? new CacheExpirationOptions());
+
+        /// <summary>
+        /// Sets the expiration options for the resource list cache.
+        /// </summary>
+        /// <param name="expirationOptions">The expiration options. If null is given, the options are set to default (no expiration).</param>
+        public void SetResourceListCacheExpirationOptions(CacheExpirationOptions expirationOptions) 
+            => this._resourceListCacheExpirationSource.UpdateOptions(expirationOptions ?? new CacheExpirationOptions());
 
         /// <summary>
         /// Close resources
@@ -83,6 +139,8 @@ namespace PokeApiNet
             _client.Dispose();
             _resourceCache.Dispose();
             _resourceListCache.Dispose();
+            _resourceCacheExpirationSource.CloseStream();
+            _resourceListCacheExpirationSource.CloseStream();
         }
 
         private static ProductHeaderValue GetDefaultUserAgent()

@@ -13,10 +13,9 @@ namespace PokeApiNet.Cache
     {
         private IReadOnlyDictionary<System.Type, ListCache> listCaches;
 
-        public ResourceListCacheManager()
+        public ResourceListCacheManager(IObservable<CacheExpirationOptions> expirationOptionsProvider)
         {
-            // TODO allow configuration of experiation policies
-            this.listCaches = ResourceTypes.ToDictionary(x => x, _ => new ListCache());
+            this.listCaches = ResourceTypes.ToDictionary(x => x, _ => new ListCache(expirationOptionsProvider));
         }
 
         /// <summary>
@@ -100,11 +99,11 @@ namespace PokeApiNet.Cache
 
         private sealed class ListCache : BaseExpirableCache, IDisposable
         {
-            private MemoryCache urlCache;
+            private readonly MemoryCache urlCache;
 
-            public ListCache()
+            public ListCache(IObservable<CacheExpirationOptions> expirationOptionsProvider)
+                : base(expirationOptionsProvider)
             {
-                // TODO allow configuration of expiration policies
                 urlCache = new MemoryCache(new MemoryCacheOptions());
             }
 
@@ -124,11 +123,10 @@ namespace PokeApiNet.Cache
 
             public ResourceList<T> Get<T>(string url) where T : ResourceBase => urlCache.Get<ResourceList<T>>(url);
 
-            public void Dispose()
+            public override void Dispose()
             {
-                this.Clear();
+                base.Dispose();
                 urlCache.Dispose();
-                urlCache = null;
             }
         }
     }

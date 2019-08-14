@@ -8,10 +8,12 @@ namespace PokeApiNet.Tests.Cache
     public class ResourceListCacheManagerTests
     {
         private readonly string testUrl;
+        private readonly MockCacheExpirationOptionsSource optionsSource;
 
         public ResourceListCacheManagerTests()
         {
-            testUrl = "unit-test";
+            this.testUrl = "unit-test";
+            this.optionsSource = new MockCacheExpirationOptionsSource();
         }
 
         [Fact]
@@ -176,9 +178,9 @@ namespace PokeApiNet.Tests.Cache
             return (url ?? typeof(T).Name, new NamedApiResourceList<T>());
         }
 
-        private static ResourceListCacheManager CreateSut()
+        private ResourceListCacheManager CreateSut()
         {
-            return new ResourceListCacheManager();
+            return new ResourceListCacheManager(this.optionsSource);
         }
 
         private class TestResourceList : ResourceList<TestResource> { }
