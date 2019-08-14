@@ -3,12 +3,12 @@ A .Net wrapper for the Pokemon API at [https://pokeapi.co](https://pokeapi.co).
 
 Targets .Net Standard 2.0.
 
-[![NuGet](http://img.shields.io/nuget/v/PokeApiNet.svg?logo=nuget)](https://www.nuget.org/packages/PokeApiNet)
+[![NuGet](https://img.shields.io/nuget/v/PokeApiNet.svg?logo=nuget)](https://www.nuget.org/packages/PokeApiNet)
 [![CircleCI](https://circleci.com/gh/mtrdp642/PokeApiNet/tree/master.svg?style=svg)](https://circleci.com/gh/mtrdp642/PokeApiNet/tree/master)
 
 # Use
 ```cs
-using PokeApiNet.Data;
+using PokeApiNet;
 using PokeApiNet.Models;
 
 ...
@@ -65,7 +65,7 @@ Berry cheri = await client.GetResourceAsync<Berry>(firstBerryPage.Results[0]);
 Refer to the PokeAPI documention to see which resources include a `Name` property.
 
 ## Caching
-Every resource response is automatically cached in memory, making all subsequent requests for the same resource pull cached data. Example:
+Every resource and page response is automatically cached in memory, making all subsequent requests for the same resource or page pull cached data. Example:
 ```cs
 // this will fetch the data from the API
 Pokemon mew = await pokeClient.GetResourceAsync<Pokemon>(151);
@@ -76,12 +76,11 @@ Pokemon mewCached = await pokeClient.GetResourceAsync<Pokemon>("mew");
 
 To clear the cache of data:
 ```cs
-// clear all caches
+// clear all caches for both resources and pages
 pokeClient.ClearCache();
-
-// clear a particular resource type's cache
-pokeClient.ClearCache<Item>();
 ```
+
+Additional overloads are provided to allow for clearing the individual caches for resources and pages, as well as by type of cache.
 
 # Build
 ```
