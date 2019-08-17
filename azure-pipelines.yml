@@ -17,5 +17,5 @@ steps:
   displayName: 'dotnet restore'
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-- script: dotnet test 
-  displayName: 'dotnet test'
+- script: dotnet test --filter "Category = Unit"
+  displayName: 'run unit tests'
