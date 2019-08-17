@@ -27,5 +27,5 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'XUnit'
-    testResultsFiles: 'coverage.cobertura.xml'
+    testResultsFiles: '**/coverage.cobertura.xml'
     failTaskOnFailedTests: true
