@@ -54,6 +54,13 @@ namespace PokeApiNet.Cache
             this.expirationOptionsSub.Dispose();
         }
 
+        private void UpdateCacheExpirationOptions(CacheExpirationOptions expirationOptions)
+        {
+            this.absoluteExpiration = expirationOptions.AbsoluteExpiration;
+            this.absoluteExpirationRelativeToNow = expirationOptions.AbsoluteExpirationRelativeToNow;
+            this.slidingExpiration = expirationOptions.SlidingExpiration;
+        }
+
         private sealed class CacheExpirationOptionsObserver : IObserver<CacheExpirationOptions>
         {
             private readonly BaseExpirableCache cache;
@@ -75,9 +82,7 @@ namespace PokeApiNet.Cache
 
             public void OnNext(CacheExpirationOptions value)
             {
-                this.cache.absoluteExpiration = value.AbsoluteExpiration;
-                this.cache.absoluteExpirationRelativeToNow = value.AbsoluteExpirationRelativeToNow;
-                this.cache.slidingExpiration = value.SlidingExpiration;
+                this.cache.UpdateCacheExpirationOptions(value);
             }
         }
     }

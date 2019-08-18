@@ -125,6 +125,7 @@ namespace PokeApiNet.Cache
 
             public override void Dispose()
             {
+                // Ensures that created cache entries are expired
                 base.Dispose();
                 urlCache.Dispose();
             }
