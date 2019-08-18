@@ -1,4 +1,6 @@
-﻿using PokeApiNet.Cache;
+﻿using FluentAssertions;
+using NSubstitute;
+using PokeApiNet.Cache;
 using PokeApiNet.Models;
 using System;
 using Xunit;
@@ -7,11 +9,11 @@ namespace PokeApiNet.Tests.Cache
 {
     public class ResourceCacheManagerTests
     {
-        private readonly MockCacheExpirationOptionsSource optionsSource;
+        private readonly IObservable<CacheExpirationOptions> optionsSource;
 
         public ResourceCacheManagerTests()
         {
-            this.optionsSource = new MockCacheExpirationOptionsSource();
+            this.optionsSource = Substitute.For<IObservable<CacheExpirationOptions>>();
         }
 
         [Fact]
@@ -178,6 +180,22 @@ namespace PokeApiNet.Tests.Cache
 
             // assert
             Assert.Same(berry, retrievedBerry);
+        }
+
+        [Fact]
+        public void CorrectlyDisposes()
+        {
+            IDisposable fakeDisposable = Substitute.For<IDisposable>();
+            this.optionsSource.Subscribe(Arg.Any<IObserver<CacheExpirationOptions>>())
+                .Returns(fakeDisposable);
+            ResourceCacheManager sut = CreateSut();
+
+            sut.Dispose();
+
+            fakeDisposable.ReceivedCalls().Should()
+                .NotBeEmpty()
+                .And
+                .HaveCountGreaterThan(1);
         }
 
         private ResourceCacheManager CreateSut()
