@@ -31,14 +31,14 @@ namespace PokeApiNet
 
         public void CloseStream()
         {
-            foreach (var observer in observers.ToArray())
+            foreach (var observer in observers)
             {
                 observer.OnCompleted();
             }
             observers.Clear();
         }
 
-        private class Unsubscriber : IDisposable
+        private sealed class Unsubscriber : IDisposable
         {
             private readonly IList<IObserver<CacheExpirationOptions>> _observers;
             private readonly IObserver<CacheExpirationOptions> _observer;
@@ -52,7 +52,9 @@ namespace PokeApiNet
             public void Dispose()
             {
                 if (this._observer != null && this._observers.Contains(_observer))
+                {
                     this._observers.Remove(_observer);
+                }
             }
         }
     }
