@@ -8,24 +8,16 @@ namespace PokeApiNet.Cache
     {
         private readonly MemoryCache urlCache;
 
-        public ExpirableResourceListCache(IObservable<CacheExpirationOptions> expirationOptionsProvider)
+        public ExpirableResourceListCache(CacheOptions cacheOptions, IObservable<CacheExpirationOptions> expirationOptionsProvider)
             : base(expirationOptionsProvider)
         {
-            urlCache = new MemoryCache(new MemoryCacheOptions());
+            urlCache = new MemoryCache(cacheOptions.ToMemoryCacheOptions());
         }
 
         public void Store<T>(string url, ResourceList<T> resourceList)
             where T : ResourceBase
         {
             urlCache.Set(url, resourceList, CacheEntryOptions);
-        }
-
-        /// <summary>
-        /// Clears all cache data
-        /// </summary>
-        public void Clear()
-        {
-            ExpireAll();
         }
 
         public ResourceList<T> Get<T>(string url) where T : ResourceBase => urlCache.Get<ResourceList<T>>(url);

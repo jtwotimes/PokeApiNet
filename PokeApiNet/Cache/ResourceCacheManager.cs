@@ -8,6 +8,11 @@ namespace PokeApiNet.Cache
     /// </summary>
     internal sealed class ResourceCacheManager : BaseCacheManager<ExpirableResourceCache>
     {
+        public ResourceCacheManager(CacheOptions cacheOptions)
+            : base(cacheOptions)
+        {
+        }
+
         /// <summary>
         /// Caches a value
         /// </summary>
@@ -53,6 +58,7 @@ namespace PokeApiNet.Cache
             return Cache[resourceType].Get(name) as T;
         }
 
-        protected override ExpirableResourceCache CreateCacheForResource() => new ExpirableResourceCache(this.ExpirationOptionsChanges);
+        protected override ExpirableResourceCache CreateCacheForResource(CacheOptions cacheOptions)
+            => new ExpirableResourceCache(cacheOptions, this.ExpirationOptionsChanges);
     }
 }

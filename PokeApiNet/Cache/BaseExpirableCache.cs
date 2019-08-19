@@ -29,7 +29,9 @@ namespace PokeApiNet.Cache
         {
             get
             {
-                var opts = new MemoryCacheEntryOptions().AddExpirationToken(new CancellationChangeToken(clearToken.Token));
+                var opts = new MemoryCacheEntryOptions()
+                    .AddExpirationToken(new CancellationChangeToken(clearToken.Token))
+                    .SetSize(1);
                 opts.AbsoluteExpiration = this.absoluteExpiration;
                 opts.AbsoluteExpirationRelativeToNow = this.absoluteExpirationRelativeToNow;
                 opts.SlidingExpiration = this.slidingExpiration;
@@ -37,7 +39,10 @@ namespace PokeApiNet.Cache
             }
         }
 
-        public void ExpireAll()
+        /// <summary>
+        /// Triggers eviction because of expiration of all cache entries.
+        /// </summary>
+        public void TriggerEviction()
         {
             // TODO add lock?
             if (clearToken != null && !clearToken.IsCancellationRequested && clearToken.Token.CanBeCanceled)
@@ -51,7 +56,7 @@ namespace PokeApiNet.Cache
 
         public virtual void Dispose()
         {
-            this.ExpireAll();
+            this.TriggerEviction();
             this.expirationOptionsSub.Dispose();
         }
 

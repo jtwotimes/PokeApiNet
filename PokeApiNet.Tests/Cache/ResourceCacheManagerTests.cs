@@ -9,6 +9,13 @@ namespace PokeApiNet.Tests.Cache
 {
     public class ResourceCacheManagerTests
     {
+        private readonly CacheOptions cacheOptions;
+
+        public ResourceCacheManagerTests()
+        {
+            this.cacheOptions = new CacheOptions();
+        }
+
         [Fact]
         [Trait("Category", "Unit")]
         public void Get_StoredId_ReturnsResource()
@@ -190,7 +197,7 @@ namespace PokeApiNet.Tests.Cache
 
         private ResourceCacheManager CreateSut()
         {
-            return new ResourceCacheManager();
+            return new ResourceCacheManager(this.cacheOptions);
         }
 
         private sealed class TestClass : ResourceBase

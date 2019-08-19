@@ -10,10 +10,12 @@ namespace PokeApiNet.Tests.Cache
     public class ResourceListCacheManagerTests
     {
         private readonly string testUrl;
+        private readonly CacheOptions cacheOptions;
 
         public ResourceListCacheManagerTests()
         {
             this.testUrl = "unit-test";
+            this.cacheOptions = new CacheOptions();
         }
 
         [Fact]
@@ -193,7 +195,7 @@ namespace PokeApiNet.Tests.Cache
 
         private ResourceListCacheManager CreateSut()
         {
-            return new ResourceListCacheManager();
+            return new ResourceListCacheManager(this.cacheOptions);
         }
 
         private class TestResourceList : ResourceList<TestResource> { }

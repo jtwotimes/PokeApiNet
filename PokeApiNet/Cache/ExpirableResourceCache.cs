@@ -9,11 +9,11 @@ namespace PokeApiNet.Cache
         private readonly MemoryCache IdCache;
         private readonly MemoryCache NameCache;
 
-        public ExpirableResourceCache(IObservable<CacheExpirationOptions> expirationOptionsProvider)
+        public ExpirableResourceCache(CacheOptions cacheOptions, IObservable<CacheExpirationOptions> expirationOptionsProvider)
             : base(expirationOptionsProvider)
         {
-            IdCache = new MemoryCache(new MemoryCacheOptions());
-            NameCache = new MemoryCache(new MemoryCacheOptions());
+            IdCache = new MemoryCache(cacheOptions.ToMemoryCacheOptions());
+            NameCache = new MemoryCache(cacheOptions.ToMemoryCacheOptions());
         }
 
 
@@ -35,14 +35,6 @@ namespace PokeApiNet.Cache
             }
 
             IdCache.Set(obj.Id, obj, CacheEntryOptions);
-        }
-
-        /// <summary>
-        /// Clears all cache data
-        /// </summary>
-        public void Clear()
-        {
-            ExpireAll();
         }
 
         public ResourceBase Get(int id) => IdCache.Get<ResourceBase>(id);

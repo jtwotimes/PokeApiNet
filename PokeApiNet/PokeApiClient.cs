@@ -45,7 +45,7 @@ namespace PokeApiNet
         /// </summary>
         /// <param name="userAgent">The value for the default `User-Agent` header.</param>
         public PokeApiClient(ProductHeaderValue userAgent)
-            : this(DefaultBaseUrl, userAgent)
+            : this(DefaultBaseUrl, userAgent, new CacheOptions(), new CacheOptions())
         {
         }
 
@@ -77,13 +77,15 @@ namespace PokeApiNet
 
             this._client = new HttpClient(messageHandler) { BaseAddress = DefaultBaseUrl };
             this._client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(userAgent));
-            this._resourceCache = new ResourceCacheManager();
-            this._resourceListCache = new ResourceListCacheManager();
+            this._resourceCache = new ResourceCacheManager(new CacheOptions());
+            this._resourceListCache = new ResourceListCacheManager(new CacheOptions());
         }
 
         internal PokeApiClient(
             Uri baseUrl,
-            ProductHeaderValue userAgent)
+            ProductHeaderValue userAgent,
+            CacheOptions resourceCacheOptions,
+            CacheOptions resourceListCacheOptions)
         {
             if (baseUrl == null)
             {
@@ -97,8 +99,8 @@ namespace PokeApiNet
 
             this._client = new HttpClient { BaseAddress = baseUrl };
             this._client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(userAgent));
-            this._resourceCache = new ResourceCacheManager();
-            this._resourceListCache = new ResourceListCacheManager();
+            this._resourceCache = new ResourceCacheManager(resourceCacheOptions);
+            this._resourceListCache = new ResourceListCacheManager(resourceListCacheOptions);
         }
 
         /// <summary>
