@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PokeApiNet
+namespace PokeApiNet.Cache
 {
     internal sealed class CacheExpirationOptionsSource : IObservable<CacheExpirationOptions>
     {
