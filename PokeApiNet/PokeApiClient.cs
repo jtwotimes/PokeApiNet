@@ -30,8 +30,6 @@ namespace PokeApiNet
         private readonly HttpClient _client;
         private readonly ResourceCacheManager _resourceCache;
         private readonly ResourceListCacheManager _resourceListCache;
-        private readonly CacheExpirationOptionsSource _resourceCacheExpirationSource;
-        private readonly CacheExpirationOptionsSource _resourceListCacheExpirationSource;
 
         /// <summary>
         /// Default constructor
@@ -79,10 +77,8 @@ namespace PokeApiNet
 
             this._client = new HttpClient(messageHandler) { BaseAddress = DefaultBaseUrl };
             this._client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(userAgent));
-            this._resourceCacheExpirationSource = new CacheExpirationOptionsSource();
-            this._resourceListCacheExpirationSource = new CacheExpirationOptionsSource();
-            this._resourceCache = new ResourceCacheManager(this._resourceCacheExpirationSource);
-            this._resourceListCache = new ResourceListCacheManager(this._resourceListCacheExpirationSource);
+            this._resourceCache = new ResourceCacheManager();
+            this._resourceListCache = new ResourceListCacheManager();
         }
 
         internal PokeApiClient(
@@ -101,10 +97,8 @@ namespace PokeApiNet
 
             this._client = new HttpClient { BaseAddress = baseUrl };
             this._client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(userAgent));
-            this._resourceCacheExpirationSource = new CacheExpirationOptionsSource();
-            this._resourceListCacheExpirationSource = new CacheExpirationOptionsSource();
-            this._resourceCache = new ResourceCacheManager(this._resourceCacheExpirationSource);
-            this._resourceListCache = new ResourceListCacheManager(this._resourceListCacheExpirationSource);
+            this._resourceCache = new ResourceCacheManager();
+            this._resourceListCache = new ResourceListCacheManager();
         }
 
         /// <summary>
@@ -113,8 +107,8 @@ namespace PokeApiNet
         /// <param name="expirationOptions">The expiration options. If null is given, the options are set to default (no expiration).</param>
         public void SetCacheExpirationOptions(CacheExpirationOptions expirationOptions)
         {
-            this.SetResourceCacheExpirationOptions(expirationOptions ?? new CacheExpirationOptions());
-            this.SetResourceListCacheExpirationOptions(expirationOptions ?? new CacheExpirationOptions());
+            this.SetResourceCacheExpirationOptions(expirationOptions);
+            this.SetResourceListCacheExpirationOptions(expirationOptions);
         }
 
         /// <summary>
@@ -122,14 +116,14 @@ namespace PokeApiNet
         /// </summary>
         /// <param name="expirationOptions">The expiration options. If null is given, the options are set to default (no expiration).</param>
         public void SetResourceCacheExpirationOptions(CacheExpirationOptions expirationOptions) 
-            => this._resourceCacheExpirationSource.UpdateOptions(expirationOptions ?? new CacheExpirationOptions());
+            => this._resourceCache.SetExpirationOptions(expirationOptions);
 
         /// <summary>
         /// Sets the expiration options for the resource list cache.
         /// </summary>
         /// <param name="expirationOptions">The expiration options. If null is given, the options are set to default (no expiration).</param>
         public void SetResourceListCacheExpirationOptions(CacheExpirationOptions expirationOptions) 
-            => this._resourceListCacheExpirationSource.UpdateOptions(expirationOptions ?? new CacheExpirationOptions());
+            => this._resourceListCache.SetExpirationOptions(expirationOptions);
 
         /// <summary>
         /// Close resources
@@ -139,8 +133,6 @@ namespace PokeApiNet
             _client.Dispose();
             _resourceCache.Dispose();
             _resourceListCache.Dispose();
-            _resourceCacheExpirationSource.CloseStream();
-            _resourceListCacheExpirationSource.CloseStream();
         }
 
         private static ProductHeaderValue GetDefaultUserAgent()

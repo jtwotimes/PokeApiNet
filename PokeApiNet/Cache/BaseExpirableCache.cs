@@ -18,7 +18,26 @@ namespace PokeApiNet.Cache
             this.expirationOptionsSub = expirationOptionsProvider.Subscribe(new CacheExpirationOptionsObserver(this));
         }
 
-        protected void ExpireAll()
+        /// <summary>
+        /// Gets a <see cref="MemoryCacheEntryOptions"/> instance.
+        /// </summary>
+        /// <remarks>
+        /// New options instance has to be constantly instantiated instead of shared
+        /// as a consequence of <see cref="clearToken"/> being mutable
+        /// </remarks>
+        protected MemoryCacheEntryOptions CacheEntryOptions
+        {
+            get
+            {
+                var opts = new MemoryCacheEntryOptions().AddExpirationToken(new CancellationChangeToken(clearToken.Token));
+                opts.AbsoluteExpiration = this.absoluteExpiration;
+                opts.AbsoluteExpirationRelativeToNow = this.absoluteExpirationRelativeToNow;
+                opts.SlidingExpiration = this.slidingExpiration;
+                return opts;
+            }
+        }
+
+        public void ExpireAll()
         {
             // TODO add lock?
             if (clearToken != null && !clearToken.IsCancellationRequested && clearToken.Token.CanBeCanceled)
@@ -28,24 +47,6 @@ namespace PokeApiNet.Cache
             }
 
             clearToken = new CancellationTokenSource();
-        }
-
-        /// <summary>
-        /// Gets a <see cref="MemoryCacheEntryOptions"/> instance.
-        /// </summary>
-        /// <remarks>
-        /// New options instance has to be constantly instantiated instead of shared
-        /// as a consequence of <see cref="clearToken"/> being mutable
-        /// </remarks>
-        protected MemoryCacheEntryOptions CacheEntryOptions {
-            get
-            {
-                var opts = new MemoryCacheEntryOptions().AddExpirationToken(new CancellationChangeToken(clearToken.Token));
-                opts.AbsoluteExpiration = this.absoluteExpiration;
-                opts.AbsoluteExpirationRelativeToNow = this.absoluteExpirationRelativeToNow;
-                opts.SlidingExpiration = this.slidingExpiration;
-                return opts;
-            }
         }
 
         public virtual void Dispose()

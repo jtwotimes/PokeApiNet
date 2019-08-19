@@ -9,13 +9,6 @@ namespace PokeApiNet.Tests.Cache
 {
     public class ResourceCacheManagerTests
     {
-        private readonly IObservable<CacheExpirationOptions> optionsSource;
-
-        public ResourceCacheManagerTests()
-        {
-            this.optionsSource = Substitute.For<IObservable<CacheExpirationOptions>>();
-        }
-
         [Fact]
         [Trait("Category", "Unit")]
         public void Get_StoredId_ReturnsResource()
@@ -185,22 +178,19 @@ namespace PokeApiNet.Tests.Cache
         [Fact]
         public void CorrectlyDisposes()
         {
-            IDisposable fakeDisposable = Substitute.For<IDisposable>();
-            this.optionsSource.Subscribe(Arg.Any<IObserver<CacheExpirationOptions>>())
-                .Returns(fakeDisposable);
+            IObserver<CacheExpirationOptions> fakeObserver = Substitute.For<IObserver<CacheExpirationOptions>>();
             ResourceCacheManager sut = CreateSut();
+            sut.ExpirationOptionsChanges.Subscribe(fakeObserver);
 
             sut.Dispose();
 
-            fakeDisposable.ReceivedCalls().Should()
-                .NotBeEmpty()
-                .And
-                .HaveCountGreaterThan(1);
+            fakeObserver.Received().OnCompleted();
+            sut.CachedTypes.Should().BeEmpty();
         }
 
         private ResourceCacheManager CreateSut()
         {
-            return new ResourceCacheManager(this.optionsSource);
+            return new ResourceCacheManager();
         }
 
         private sealed class TestClass : ResourceBase

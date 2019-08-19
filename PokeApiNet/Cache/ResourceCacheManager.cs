@@ -1,23 +1,13 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using PokeApiNet.Models;
+﻿using PokeApiNet.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace PokeApiNet.Cache
 {
     /// <summary>
     /// Manages caches for instances of subclasses from <see cref="ResourceBase"/>
     /// </summary>
-    internal sealed class ResourceCacheManager : BaseCacheManager, IDisposable
+    internal sealed class ResourceCacheManager : BaseCacheManager<ExpirableResourceCache>
     {
-        private IReadOnlyDictionary<System.Type, ResourceCache> resourceCaches;
-
-        public ResourceCacheManager(IObservable<CacheExpirationOptions> expirationOptionsProvider)
-        {
-            resourceCaches = ResourceTypes.ToDictionary(x => x, _ => new ResourceCache(expirationOptionsProvider));
-        }
-
         /// <summary>
         /// Caches a value
         /// </summary>
@@ -36,7 +26,7 @@ namespace PokeApiNet.Cache
 
             // Defer type inference to runtime, so that the correct
             // overload of Store is invoked
-            resourceCaches[resourceType].Store(obj as dynamic);
+            Cache[resourceType].Store(obj as dynamic);
         }
 
         /// <summary>
@@ -48,7 +38,7 @@ namespace PokeApiNet.Cache
         public T Get<T>(int id) where T : ResourceBase
         {
             System.Type resourceType = typeof(T);
-            return resourceCaches[resourceType].Get(id) as T;
+            return Cache[resourceType].Get(id) as T;
         }
 
         /// <summary>
@@ -60,91 +50,9 @@ namespace PokeApiNet.Cache
         public T Get<T>(string name) where T : NamedApiResource
         {
             System.Type resourceType = typeof(T);
-            return resourceCaches[resourceType].Get(name) as T;
+            return Cache[resourceType].Get(name) as T;
         }
 
-        /// <summary>
-        /// Clears all caches
-        /// </summary>
-        public void ClearAll()
-        {
-            foreach (ResourceCache cache in resourceCaches.Values)
-            {
-                cache.Clear();
-            }
-        }
-
-        /// <summary>
-        /// Clears a specific cache
-        /// </summary>
-        /// <typeparam name="T">The type of cache to clear</typeparam>
-        public void Clear<T>() where T : ResourceBase
-        {
-            System.Type type = typeof(T);
-            resourceCaches[type].Clear();
-        }
-
-        public void Dispose()
-        {
-            foreach(ResourceCache cache in this.resourceCaches.Values)
-            {
-                cache.Dispose();
-            }
-            this.resourceCaches = null;
-        }
-
-        private sealed class ResourceCache : BaseExpirableCache, IDisposable
-        {
-            private readonly MemoryCache IdCache;
-            private readonly MemoryCache NameCache;
-
-            public ResourceCache(IObservable<CacheExpirationOptions> expirationOptionsProvider)
-                : base(expirationOptionsProvider)
-            {
-                IdCache = new MemoryCache(new MemoryCacheOptions());
-                NameCache = new MemoryCache(new MemoryCacheOptions());
-            }
-
-
-            /// <summary>
-            /// Stores an object in cache
-            /// </summary>
-            /// <param name="obj">The object to store</param>
-            public void Store(ApiResource obj)
-            {
-                IdCache.Set(obj.Id, obj, CacheEntryOptions);
-            }
-
-            public void Store(NamedApiResource obj)
-            {
-                // TODO enforce non-nullable name
-                if (obj.Name != null)
-                {
-                    NameCache.Set(obj.Name.ToLowerInvariant(), obj, CacheEntryOptions);
-                }
-
-                IdCache.Set(obj.Id, obj, CacheEntryOptions);
-            }
-
-            /// <summary>
-            /// Clears all cache data
-            /// </summary>
-            public void Clear()
-            {
-                ExpireAll();
-            }
-
-            public ResourceBase Get(int id) => IdCache.Get<ResourceBase>(id);
-
-            public ResourceBase Get(string name) => NameCache.Get<ResourceBase>(name.ToLowerInvariant());
-
-            public override void Dispose()
-            {
-                // Ensures that created cache entries are expired
-                base.Dispose();
-                this.IdCache.Dispose();
-                this.NameCache.Dispose();
-            }
-        }
+        protected override ExpirableResourceCache CreateCacheForResource() => new ExpirableResourceCache(this.ExpirationOptionsChanges);
     }
 }

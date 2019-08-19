@@ -10,12 +10,10 @@ namespace PokeApiNet.Tests.Cache
     public class ResourceListCacheManagerTests
     {
         private readonly string testUrl;
-        private readonly IObservable<CacheExpirationOptions> optionsSource;
 
         public ResourceListCacheManagerTests()
         {
             this.testUrl = "unit-test";
-            this.optionsSource = Substitute.For<IObservable<CacheExpirationOptions>>();
         }
 
         [Fact]
@@ -171,17 +169,14 @@ namespace PokeApiNet.Tests.Cache
         [Fact]
         public void CorrectlyDisposes()
         {
-            IDisposable fakeDisposable = Substitute.For<IDisposable>();
-            this.optionsSource.Subscribe(Arg.Any<IObserver<CacheExpirationOptions>>())
-                .Returns(fakeDisposable);
+            IObserver<CacheExpirationOptions> fakeObserver = Substitute.For<IObserver<CacheExpirationOptions>>();
             ResourceListCacheManager sut = CreateSut();
+            sut.ExpirationOptionsChanges.Subscribe(fakeObserver);
 
             sut.Dispose();
 
-            fakeDisposable.ReceivedCalls().Should()
-                .NotBeEmpty()
-                .And
-                .HaveCountGreaterThan(1);
+            fakeObserver.Received().OnCompleted();
+            sut.CachedTypes.Should().BeEmpty();
         }
 
         private (string, ApiResourceList<T>) CreateFakeApiResourceList<T>(string url = null)
@@ -198,7 +193,7 @@ namespace PokeApiNet.Tests.Cache
 
         private ResourceListCacheManager CreateSut()
         {
-            return new ResourceListCacheManager(this.optionsSource);
+            return new ResourceListCacheManager();
         }
 
         private class TestResourceList : ResourceList<TestResource> { }
