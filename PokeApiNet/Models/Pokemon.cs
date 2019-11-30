@@ -583,6 +583,21 @@ namespace PokeApiNet.Models
         public NamedApiResource<Type> Type { get; set; }
     }
 
+    /// <summary>
+    /// Class for storing a Pokemon's type data in a previous generation.
+    /// </summary>
+    public class PokemonPastTypes : PastGenerationData<List<PokemonType>>
+    {
+        /// <summary>
+        /// The previous list of types.
+        /// </summary>
+        public List<PokemonType> Types
+        {
+            get => Data;
+            set { Data = value; }
+        }
+    }
+
     public class PokemonHeldItem
     {
         /// <summary>
