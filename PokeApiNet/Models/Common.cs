@@ -168,6 +168,23 @@ namespace PokeApiNet.Models
         public string Name { get; set; }
     }
 
+    /// <summary>
+    /// Class representing data from a previous generation.
+    /// </summary>
+    /// <typeparam name="TData">The type of the data.</typeparam>
+    public class PastGenerationData<TData>
+    {
+        /// <summary>
+        /// The final generation in which the Pokemon had the given data.
+        /// </summary>
+        public NamedApiResource<Generation> Generation { get; set; }
+
+        /// <summary>
+        /// The previous data.
+        /// </summary>
+        protected TData Data { get; set; }
+    }
+
     public class VerboseEffect
     {
         /// <summary>
