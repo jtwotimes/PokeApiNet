@@ -531,6 +531,12 @@ namespace PokeApiNet.Models
         public List<PokemonMove> Moves { get; set; }
 
         /// <summary>
+        /// Type data in previous generations for this Pokemon.
+        /// </summary>
+        [JsonProperty("past_types")]
+        public List<PokemonPastTypes> PastTypes { get; set; }
+
+        /// <summary>
         /// A set of sprites used to depict this Pokémon in the game.
         /// </summary>
         public PokemonSprites Sprites { get; set; }
