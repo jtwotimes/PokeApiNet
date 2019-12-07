@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PokeApiNet.Models
@@ -25,7 +25,7 @@ namespace PokeApiNet.Models
         /// The berry flavor that correlates with this contest
         /// type.
         /// </summary>
-        [JsonProperty("berry_flavor")]
+        [JsonPropertyName("berry_flavor")]
         public NamedApiResource<BerryFlavor> BerryFlavor { get; set; }
 
         /// <summary>
@@ -82,14 +82,14 @@ namespace PokeApiNet.Models
         /// The result of this contest effect listed in
         /// different languages.
         /// </summary>
-        [JsonProperty("effect_entries")]
+        [JsonPropertyName("effect_entries")]
         public List<Effects> EffectEntries { get; set; }
 
         /// <summary>
         /// The flavor text of this contest effect listed in
         /// different languages.
         /// </summary>
-        [JsonProperty("flavor_text_entries")]
+        [JsonPropertyName("flavor_text_entries")]
         public List<FlavorTexts> FlavorTextEntries { get; set; }
     }
 
@@ -115,7 +115,7 @@ namespace PokeApiNet.Models
         /// The flavor text of this super contest effect listed
         /// in different languages.
         /// </summary>
-        [JsonProperty("flavor_text_entries")]
+        [JsonPropertyName("flavor_text_entries")]
         public List<FlavorTexts> FlavorTextEntries { get; set; }
 
         /// <summary>

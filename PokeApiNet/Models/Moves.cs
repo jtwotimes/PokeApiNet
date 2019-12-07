@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PokeApiNet.Models
@@ -31,7 +31,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The percent value of how likely it is this moves effect will happen.
         /// </summary>
-        [JsonProperty("effect_chance")]
+        [JsonPropertyName("effect_chance")]
         public int? EffectChance { get; set; }
 
         /// <summary>
@@ -56,44 +56,44 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A detail of normal and super contest combos that require this move.
         /// </summary>
-        [JsonProperty("contest_combos")]
+        [JsonPropertyName("contest_combos")]
         public ContestComboSets ContestCombos { get; set; }
 
         /// <summary>
         /// The type of appeal this move gives a Pokémon when used in a contest.
         /// </summary>
-        [JsonProperty("contest_type")]
+        [JsonPropertyName("contest_type")]
         public NamedApiResource<ContestType> ContestType { get; set; }
 
         /// <summary>
         /// The effect the move has when used in a contest.
         /// </summary>
-        [JsonProperty("contest_effect")]
+        [JsonPropertyName("contest_effect")]
         public ApiResource<ContestEffect> ContestEffect { get; set; }
 
         /// <summary>
         /// The type of damage the move inflicts on the target, e.g. physical.
         /// </summary>
-        [JsonProperty("damage_class")]
+        [JsonPropertyName("damage_class")]
         public NamedApiResource<MoveDamageClass> DamageClass { get; set; }
 
         /// <summary>
         /// The effect of this move listed in different languages.
         /// </summary>
-        [JsonProperty("effect_entries")]
+        [JsonPropertyName("effect_entries")]
         public List<VerboseEffect> EffectEntries { get; set; }
 
         /// <summary>
         /// The list of previous effects this move has had across version
         /// groups of the games.
         /// </summary>
-        [JsonProperty("effect_changes")]
+        [JsonPropertyName("effect_changes")]
         public List<AbilityEffectChange> EffectChanges { get; set; }
 
         /// <summary>
         /// The flavor text of this move listed in different languages.
         /// </summary>
-        [JsonProperty("flavor_text_entries")]
+        [JsonPropertyName("flavor_text_entries")]
         public List<MoveFlavorText> FlavorTextEntries { get; set; }
 
         /// <summary>
@@ -120,20 +120,20 @@ namespace PokeApiNet.Models
         /// A list of move resource value changes across version groups
         /// of the game.
         /// </summary>
-        [JsonProperty("past_values")]
+        [JsonPropertyName("past_values")]
         public List<PastMoveStatValues> PastValues { get; set; }
 
         /// <summary>
         /// A list of stats this moves effects and how much it
         /// effects them.
         /// </summary>
-        [JsonProperty("stat_changes")]
+        [JsonPropertyName("stat_changes")]
         public List<MoveStatChange> StatChanges { get; set; }
 
         /// <summary>
         /// The effect the move has when used in a super contest.
         /// </summary>
-        [JsonProperty("super_contest_effect")]
+        [JsonPropertyName("super_contest_effect")]
         public ApiResource<SuperContestEffect> SuperContestEffect { get; set; }
 
         /// <summary>
@@ -167,13 +167,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of moves to use before this move.
         /// </summary>
-        [JsonProperty("use_before")]
+        [JsonPropertyName("use_before")]
         public List<NamedApiResource<Move>> UseBefore { get; set; }
 
         /// <summary>
         /// A list of moves to use after this move.
         /// </summary>
-        [JsonProperty("use_after")]
+        [JsonPropertyName("use_after")]
         public List<NamedApiResource<Move>> UseAfter { get; set; }
     }
 
@@ -183,7 +183,7 @@ namespace PokeApiNet.Models
         /// The localized flavor text for an api resource in a
         /// specific language.
         /// </summary>
-        [JsonProperty("flavor_text")]
+        [JsonPropertyName("flavor_text")]
         public string FlavorText { get; set; }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The version group that uses this flavor text.
         /// </summary>
-        [JsonProperty("version_group")]
+        [JsonPropertyName("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
@@ -215,28 +215,28 @@ namespace PokeApiNet.Models
         /// The minimum number of times this move hits. Null if it always
         /// only hits once.
         /// </summary>
-        [JsonProperty("min_hits")]
+        [JsonPropertyName("min_hits")]
         public int? MinHits { get; set; }
 
         /// <summary>
         /// The maximum number of times this move hits. Null if it always
         /// only hits once.
         /// </summary>
-        [JsonProperty("max_hits")]
+        [JsonPropertyName("max_hits")]
         public int? MaxHits { get; set; }
 
         /// <summary>
         /// The minimum number of turns this move continues to take effect.
         /// Null if it always only lasts one turn.
         /// </summary>
-        [JsonProperty("min_turns")]
+        [JsonPropertyName("min_turns")]
         public int? MinTurns { get; set; }
 
         /// <summary>
         /// The maximum number of turns this move continues to take effect.
         /// Null if it always only lasts one turn.
         /// </summary>
-        [JsonProperty("max_turns")]
+        [JsonPropertyName("max_turns")]
         public int? MaxTurns { get; set; }
 
         /// <summary>
@@ -254,26 +254,26 @@ namespace PokeApiNet.Models
         /// <summary>
         /// Critical hit rate bonus.
         /// </summary>
-        [JsonProperty("crit_rate")]
+        [JsonPropertyName("crit_rate")]
         public int CritRate { get; set; }
 
         /// <summary>
         /// The likelihood this attack will cause an ailment.
         /// </summary>
-        [JsonProperty("ailment_chance")]
+        [JsonPropertyName("ailment_chance")]
         public int AilmentChance { get; set; }
 
         /// <summary>
         /// The likelihood this attack will cause the target Pokémon to flinch.
         /// </summary>
-        [JsonProperty("flinch_chance")]
+        [JsonPropertyName("flinch_chance")]
         public int FlinchChance { get; set; }
 
         /// <summary>
         /// The likelihood this attack will cause a stat change in the target
         /// Pokémon.
         /// </summary>
-        [JsonProperty("stat_chance")]
+        [JsonPropertyName("stat_chance")]
         public int StatChance { get; set; }
     }
 
@@ -301,7 +301,7 @@ namespace PokeApiNet.Models
         /// The percent value of how likely it is this moves effect will
         /// take effect.
         /// </summary>
-        [JsonProperty("effect_chance")]
+        [JsonPropertyName("effect_chance")]
         public int? EffectChance { get; set; }
 
         /// <summary>
@@ -319,7 +319,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The effect of this move listed in different languages.
         /// </summary>
-        [JsonProperty("effect_entries")]
+        [JsonPropertyName("effect_entries")]
         public List<VerboseEffect> EffectEntries { get; set; }
 
         /// <summary>
@@ -330,7 +330,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The version group in which these move stat values were in effect.
         /// </summary>
-        [JsonProperty("version_group")]
+        [JsonPropertyName("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
@@ -476,7 +476,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of version groups where moves can be learned through this method.
         /// </summary>
-        [JsonProperty("version_groups")]
+        [JsonPropertyName("version_groups")]
         public List<NamedApiResource<VersionGroup>> VersionGroups { get; set; }
     }
 

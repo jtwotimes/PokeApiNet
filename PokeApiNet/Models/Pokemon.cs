@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PokeApiNet.Models
@@ -25,7 +25,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// Whether or not this ability originated in the main series of the video games.
         /// </summary>
-        [JsonProperty("is_main_series")]
+        [JsonPropertyName("is_main_series")]
         public bool IsMainSeries { get; set; }
 
         /// <summary>
@@ -41,19 +41,19 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The effect of this ability listed in different languages.
         /// </summary>
-        [JsonProperty("effect_entries")]
+        [JsonPropertyName("effect_entries")]
         public List<VerboseEffect> EffectEntries { get; set; }
 
         /// <summary>
         /// The list of previous effects this ability has had across version groups.
         /// </summary>
-        [JsonProperty("effect_changes")]
+        [JsonPropertyName("effect_changes")]
         public List<AbilityEffectChange> EffectChanges { get; set; }
 
         /// <summary>
         /// The flavor text of this ability listed in different languages.
         /// </summary>
-        [JsonProperty("flavor_text_entries")]
+        [JsonPropertyName("flavor_text_entries")]
         public List<AbilityFlavorText> FlavorTextEntries { get; set; }
 
         /// <summary>
@@ -67,13 +67,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The previous effect of this ability listed in different languages.
         /// </summary>
-        [JsonProperty("effect_entries")]
+        [JsonPropertyName("effect_entries")]
         public List<Effects> EffectEntries { get; set; }
 
         /// <summary>
         /// The version group in which the previous effect of this ability originated.
         /// </summary>
-        [JsonProperty("version_group")]
+        [JsonPropertyName("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
@@ -82,7 +82,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The localized name for an API resource in a specific language.
         /// </summary>
-        [JsonProperty("flavor_text")]
+        [JsonPropertyName("flavor_text")]
         public string FlavorText { get; set; }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The version group that uses this flavor text.
         /// </summary>
-        [JsonProperty("version_group")]
+        [JsonPropertyName("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
@@ -102,7 +102,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// Whether or not this a hidden ability for the referenced Pokémon.
         /// </summary>
-        [JsonProperty("is_hidden")]
+        [JsonPropertyName("is_hidden")]
         public bool IsHidden { get; set; }
 
         /// <summary>
@@ -135,20 +135,20 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The remainder of the highest stat/IV divided by 5.
         /// </summary>
-        [JsonProperty("gene_modulo")]
+        [JsonPropertyName("gene_modulo")]
         public int GeneModulo { get; set; }
 
         /// <summary>
         /// The possible values of the highest stat that would result in
         /// a Pokémon recieving this characteristic when divided by 5.
         /// </summary>
-        [JsonProperty("possible_values")]
+        [JsonPropertyName("possible_values")]
         public List<int> PossibleValues { get; set; }
 
         /// <summary>
         /// The highest stat of this characteristic.
         /// </summary>
-        [JsonProperty("highest_stat")]
+        [JsonPropertyName("highest_stat")]
         public NamedApiResource<Stat> HighestStat { get; set; }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of all Pokémon species that are members of this egg group.
         /// </summary>
-        [JsonProperty("pokemon_species")]
+        [JsonPropertyName("pokemon_species")]
         public List<NamedApiResource<PokemonSpecies>> PokemonSpecies { get; set; }
     }
 
@@ -210,14 +210,14 @@ namespace PokeApiNet.Models
         /// A list of Pokémon species that can be this gender and how likely it
         /// is that they will be.
         /// </summary>
-        [JsonProperty("pokemon_species_details")]
+        [JsonPropertyName("pokemon_species_details")]
         public List<PokemonSpeciesGender> PokemonSpeciesDetails { get; set; }
 
         /// <summary>
         /// A list of Pokémon species that required this gender in order for a
         /// Pokémon to evolve into them.
         /// </summary>
-        [JsonProperty("required_for_evolution")]
+        [JsonPropertyName("required_for_evolution")]
         public List<NamedApiResource<PokemonSpecies>> RequiredForEvolution { get; set; }
     }
 
@@ -232,7 +232,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A Pokémon species that can be the referenced gender.
         /// </summary>
-        [JsonProperty("pokemon_species")]
+        [JsonPropertyName("pokemon_species")]
         public NamedApiResource<PokemonSpecies> PokemonSpecies { get; set; }
     }
 
@@ -273,7 +273,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of Pokémon species that gain levels at this growth rate.
         /// </summary>
-        [JsonProperty("pokemon_species")]
+        [JsonPropertyName("pokemon_species")]
         public List<NamedApiResource<PokemonSpecies>> PokemonSpecies { get; set; }
     }
 
@@ -310,39 +310,39 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The stat decreased by 10% in Pokémon with this nature.
         /// </summary>
-        [JsonProperty("decreased_stat")]
+        [JsonPropertyName("decreased_stat")]
         public NamedApiResource<Stat> DecreasedStat { get; set; }
 
         /// <summary>
         /// The stat increased by 10% in Pokémon with this nature.
         /// </summary>
-        [JsonProperty("increased_stat")]
+        [JsonPropertyName("increased_stat")]
         public NamedApiResource<Stat> IncreasedStat { get; set; }
 
         /// <summary>
         /// The flavor hated by Pokémon with this nature.
         /// </summary>
-        [JsonProperty("hates_flavor")]
+        [JsonPropertyName("hates_flavor")]
         public NamedApiResource<BerryFlavor> HatesFlavor { get; set; }
 
         /// <summary>
         /// The flavor liked by Pokémon with this nature.
         /// </summary>
-        [JsonProperty("likes_flavor")]
+        [JsonPropertyName("likes_flavor")]
         public NamedApiResource<BerryFlavor> LikesFlavor { get; set; }
 
         /// <summary>
         /// A list of Pokéathlon stats this nature effects and how much it
         /// effects them.
         /// </summary>
-        [JsonProperty("pokeathlon_stat_changes")]
+        [JsonPropertyName("pokeathlon_stat_changes")]
         public List<NatureStatChange> PokeathlonStatChanges { get; set; }
 
         /// <summary>
         /// A list of battle styles and how likely a Pokémon with this nature is
         /// to use them in the Battle Palace or Battle Tent.
         /// </summary>
-        [JsonProperty("move_battle_style_preferences")]
+        [JsonPropertyName("move_battle_style_preferences")]
         public List<MoveBattleStylePreference> MoveBattleStylePreferences { get; set; }
 
         /// <summary>
@@ -356,13 +356,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The amount of change.
         /// </summary>
-        [JsonProperty("max_changes")]
+        [JsonPropertyName("max_changes")]
         public int MaxChange { get; set; }
 
         /// <summary>
         /// The stat being affected.
         /// </summary>
-        [JsonProperty("pokeathlon_stat")]
+        [JsonPropertyName("pokeathlon_stat")]
         public NamedApiResource<PokeathlonStat> PokeathlonStat { get; set; }
     }
 
@@ -371,19 +371,19 @@ namespace PokeApiNet.Models
         /// <summary>
         /// Chance of using the move, in percent, if HP is under one half.
         /// </summary>
-        [JsonProperty("low_hp_preference")]
+        [JsonPropertyName("low_hp_preference")]
         public int LowHpPreference { get; set; }
 
         /// <summary>
         /// Chance of using the move, in percent, if HP is over one half.
         /// </summary>
-        [JsonProperty("high_hp_preference")]
+        [JsonPropertyName("high_hp_preference")]
         public int HighHpPreference { get; set; }
 
         /// <summary>
         /// The move battle style.
         /// </summary>
-        [JsonProperty("move_battle_style")]
+        [JsonPropertyName("move_battle_style")]
         public NamedApiResource<MoveBattleStyle> MoveBattleStyle { get; set; }
     }
 
@@ -415,7 +415,7 @@ namespace PokeApiNet.Models
         /// A detail of natures which affect this Pokéathlon stat positively
         /// or negatively.
         /// </summary>
-        [JsonProperty("affecting_natures")]
+        [JsonPropertyName("affecting_natures")]
         public NaturePokeathlonStatAffectSets AffectingNatures { get; set; }
     }
 
@@ -437,7 +437,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The maximum amount of change to the referenced Pokéathlon stat.
         /// </summary>
-        [JsonProperty("max_change")]
+        [JsonPropertyName("max_change")]
         public int MaxChange { get; set; }
 
         /// <summary>
@@ -470,7 +470,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The base experience gained for defeating this Pokémon.
         /// </summary>
-        [JsonProperty("base_experience")]
+        [JsonPropertyName("base_experience")]
         public int BaseExperience { get; set; }
 
         /// <summary>
@@ -481,7 +481,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// Set for exactly one Pokémon used as the default for each species.
         /// </summary>
-        [JsonProperty("is_default")]
+        [JsonPropertyName("is_default")]
         public bool IsDefault { get; set; }
 
         /// <summary>
@@ -508,20 +508,20 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of game indices relevent to Pokémon item by generation.
         /// </summary>
-        [JsonProperty("game_indices")]
+        [JsonPropertyName("game_indices")]
         public List<VersionGameIndex> GameIndicies { get; set; }
 
         /// <summary>
         /// A list of items this Pokémon may be holding when encountered.
         /// </summary>
-        [JsonProperty("held_items")]
+        [JsonPropertyName("held_items")]
         public List<PokemonHeldItem> HeldItems { get; set; }
 
         /// <summary>
         /// A link to a list of location areas, as well as encounter
         /// details pertaining to specific versions.
         /// </summary>
-        [JsonProperty("location_area_encounters")]
+        [JsonPropertyName("location_area_encounters")]
         public string LocationAreaEncounters { get; set; }
 
         /// <summary>
@@ -556,7 +556,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// Whether or not this is a hidden ability.
         /// </summary>
-        [JsonProperty("is_hidden")]
+        [JsonPropertyName("is_hidden")]
         public bool IsHidden { get; set; }
 
         /// <summary>
@@ -593,7 +593,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The details of the different versions in which the item is held.
         /// </summary>
-        [JsonProperty("version_details")]
+        [JsonPropertyName("version_details")]
         public List<PokemonHeldItemVersion> VersionDetails { get; set; }
     }
 
@@ -620,7 +620,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The details of the version in which the Pokémon can learn the move.
         /// </summary>
-        [JsonProperty("version_group_details")]
+        [JsonPropertyName("version_group_details")]
         public List<PokemonMoveVersion> VersionGroupDetails { get; set; }
     }
 
@@ -629,19 +629,19 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The method by which the move is learned.
         /// </summary>
-        [JsonProperty("move_learn_method")]
+        [JsonPropertyName("move_learn_method")]
         public NamedApiResource<MoveLearnMethod> MoveLearnMethod { get; set; }
 
         /// <summary>
         /// The version group in which the move is learned.
         /// </summary>
-        [JsonProperty("version_group")]
+        [JsonPropertyName("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
 
         /// <summary>
         /// The minimum level to learn the move.
         /// </summary>
-        [JsonProperty("level_learned_at")]
+        [JsonPropertyName("level_learned_at")]
         public int LevelLearnedAt { get; set; }
     }
 
@@ -660,7 +660,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The base value of the stat.
         /// </summary>
-        [JsonProperty("base_stat")]
+        [JsonPropertyName("base_stat")]
         public int BaseStat { get; set; }
     }
 
@@ -669,49 +669,49 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The default depiction of this Pokémon from the front in battle.
         /// </summary>
-        [JsonProperty("front_default")]
+        [JsonPropertyName("front_default")]
         public string FrontDefault { get; set; }
 
         /// <summary>
         /// The shiny depiction of this Pokémon from the front in battle.
         /// </summary>
-        [JsonProperty("front_shiny")]
+        [JsonPropertyName("front_shiny")]
         public string FrontShiny { get; set; }
 
         /// <summary>
         /// The female depiction of this Pokémon from the front in battle.
         /// </summary>
-        [JsonProperty("front_female")]
+        [JsonPropertyName("front_female")]
         public string FrontFemale { get; set; }
 
         /// <summary>
         /// The shiny female depiction of this Pokémon from the front in battle.
         /// </summary>
-        [JsonProperty("front_shiny_female")]
+        [JsonPropertyName("front_shiny_female")]
         public string FrontShinyFemale { get; set; }
 
         /// <summary>
         /// The default depiction of this Pokémon from the back in battle.
         /// </summary>
-        [JsonProperty("back_default")]
+        [JsonPropertyName("back_default")]
         public string BackDefault { get; set; }
 
         /// <summary>
         /// The shiny depiction of this Pokémon from the back in battle.
         /// </summary>
-        [JsonProperty("back_shiny")]
+        [JsonPropertyName("back_shiny")]
         public string BackShiny { get; set; }
 
         /// <summary>
         /// The female depiction of this Pokémon from the back in battle.
         /// </summary>
-        [JsonProperty("back_female")]
+        [JsonPropertyName("back_female")]
         public string BackFemale { get; set; }
 
         /// <summary>
         /// The shiny female depiction of this Pokémon from the back in battle.
         /// </summary>
-        [JsonProperty("back_shiny_female")]
+        [JsonPropertyName("back_shiny_female")]
         public string BackShinyFemale { get; set; }
     }
 
@@ -720,14 +720,14 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The location area the referenced Pokémon can be encountered in.
         /// </summary>
-        [JsonProperty("location_area")]
+        [JsonPropertyName("location_area")]
         public NamedApiResource<LocationArea> LocationArea { get; set; }
 
         /// <summary>
         /// A list of versions and encounters with the referenced Pokémon
         /// that might happen.
         /// </summary>
-        [JsonProperty("version_details")]
+        [JsonPropertyName("version_details")]
         public List<VersionEncounterDetail> VersionDetails { get; set; }
     }
 
@@ -759,7 +759,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of the Pokémon species that have this color.
         /// </summary>
-        [JsonProperty("pokemon_species")]
+        [JsonPropertyName("pokemon_species")]
         public List<NamedApiResource<PokemonSpecies>> PokemonSpecies { get; set; }
     }
 
@@ -793,31 +793,31 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The order in which forms should be sorted within a species' forms.
         /// </summary>
-        [JsonProperty("form_order")]
+        [JsonPropertyName("form_order")]
         public int FormOrder { get; set; }
 
         /// <summary>
         /// True for exactly one form used as the default for each Pokémon.
         /// </summary>
-        [JsonProperty("is_default")]
+        [JsonPropertyName("is_default")]
         public bool IsDefault { get; set; }
 
         /// <summary>
         /// Whether or not this form can only happen during battle.
         /// </summary>
-        [JsonProperty("is_battle_only")]
+        [JsonPropertyName("is_battle_only")]
         public bool IsBattleOnly { get; set; }
 
         /// <summary>
         /// Whether or not this form requires mega evolution.
         /// </summary>
-        [JsonProperty("is_mega")]
+        [JsonPropertyName("is_mega")]
         public bool IsMega { get; set; }
 
         /// <summary>
         /// The name of this form.
         /// </summary>
-        [JsonProperty("form_name")]
+        [JsonPropertyName("form_name")]
         public string FormName { get; set; }
 
         /// <summary>
@@ -833,7 +833,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The version group this Pokémon form was introduced in.
         /// </summary>
-        [JsonProperty("version_group")]
+        [JsonPropertyName("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
 
         /// <summary>
@@ -846,7 +846,7 @@ namespace PokeApiNet.Models
         /// The form specific form name of this Pokémon form, or empty if the
         /// form does not have a specific name.
         /// </summary>
-        [JsonProperty("form_names")]
+        [JsonPropertyName("form_names")]
         public List<Names> FormNames { get; set; }
     }
 
@@ -855,25 +855,25 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The default depiction of this Pokémon form from the front in battle.
         /// </summary>
-        [JsonProperty("front_default")]
+        [JsonPropertyName("front_default")]
         public string FrontDefault { get; set; }
 
         /// <summary>
         /// The shiny depiction of this Pokémon form from the front in battle.
         /// </summary>
-        [JsonProperty("front_shiny")]
+        [JsonPropertyName("front_shiny")]
         public string FrontShiny { get; set; }
 
         /// <summary>
         /// The default depiction of this Pokémon form from the back in battle.
         /// </summary>
-        [JsonProperty("back_default")]
+        [JsonPropertyName("back_default")]
         public string BackDefault { get; set; }
 
         /// <summary>
         /// The shiny depiction of this Pokémon form from the back in battle.
         /// </summary>
-        [JsonProperty("back_shiny")]
+        [JsonPropertyName("back_shiny")]
         public string BackShiny { get; set; }
     }
 
@@ -903,7 +903,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of the Pokémon species that can be found in this habitat.
         /// </summary>
-        [JsonProperty("pokemon_species")]
+        [JsonPropertyName("pokemon_species")]
         public List<NamedApiResource<PokemonSpecies>> PokemonSpecies { get; set; }
     }
 
@@ -928,7 +928,7 @@ namespace PokeApiNet.Models
         /// The "scientific" name of this Pokémon shape listed in
         /// different languages.
         /// </summary>
-        [JsonProperty("awesome_names")]
+        [JsonPropertyName("awesome_names")]
         public List<AwesomeNames> AwesomeNames { get; set; }
 
         /// <summary>
@@ -939,7 +939,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of the Pokémon species that have this shape.
         /// </summary>
-        [JsonProperty("pokemon_species")]
+        [JsonPropertyName("pokemon_species")]
         public List<NamedApiResource<PokemonSpecies>> PokemonSpecies { get; set; }
     }
 
@@ -949,7 +949,7 @@ namespace PokeApiNet.Models
         /// The localized "scientific" name for an API resource in a
         /// specific language.
         /// </summary>
-        [JsonProperty("awesome_name")]
+        [JsonPropertyName("awesome_name")]
         public string AwesomeName { get; set; }
 
         /// <summary>
@@ -989,27 +989,27 @@ namespace PokeApiNet.Models
         /// The chance of this Pokémon being female, in eighths; or -1 for
         /// genderless.
         /// </summary>
-        [JsonProperty("gender_rate")]
+        [JsonPropertyName("gender_rate")]
         public int GenderRate { get; set; }
 
         /// <summary>
         /// The base capture rate; up to 255. The higher the number, the easier 
         /// the catch.
         /// </summary>
-        [JsonProperty("capture_rate")]
+        [JsonPropertyName("capture_rate")]
         public int CaptureRate { get; set; }
 
         /// <summary>
         /// The happiness when caught by a normal Pokéball; up to 255. The higher
         /// the number, the happier the Pokémon.
         /// </summary>
-        [JsonProperty("base_happiness")]
+        [JsonPropertyName("base_happiness")]
         public int BaseHappiness { get; set; }
 
         /// <summary>
         /// Whether or not this is a baby Pokémon.
         /// </summary>
-        [JsonProperty("is_baby")]
+        [JsonPropertyName("is_baby")]
         public bool IsBaby { get; set; }
 
         /// <summary>
@@ -1017,39 +1017,39 @@ namespace PokeApiNet.Models
         /// before this Pokémon's egg hatches, unless utilizing bonuses like
         /// Flame Body's.
         /// </summary>
-        [JsonProperty("hatch_counter")]
+        [JsonPropertyName("hatch_counter")]
         public int HatchCounter { get; set; }
 
         /// <summary>
         /// Whether or not this Pokémon has visual gender differences.
         /// </summary>
-        [JsonProperty("has_gender_differences")]
+        [JsonPropertyName("has_gender_differences")]
         public bool HasGenderDifferences { get; set; }
 
         /// <summary>
         /// Whether or not this Pokémon has multiple forms and can switch between
         /// them.
         /// </summary>
-        [JsonProperty("forms_switchable")]
+        [JsonPropertyName("forms_switchable")]
         public bool FormsSwitchable { get; set; }
 
         /// <summary>
         /// The rate at which this Pokémon species gains levels.
         /// </summary>
-        [JsonProperty("growth_rate")]
+        [JsonPropertyName("growth_rate")]
         public NamedApiResource<GrowthRate> GrowthRate { get; set; }
 
         /// <summary>
         /// A list of Pokedexes and the indexes reserved within them for this
         /// Pokémon species.
         /// </summary>
-        [JsonProperty("pokedex_numbers")]
+        [JsonPropertyName("pokedex_numbers")]
         public List<PokemonSpeciesDexEntry> PokedexNumbers { get; set; }
 
         /// <summary>
         /// A list of egg groups this Pokémon species is a member of.
         /// </summary>
-        [JsonProperty("egg_groups")]
+        [JsonPropertyName("egg_groups")]
         public List<NamedApiResource<EggGroup>> EggGroups { get; set; }
 
         /// <summary>
@@ -1065,13 +1065,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The Pokémon species that evolves into this Pokemon_species.
         /// </summary>
-        [JsonProperty("evolves_from_species")]
+        [JsonPropertyName("evolves_from_species")]
         public NamedApiResource<PokemonSpecies> EvolvesFromSpecies { get; set; }
 
         /// <summary>
         /// The evolution chain this Pokémon species is a member of.
         /// </summary>
-        [JsonProperty("evolution_chain")]
+        [JsonPropertyName("evolution_chain")]
         public ApiResource<EvolutionChain> EvolutionChain { get; set; }
 
         /// <summary>
@@ -1093,20 +1093,20 @@ namespace PokeApiNet.Models
         /// A list of encounters that can be had with this Pokémon species in
         /// pal park.
         /// </summary>
-        [JsonProperty("pal_park_encounters")]
+        [JsonPropertyName("pal_park_encounters")]
         public List<PalParkEncounterArea> PalParkEncounters { get; set; }
 
         /// <summary>
         /// A list of flavor text entries for this Pokémon species.
         /// </summary>
-        [JsonProperty("flavor_text_entries")]
+        [JsonPropertyName("flavor_text_entries")]
         public List<PokemonSpeciesFlavorTexts> FlavorTextEntries { get; set; }
 
         /// <summary>
         /// Descriptions of different forms Pokémon take on within the Pokémon
         /// species.
         /// </summary>
-        [JsonProperty("form_descriptions")]
+        [JsonPropertyName("form_descriptions")]
         public List<Descriptions> FormDescriptions { get; set; }
 
         /// <summary>
@@ -1125,7 +1125,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The localized flavor text for an api resource in a specific language
         /// </summary>
-        [JsonProperty("flavor_text")]
+        [JsonPropertyName("flavor_text")]
         public string FlavorText { get; set; }
 
         /// <summary>
@@ -1157,7 +1157,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The index number within the Pokédex.
         /// </summary>
-        [JsonProperty("entry_number")]
+        [JsonPropertyName("entry_number")]
         public int EntryNumber { get; set; }
 
         /// <summary>
@@ -1172,7 +1172,7 @@ namespace PokeApiNet.Models
         /// The base score given to the player when the referenced Pokémon is
         /// caught during a pal park run.
         /// </summary>
-        [JsonProperty("base_score")]
+        [JsonPropertyName("base_score")]
         public int BaseScore { get; set; }
 
         /// <summary>
@@ -1192,7 +1192,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// Whether this variety is the default variety.
         /// </summary>
-        [JsonProperty("is_default")]
+        [JsonPropertyName("is_default")]
         public bool IsDefault { get; set; }
 
         /// <summary>
@@ -1223,25 +1223,25 @@ namespace PokeApiNet.Models
         /// <summary>
         /// ID the games use for this stat.
         /// </summary>
-        [JsonProperty("game_index")]
+        [JsonPropertyName("game_index")]
         public int GameIndex { get; set; }
 
         /// <summary>
         /// Whether this stat only exists within a battle.
         /// </summary>
-        [JsonProperty("is_battle_only")]
+        [JsonPropertyName("is_battle_only")]
         public bool IsBattleOnly { get; set; }
 
         /// <summary>
         /// A detail of moves which affect this stat positively or negatively.
         /// </summary>
-        [JsonProperty("affecting_moves")]
+        [JsonPropertyName("affecting_moves")]
         public MoveStatAffectSets AffectingMoves { get; set; }
 
         /// <summary>
         /// A detail of natures which affect this stat positively or negatively.
         /// </summary>
-        [JsonProperty("affecting_natures")]
+        [JsonPropertyName("affecting_natures")]
         public NatureStatAffectSets AffectingNatures { get; set; }
 
         /// <summary>
@@ -1253,7 +1253,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The public class of damage this stat is directly related to.
         /// </summary>
-        [JsonProperty("move_damage_class")]
+        [JsonPropertyName("move_damage_class")]
         public NamedApiResource<MoveDamageClass> MoveDamageClass { get; set; }
 
         /// <summary>
@@ -1324,13 +1324,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A detail of how effective this type is toward others and vice versa.
         /// </summary>
-        [JsonProperty("damage_relations")]
+        [JsonPropertyName("damage_relations")]
         public TypeRelations DamageRelations { get; set; }
 
         /// <summary>
         /// A list of game indices relevent to this item by generation.
         /// </summary>
-        [JsonProperty("game_indices")]
+        [JsonPropertyName("game_indices")]
         public List<GenerationGameIndex> GameIndices { get; set; }
 
         /// <summary>
@@ -1341,7 +1341,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The public class of damage inflicted by this type.
         /// </summary>
-        [JsonProperty("move_damage_class")]
+        [JsonPropertyName("move_damage_class")]
         public NamedApiResource<MoveDamageClass> MoveDamageClass { get; set; }
 
         /// <summary>
@@ -1378,37 +1378,37 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of types this type has no effect on.
         /// </summary>
-        [JsonProperty("no_damage_to")]
+        [JsonPropertyName("no_damage_to")]
         public List<NamedApiResource<Type>> NoDamageTo { get; set; }
 
         /// <summary>
         /// A list of types this type is not very effect against.
         /// </summary>
-        [JsonProperty("half_damage_to")]
+        [JsonPropertyName("half_damage_to")]
         public List<NamedApiResource<Type>> HalfDamageTo { get; set; }
 
         /// <summary>
         /// A list of types this type is very effect against.
         /// </summary>
-        [JsonProperty("double_damage_to")]
+        [JsonPropertyName("double_damage_to")]
         public List<NamedApiResource<Type>> DoubleDamageTo { get; set; }
 
         /// <summary>
         /// A list of types that have no effect on this type.
         /// </summary>
-        [JsonProperty("no_damage_from")]
+        [JsonPropertyName("no_damage_from")]
         public List<NamedApiResource<Type>> NoDamageFrom { get; set; }
 
         /// <summary>
         /// A list of types that are not very effective against this type.
         /// </summary>
-        [JsonProperty("half_damage_from")]
+        [JsonPropertyName("half_damage_from")]
         public List<NamedApiResource<Type>> HalfDamageFrom { get; set; }
 
         /// <summary>
         /// A list of types that are very effective against this type.
         /// </summary>
-        [JsonProperty("double_damage_from")]
+        [JsonPropertyName("double_damage_from")]
         public List<NamedApiResource<Type>> DoubleDamageFrom { get; set; }
     }
 }

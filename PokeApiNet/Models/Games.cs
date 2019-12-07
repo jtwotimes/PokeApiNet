@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace PokeApiNet.Models
@@ -36,7 +36,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The main region travelled in this generation.
         /// </summary>
-        [JsonProperty("main_region")]
+        [JsonPropertyName("main_region")]
         public NamedApiResource<Region> MainRegion { get; set; }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace PokeApiNet.Models
         /// A list of Pokemon species that were introduced in this
         /// generation.
         /// </summary>
-        [JsonProperty("pokemon_species")]
+        [JsonPropertyName("pokemon_species")]
         public List<NamedApiResource<PokemonSpecies>> PokemonSpecies { get; set; }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace PokeApiNet.Models
         /// A list of version groups that were introduced in this
         /// generation.
         /// </summary>
-        [JsonProperty("version_groups")]
+        [JsonPropertyName("version_groups")]
         public List<NamedApiResource<VersionGroup>> VersionGroups { get; set; }
     }
 
@@ -87,7 +87,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// Whether or not this Pokédex originated in the main series of the video games.
         /// </summary>
-        [JsonProperty("is_main_series")]
+        [JsonPropertyName("is_main_series")]
         public bool IsMainSeries { get; set; }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of Pokémon catalogued in this Pokédex and their indexes.
         /// </summary>
-        [JsonProperty("pokemon_entries")]
+        [JsonPropertyName("pokemon_entries")]
         public List<PokemonEntry> PokemonEntries { get; set; }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// A list of version groups this Pokédex is relevant to.
         /// </summary>
-        [JsonProperty("version_groups")]
+        [JsonPropertyName("version_groups")]
         public List<NamedApiResource<VersionGroup>> VersionGroups { get; set; }
     }
 
@@ -123,13 +123,13 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The index of this Pokémon species entry within the Pokédex.
         /// </summary>
-        [JsonProperty("entry_number")]
+        [JsonPropertyName("entry_number")]
         public int EntryNumber { get; set; }
 
         /// <summary>
         /// The Pokémon species being encountered.
         /// </summary>
-        [JsonProperty("pokemon_species")]
+        [JsonPropertyName("pokemon_species")]
         public NamedApiResource<PokemonSpecies> PokemonSpecies { get; set; }
     }
 
@@ -158,7 +158,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The version group this version belongs to.
         /// </summary>
-        [JsonProperty("version_group")]
+        [JsonPropertyName("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
@@ -194,7 +194,7 @@ namespace PokeApiNet.Models
         /// A list of methods in which Pokémon can learn moves in
         /// this version group.
         /// </summary>
-        [JsonProperty("move_learn_methods")]
+        [JsonPropertyName("move_learn_methods")]
         public List<NamedApiResource<MoveLearnMethod>> MoveLearnMethods { get; set; }
 
         /// <summary>

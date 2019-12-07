@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using PokeApiNet.Cache;
+﻿using PokeApiNet.Cache;
 using PokeApiNet.Models;
 using System;
 using System.Collections.Generic;
@@ -110,7 +109,7 @@ namespace PokeApiNet
             response.EnsureSuccessStatusCode();
 
             string resp = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(resp);
+            return PokeApiSerializer.Deserialize<T>(resp);
         }
 
         /// <summary>
@@ -338,7 +337,7 @@ namespace PokeApiNet
             NamedApiResourceList<T> resources = _resourceListCache.GetNamedResourceList<T>(pageUrl);
             if (resources == null)
             {
-                resources = await GetPageAsync(JsonConvert.DeserializeObject<NamedApiResourceList<T>>, cancellationToken)(pageUrl) as NamedApiResourceList<T>;
+                resources = await GetPageAsync<T>(PokeApiSerializer.Deserialize<NamedApiResourceList<T>>, cancellationToken)(pageUrl) as NamedApiResourceList<T>;
                 _resourceListCache.Store(pageUrl, resources);
             }
             return resources;
@@ -380,7 +379,7 @@ namespace PokeApiNet
             ApiResourceList<T> resources = _resourceListCache.GetApiResourceList<T>(pageUrl);
             if(resources == null)
             {
-                resources = await GetPageAsync(JsonConvert.DeserializeObject<ApiResourceList<T>>, cancellationToken)(pageUrl) as ApiResourceList<T>;
+                resources = await GetPageAsync<T>(PokeApiSerializer.Deserialize<ApiResourceList<T>>, cancellationToken)(pageUrl) as ApiResourceList<T>;
                 _resourceListCache.Store(pageUrl, resources);
             }
             return resources;

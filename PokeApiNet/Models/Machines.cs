@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace PokeApiNet.Models
 {
@@ -30,7 +30,7 @@ namespace PokeApiNet.Models
         /// <summary>
         /// The version group that this machine applies to.
         /// </summary>
-        [JsonProperty("version_group")]
+        [JsonPropertyName("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 }
