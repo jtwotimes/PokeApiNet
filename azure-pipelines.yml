@@ -17,7 +17,7 @@ steps:
   displayName: 'dotnet restore'
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-- task: DotNetCoreCLI@3
+- task: DotNetCoreCLI@2
   displayName: dotnet test
   inputs:
     command: test
