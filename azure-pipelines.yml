@@ -14,6 +14,7 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
+  displayName: dotnet build
   inputs:
     command: build
 - task: DotNetCoreCLI@2
@@ -24,6 +25,7 @@ steps:
     projects: '**/*.Tests.csproj'
     nobuild: true
 - task: PublishTestResults@2
+  displayName: Publish test result
   inputs:
     testResultsFormat: 'XUnit'
     testResultsFiles: '**/coverage.cobertura.xml'
