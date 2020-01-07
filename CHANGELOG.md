@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0
+### Added
+- Now supports .Net Standard 2.1
+- Updated dependencies
+
 ## 2.0.0
 ### Breaking Changes
 - Class `PokeApiClient` moved namespace; was `PokeApiNet.Data` now `PokeApiNet`
