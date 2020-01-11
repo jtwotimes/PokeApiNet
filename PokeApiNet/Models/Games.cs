@@ -118,6 +118,9 @@ namespace PokeApiNet.Models
         public List<NamedApiResource<VersionGroup>> VersionGroups { get; set; }
     }
 
+    /// <summary>
+    /// The entry information
+    /// </summary>
     public class PokemonEntry
     {
         /// <summary>

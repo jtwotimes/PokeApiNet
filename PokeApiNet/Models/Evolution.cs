@@ -35,6 +35,9 @@ namespace PokeApiNet.Models
         public ChainLink Chain { get; set; }
     }
 
+    /// <summary>
+    /// The linking information between a Pokémon and it's evolution(s)
+    /// </summary>
     public class ChainLink
     {
         /// <summary>
@@ -63,6 +66,9 @@ namespace PokeApiNet.Models
         public List<ChainLink> EvolvesTo { get; set; }
     }
 
+    /// <summary>
+    /// The details for an evolution
+    /// </summary>
     public class EvolutionDetail
     {
         /// <summary>

@@ -62,6 +62,9 @@ namespace PokeApiNet.Models
         public List<AbilityPokemon> Pokemon { get; set; }
     }
 
+    /// <summary>
+    /// An ability and it's associated versions
+    /// </summary>
     public class AbilityEffectChange
     {
         /// <summary>
@@ -77,6 +80,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
+    /// <summary>
+    /// The flavor text for an ability
+    /// </summary>
     public class AbilityFlavorText
     {
         /// <summary>
@@ -97,6 +103,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
+    /// <summary>
+    /// A mapping of an ability to a possible Pokémon
+    /// </summary>
     public class AbilityPokemon
     {
         /// <summary>
@@ -221,6 +230,9 @@ namespace PokeApiNet.Models
         public List<NamedApiResource<PokemonSpecies>> RequiredForEvolution { get; set; }
     }
 
+    /// <summary>
+    /// A rate of chance of a Pokémon being a specific gender
+    /// </summary>
     public class PokemonSpeciesGender
     {
         /// <summary>
@@ -277,6 +289,9 @@ namespace PokeApiNet.Models
         public List<NamedApiResource<PokemonSpecies>> PokemonSpecies { get; set; }
     }
 
+    /// <summary>
+    /// Information of a level and how much experience is needed to get to it
+    /// </summary>
     public class GrowthRateExperienceLevel
     {
         /// <summary>
@@ -351,6 +366,9 @@ namespace PokeApiNet.Models
         public List<Names> Names { get; set; }
     }
 
+    /// <summary>
+    /// The change information for a nature
+    /// </summary>
     public class NatureStatChange
     {
         /// <summary>
@@ -366,6 +384,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<PokeathlonStat> PokeathlonStat { get; set; }
     }
 
+    /// <summary>
+    /// Move information for a battle style
+    /// </summary>
     public class MoveBattleStylePreference
     {
         /// <summary>
@@ -419,6 +440,9 @@ namespace PokeApiNet.Models
         public NaturePokeathlonStatAffectSets AffectingNatures { get; set; }
     }
 
+    /// <summary>
+    /// The natures and how they are changed with the referenced Pokéathlon stat
+    /// </summary>
     public class NaturePokeathlonStatAffectSets
     {
         /// <summary>
@@ -432,6 +456,9 @@ namespace PokeApiNet.Models
         public List<NaturePokeathlonStatAffect> Decrease{ get; set; }
     }
 
+    /// <summary>
+    /// The change information for a Pokéathlon stat
+    /// </summary>
     public class NaturePokeathlonStatAffect
     {
         /// <summary>
@@ -551,6 +578,9 @@ namespace PokeApiNet.Models
         public List<PokemonType> Types { get; set; }
     }
 
+    /// <summary>
+    /// A Pokémon ability
+    /// </summary>
     public class PokemonAbility
     {
         /// <summary>
@@ -570,6 +600,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Ability> Ability { get; set; }
     }
 
+    /// <summary>
+    /// A Pokémon type
+    /// </summary>
     public class PokemonType
     {
         /// <summary>
@@ -583,6 +616,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Type> Type { get; set; }
     }
 
+    /// <summary>
+    /// A Pokémon held item
+    /// </summary>
     public class PokemonHeldItem
     {
         /// <summary>
@@ -597,6 +633,9 @@ namespace PokeApiNet.Models
         public List<PokemonHeldItemVersion> VersionDetails { get; set; }
     }
 
+    /// <summary>
+    /// A Pokémon held item and version information
+    /// </summary>
     public class PokemonHeldItemVersion
     {
         /// <summary>
@@ -610,6 +649,9 @@ namespace PokeApiNet.Models
         public int Rarity { get; set; }
     }
 
+    /// <summary>
+    /// A reference to a move and the version information
+    /// </summary>
     public class PokemonMove
     {
         /// <summary>
@@ -624,6 +666,9 @@ namespace PokeApiNet.Models
         public List<PokemonMoveVersion> VersionGroupDetails { get; set; }
     }
 
+    /// <summary>
+    /// The moves a Pokémon learns in which versions
+    /// </summary>
     public class PokemonMoveVersion
     {
         /// <summary>
@@ -645,6 +690,9 @@ namespace PokeApiNet.Models
         public int LevelLearnedAt { get; set; }
     }
 
+    /// <summary>
+    /// A Pokémon stat
+    /// </summary>
     public class PokemonStat
     {
         /// <summary>
@@ -664,6 +712,9 @@ namespace PokeApiNet.Models
         public int BaseStat { get; set; }
     }
 
+    /// <summary>
+    /// Pokémon sprite information
+    /// </summary>
     public class PokemonSprites
     {
         /// <summary>
@@ -715,6 +766,9 @@ namespace PokeApiNet.Models
         public string BackShinyFemale { get; set; }
     }
 
+    /// <summary>
+    /// A list of possible encounter locations for a Pokémon with the version information
+    /// </summary>
     public class LocationAreaEncounter
     {
         /// <summary>
@@ -850,6 +904,9 @@ namespace PokeApiNet.Models
         public List<Names> FormNames { get; set; }
     }
 
+    /// <summary>
+    /// Pokémon sprite information with relation to a form
+    /// </summary>
     public class PokemonFormSprites
     {
         /// <summary>
@@ -943,6 +1000,9 @@ namespace PokeApiNet.Models
         public List<NamedApiResource<PokemonSpecies>> PokemonSpecies { get; set; }
     }
 
+    /// <summary>
+    /// The "scientific" name for an API resource and the language information
+    /// </summary>
     public class AwesomeNames
     {
         /// <summary>
@@ -1120,6 +1180,9 @@ namespace PokeApiNet.Models
         public List<PokemonSpeciesVariety> Varieties { get; set; }
     }
 
+    /// <summary>
+    /// The flavor text for a Pokémon species
+    /// </summary>
     public class PokemonSpeciesFlavorTexts
     {
         /// <summary>
@@ -1139,6 +1202,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Language> Language { get; set; }
     }
 
+    /// <summary>
+    /// The genus information for a Pokémon and the associated language
+    /// </summary>
     public class Genuses
     {
         /// <summary>
@@ -1152,6 +1218,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Language> Language { get; set; }
     }
 
+    /// <summary>
+    /// The Pokémon Pokédex entry information
+    /// </summary>
     public class PokemonSpeciesDexEntry
     {
         /// <summary>
@@ -1166,6 +1235,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Pokedex> Pokedex { get; set; }
     }
 
+    /// <summary>
+    /// Information for a PalPark area
+    /// </summary>
     public class PalParkEncounterArea
     {
         /// <summary>
@@ -1187,6 +1259,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<PalParkArea> Area { get; set; }
     }
 
+    /// <summary>
+    /// A variety of a Pokémon species
+    /// </summary>
     public class PokemonSpeciesVariety
     {
         /// <summary>
@@ -1262,6 +1337,9 @@ namespace PokeApiNet.Models
         public List<Names> Names { get; set; }
     }
 
+    /// <summary>
+    /// A list of moves and how they change statuses
+    /// </summary>
     public class MoveStatAffectSets
     {
         /// <summary>
@@ -1275,6 +1353,9 @@ namespace PokeApiNet.Models
         public List<MoveStatAffect> Decrease { get; set; }
     }
 
+    /// <summary>
+    /// A reference to a move and the change to a status
+    /// </summary>
     public class MoveStatAffect
     {
         /// <summary>
@@ -1288,6 +1369,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Move> Move { get; set; }
     }
 
+    /// <summary>
+    /// A reference to a nature and the change to a status
+    /// </summary>
     public class NatureStatAffectSets
     {
         /// <summary>
@@ -1360,6 +1444,9 @@ namespace PokeApiNet.Models
         public List<NamedApiResource<Move>> Moves { get; set; }
     }
 
+    /// <summary>
+    /// A Pokémon type information
+    /// </summary>
     public class TypePokemon
     {
         /// <summary>
@@ -1373,6 +1460,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Pokemon> Pokemon { get; set; }
     }
 
+    /// <summary>
+    /// The information for how a type interacts with other types
+    /// </summary>
     public class TypeRelations
     {
         /// <summary>

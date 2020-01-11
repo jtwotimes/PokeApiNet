@@ -89,6 +89,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Type> NaturalGiftType { get; set; }
     }
 
+    /// <summary>
+    /// The potency and flavor that a berry can have
+    /// </summary>
     public class BerryFlavorMap
     {
         /// <summary>
@@ -168,6 +171,9 @@ namespace PokeApiNet.Models
         public List<Names> Names { get; set; }
     }
 
+    /// <summary>
+    /// The potency and flavor that a berry can have
+    /// </summary>
     public class FlavorBerryMap
     {
         /// <summary>

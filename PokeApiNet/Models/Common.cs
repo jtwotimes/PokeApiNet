@@ -43,8 +43,15 @@ namespace PokeApiNet.Models
         public List<Names> Names { get; set; }
     }
 
+    /// <summary>
+    /// A reference to an API object that does not have a `Name` property
+    /// </summary>
+    /// <typeparam name="T">The type of resource</typeparam>
     public class ApiResource<T> : UrlNavigation<T> where T : ResourceBase { }
 
+    /// <summary>
+    /// The description for an API resource
+    /// </summary>
     public class Descriptions
     {
         /// <summary>
@@ -59,6 +66,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Language> Language { get; set; }
     }
 
+    /// <summary>
+    /// The effect of an API resource
+    /// </summary>
     public class Effects
     {
         /// <summary>
@@ -73,6 +83,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Language> Language { get; set; }
     }
 
+    /// <summary>
+    /// Encounter information for a Pokémon
+    /// </summary>
     public class Encounter
     {
         /// <summary>
@@ -105,6 +118,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<EncounterMethod> Method { get; set; }
     }
 
+    /// <summary>
+    /// A flavor text entry for an API resource
+    /// </summary>
     public class FlavorTexts
     {
         /// <summary>
@@ -119,6 +135,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Language> Language { get; set; }
     }
 
+    /// <summary>
+    /// The index information for a generation game
+    /// </summary>
     public class GenerationGameIndex
     {
         /// <summary>
@@ -133,6 +152,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Generation> Generation { get; set; }
     }
 
+    /// <summary>
+    /// The version detail information for a machine
+    /// </summary>
     public class MachineVersionDetail
     {
         /// <summary>
@@ -147,6 +169,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
+    /// <summary>
+    /// A name with language information
+    /// </summary>
     public class Names
     {
         /// <summary>
@@ -160,6 +185,10 @@ namespace PokeApiNet.Models
         public NamedApiResource<Language> Language { get; set; }
     }
 
+    /// <summary>
+    /// A reference to an API resource that has a `Name` property
+    /// </summary>
+    /// <typeparam name="T">The type of reference</typeparam>
     public class NamedApiResource<T> : UrlNavigation<T> where T : ResourceBase
     {
         /// <summary>
@@ -168,6 +197,9 @@ namespace PokeApiNet.Models
         public string Name { get; set; }
     }
 
+    /// <summary>
+    /// The long text for effect text entries
+    /// </summary>
     public class VerboseEffect
     {
         /// <summary>
@@ -188,6 +220,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Language> Language { get; set; }
     }
 
+    /// <summary>
+    /// The detailed information for version encounter entries
+    /// </summary>
     public class VersionEncounterDetail
     {
         /// <summary>
@@ -208,6 +243,9 @@ namespace PokeApiNet.Models
         public List<Encounter> EncounterDetails { get; set; }
     }
 
+    /// <summary>
+    /// The index information for games
+    /// </summary>
     public class VersionGameIndex
     {
         /// <summary>
@@ -222,6 +260,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Version> Version { get; set; }
     }
 
+    /// <summary>
+    /// The version group flavor text information
+    /// </summary>
     public class VersionGroupFlavorText
     {
         /// <summary>

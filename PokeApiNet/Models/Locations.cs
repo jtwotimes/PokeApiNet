@@ -93,6 +93,9 @@ namespace PokeApiNet.Models
         public List<PokemonEncounter> PokemonEncounters { get; set; }
     }
 
+    /// <summary>
+    /// A mapping between an encounter method and the version that applies
+    /// </summary>
     public class EncounterMethodRate
     {
         /// <summary>
@@ -108,6 +111,9 @@ namespace PokeApiNet.Models
         public List<EncounterVersionDetails> VersionDetails { get; set; }
     }
 
+    /// <summary>
+    /// The details for an encounter with the version
+    /// </summary>
     public class EncounterVersionDetails
     {
         /// <summary>
@@ -122,6 +128,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Version> Version { get; set; }
     }
 
+    /// <summary>
+    /// A Pokémon encounter and the version that encounter can happen
+    /// </summary>
     public class PokemonEncounter
     {
         /// <summary>
@@ -168,6 +177,9 @@ namespace PokeApiNet.Models
         public List<PalParkEncounterSpecies> PokemonEncounters { get; set; }
     }
 
+    /// <summary>
+    /// Information for an encounter in PalPark
+    /// </summary>
     public class PalParkEncounterSpecies
     {
         /// <summary>

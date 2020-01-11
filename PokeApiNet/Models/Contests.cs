@@ -35,6 +35,9 @@ namespace PokeApiNet.Models
         public List<ContestName> Names { get; set; }
     }
 
+    /// <summary>
+    /// The name of the context
+    /// </summary>
     public class ContestName
     {
         /// <summary>
