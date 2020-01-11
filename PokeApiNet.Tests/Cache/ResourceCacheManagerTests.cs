@@ -130,8 +130,8 @@ namespace PokeApiNet.Tests.Cache
             sut.ClearAll();
 
             // assert
-            Berry retrievedBerry = sut.Get<Berry>(1);
-            Pokedex retrievedPokedex = sut.Get<Pokedex>(1);
+            Berry retrievedBerry = sut.Get<Berry>(berry.Id);
+            Pokedex retrievedPokedex = sut.Get<Pokedex>(pokedex.Id);
             Assert.Null(retrievedBerry);
             Assert.Null(retrievedPokedex);
         }
@@ -151,8 +151,8 @@ namespace PokeApiNet.Tests.Cache
             sut.Clear<Berry>();
 
             // assert
-            Berry retrievedBerry = sut.Get<Berry>(1);
-            Pokedex retrievedPokedex = sut.Get<Pokedex>(1);
+            Berry retrievedBerry = sut.Get<Berry>(berry.Id);
+            Pokedex retrievedPokedex = sut.Get<Pokedex>(pokedex.Id);
             Assert.Null(retrievedBerry);
             Assert.NotNull(retrievedPokedex);
         }
