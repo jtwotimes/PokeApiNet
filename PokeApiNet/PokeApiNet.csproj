@@ -12,7 +12,7 @@
     <PackageTags>pokemon pokeapi</PackageTags>
     <PackageReleaseNotes>https://github.com/mtrdp642/PokeApiNet/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageLicenseUrl>https://github.com/mtrdp642/PokeApiNet/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
