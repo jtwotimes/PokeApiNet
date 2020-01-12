@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using PokeApiNet.Models;
 using System;
 using System.Collections.Immutable;
 

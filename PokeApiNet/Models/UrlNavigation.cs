@@ -1,4 +1,4 @@
-﻿namespace PokeApiNet.Models
+﻿namespace PokeApiNet
 {
     /// <summary>
     /// Allows for automatic fetching of a resource via a url

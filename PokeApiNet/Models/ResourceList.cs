@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PokeApiNet.Models
+namespace PokeApiNet
 {
     /// <summary>
     /// The base class for all resource lists

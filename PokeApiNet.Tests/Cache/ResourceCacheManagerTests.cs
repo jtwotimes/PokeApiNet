@@ -1,5 +1,4 @@
 ﻿using PokeApiNet.Cache;
-using PokeApiNet.Models;
 using System;
 using Xunit;
 

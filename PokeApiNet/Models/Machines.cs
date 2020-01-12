@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PokeApiNet.Models
+namespace PokeApiNet
 {
     /// <summary>
     /// Machines are the representation of items that teach moves
