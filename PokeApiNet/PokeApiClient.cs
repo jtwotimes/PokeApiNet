@@ -75,6 +75,23 @@ namespace PokeApiNet
         }
 
         /// <summary>
+        /// Construct accepting directly a HttpClient. Useful when used in projects where IHttpClientFactory is used to create and configure HttpClient instances with different policies.
+        /// See https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public PokeApiClient(HttpClient httpClient)
+        {
+            if (httpClient == null)
+            {
+                throw new ArgumentNullException(nameof(httpClient));
+            }
+
+            _client = httpClient;
+            _client.BaseAddress = _baseUri;
+        }
+
+        /// <summary>
         /// Close resources
         /// </summary>
         public void Dispose()
