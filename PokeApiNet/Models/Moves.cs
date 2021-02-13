@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace PokeApiNet.Models
+namespace PokeApiNet
 {
     /// <summary>
     /// Moves are the skills of Pokémon in battle. In battle, a Pokémon
@@ -147,6 +147,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Type> Type { get; set; }
     }
 
+    /// <summary>
+    /// A set of moves that are combos
+    /// </summary>
     public class ContestComboSets
     {
         /// <summary>
@@ -162,6 +165,9 @@ namespace PokeApiNet.Models
         public ContestComboDetail Super { get; set; }
     }
 
+    /// <summary>
+    /// A detailed list of combos
+    /// </summary>
     public class ContestComboDetail
     {
         /// <summary>
@@ -177,6 +183,9 @@ namespace PokeApiNet.Models
         public List<NamedApiResource<Move>> UseAfter { get; set; }
     }
 
+    /// <summary>
+    /// The flavor text for a move
+    /// </summary>
     public class MoveFlavorText
     {
         /// <summary>
@@ -198,6 +207,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
+    /// <summary>
+    /// The additional data for a move
+    /// </summary>
     public class MoveMetaData
     {
         /// <summary>
@@ -277,6 +289,9 @@ namespace PokeApiNet.Models
         public int StatChance { get; set; }
     }
 
+    /// <summary>
+    /// The status and the change for a move
+    /// </summary>
     public class MoveStatChange
     {
         /// <summary>
@@ -290,6 +305,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Stat> Stat { get; set; }
     }
 
+    /// <summary>
+    /// Move status values
+    /// </summary>
     public class PastMoveStatValues
     {
         /// <summary>

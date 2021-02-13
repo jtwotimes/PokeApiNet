@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.0
+### Breaking Changes
+- All classes under the `PokeApiNet.Models` namespace were moved to `PokeApiNet`
+- Namespace `PokeApiNet.Models` has been removed
+
+### Added
+- Support for .Net Standard 2.1
+- Updated dependencies
+
 ## 2.0.0
 ### Breaking Changes
 - Class `PokeApiClient` moved namespace; was `PokeApiNet.Data` now `PokeApiNet`

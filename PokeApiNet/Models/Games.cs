@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace PokeApiNet.Models
+namespace PokeApiNet
 {
     /// <summary>
     /// A generation is a grouping of the Pokémon games that separates
@@ -118,6 +118,9 @@ namespace PokeApiNet.Models
         public List<NamedApiResource<VersionGroup>> VersionGroups { get; set; }
     }
 
+    /// <summary>
+    /// The entry information
+    /// </summary>
     public class PokemonEntry
     {
         /// <summary>

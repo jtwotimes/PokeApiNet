@@ -1,5 +1,4 @@
-﻿using PokeApiNet.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -215,7 +214,7 @@ namespace PokeApiNet.Tests
             PokeApiClient client = new PokeApiClient();
 
             // act
-            PokeApiNet.Models.Version version = await client.GetResourceAsync<PokeApiNet.Models.Version>(1);
+            PokeApiNet.Version version = await client.GetResourceAsync<PokeApiNet.Version>(1);
 
             // assert
             Assert.True(version.Id != default(int));
@@ -694,7 +693,7 @@ namespace PokeApiNet.Tests
             PokeApiClient client = new PokeApiClient();
 
             // act
-            PokeApiNet.Models.Type type = await client.GetResourceAsync<PokeApiNet.Models.Type>(1);
+            PokeApiNet.Type type = await client.GetResourceAsync<PokeApiNet.Type>(1);
 
             // assert
             Assert.True(type.Id != default(int));

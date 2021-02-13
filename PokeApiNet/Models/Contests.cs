@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace PokeApiNet.Models
+namespace PokeApiNet
 {
     /// <summary>
     /// Contest types are categories judges used to weigh
@@ -35,6 +35,9 @@ namespace PokeApiNet.Models
         public List<ContestName> Names { get; set; }
     }
 
+    /// <summary>
+    /// The name of the context
+    /// </summary>
     public class ContestName
     {
         /// <summary>

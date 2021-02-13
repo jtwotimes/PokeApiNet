@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using PokeApiNet.Models;
 using System;
 using System.Collections.Immutable;
 
@@ -8,10 +7,13 @@ namespace PokeApiNet.Cache
     /// <summary>
     /// Manages caches for instances of subclasses from <see cref="ResourceList{T}"/>
     /// </summary>
-    internal sealed class ResourceListCacheManager : BaseCacheManager, IDisposable
+    internal sealed class ResourceListCacheManager : BaseCacheManager
     {
-        private IImmutableDictionary<System.Type, ListCache> listCaches;
+        private readonly IImmutableDictionary<System.Type, ListCache> listCaches;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ResourceListCacheManager()
         {
             // TODO allow configuration of experiation policies
@@ -70,7 +72,7 @@ namespace PokeApiNet.Cache
         /// <summary>
         /// Clears all caches
         /// </summary>
-        public void ClearAll()
+        public override void ClearAll()
         {
             foreach (ListCache cache in listCaches.Values)
             {
@@ -88,46 +90,58 @@ namespace PokeApiNet.Cache
             listCaches[type].Clear();
         }
 
-        public void Dispose()
+        /// <summary>
+        /// Dispose object
+        /// </summary>
+        public override void Dispose()
         {
-            foreach(ListCache cache in listCaches.Values)
+            foreach (ListCache cache in listCaches.Values)
             {
                 cache.Dispose();
             }
-            listCaches = null;
         }
 
-        private sealed class ListCache : BaseExpirableCache, IDisposable
+        private sealed class ListCache : BaseExpirableCache
         {
-            private MemoryCache urlCache;
+            private readonly MemoryCache _urlCache;
 
+            /// <summary>
+            /// Constructor
+            /// </summary>
             public ListCache()
             {
                 // TODO allow configuration of expiration policies
-                urlCache = new MemoryCache(new MemoryCacheOptions());
-            }
-
-            public void Store<T>(string url, ResourceList<T> resourceList)
-                where T : ResourceBase
-            {
-                urlCache.Set(url, resourceList, CacheEntryOptions);
+                _urlCache = new MemoryCache(new MemoryCacheOptions());
             }
 
             /// <summary>
-            /// Clears all cache data
+            /// Stores a resource list in cache
             /// </summary>
-            public void Clear()
+            /// <param name="url">The url of the resource list</param>
+            /// <param name="resourceList">The list of resources</param>
+            /// <typeparam name="T">The type of objects in the resource list</typeparam>
+            public void Store<T>(string url, ResourceList<T> resourceList)
+                where T : ResourceBase
             {
-                ExpireAll();
+                _urlCache.Set(url, resourceList, CacheEntryOptions);
             }
 
-            public ResourceList<T> Get<T>(string url) where T : ResourceBase => urlCache.Get<ResourceList<T>>(url);
+            /// <summary>
+            /// Gets a resource list from cache
+            /// </summary>
+            /// <param name="url">The url of the resource list</param>
+            /// <typeparam name="T">The type of objects in the resource list</typeparam>
+            /// <returns>The resource list from cache</returns>
+            public ResourceList<T> Get<T>(string url) where T : ResourceBase =>
+                _urlCache.Get<ResourceList<T>>(url);
 
-            public void Dispose()
+            /// <summary>
+            /// Dispose object
+            /// </summary>
+            public override void Dispose()
             {
-                this.Clear();
-                urlCache.Dispose();
-                urlCache = null;
+                Clear();
+                _urlCache.Dispose();
             }
         }
     }

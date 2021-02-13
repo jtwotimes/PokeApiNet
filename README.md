@@ -1,7 +1,7 @@
 # PokeApiNet
 A .Net wrapper for the Pokemon API at [https://pokeapi.co](https://pokeapi.co).
 
-Targets .Net Standard 2.0.
+Targets .Net Standard 2.0+.
 
 [![NuGet](https://img.shields.io/nuget/v/PokeApiNet.svg?logo=nuget)](https://www.nuget.org/packages/PokeApiNet)
 [![Build Status](https://mtrdp642.visualstudio.com/PokeApiNet/_apis/build/status/mtrdp642.PokeApiNet?branchName=master)](https://mtrdp642.visualstudio.com/PokeApiNet/_build/latest?definitionId=1&branchName=master)
@@ -9,7 +9,6 @@ Targets .Net Standard 2.0.
 # Use
 ```cs
 using PokeApiNet;
-using PokeApiNet.Models;
 
 ...
 
@@ -24,6 +23,8 @@ Item clawFossil = await pokeClient.GetResourceAsync<Item>(100);
 ```
 
 To see all the resources that are available, see the [PokeAPI docs site](https://pokeapi.co/docs/v2.html).
+
+Internally, `PokeApiClient` uses an instance of the `HttpClient` class. As such, instances of `PokeApiClient` are [meant to be instantiated once and re-used throughout the life of an application.](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netcore-3.1#remarks)
 
 ## Navigation URLs
 PokeAPI uses navigation urls for many of the resource's properties to keep requests lightweight, but require subsequent requests in order to resolve this data. Example:

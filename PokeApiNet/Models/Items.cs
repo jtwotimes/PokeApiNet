@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace PokeApiNet.Models
+namespace PokeApiNet
 {
     /// <summary>
     /// An item is an object in the games which the player can
@@ -96,14 +96,20 @@ namespace PokeApiNet.Models
         public List<MachineVersionDetail> Machines { get; set; }
     }
 
+    /// <summary>
+    /// The default description of this item.
+    /// </summary>
     public class ItemSprites
     {
         /// <summary>
-        /// The default descritpion of this item.
+        /// The default description of this item.
         /// </summary>
         public string Default { get; set; }
     }
 
+    /// <summary>
+    /// Information for which Pokémon holds an item
+    /// </summary>
     public class ItemHolderPokemon
     {
         /// <summary>
@@ -119,6 +125,9 @@ namespace PokeApiNet.Models
         public List<ItemHolderPokemonVersionDetail> VersionDetails { get; set; }
     }
 
+    /// <summary>
+    /// Information for which Pokémon hold an item
+    /// </summary>
     public class ItemHolderPokemonVersionDetail
     {
         /// <summary>

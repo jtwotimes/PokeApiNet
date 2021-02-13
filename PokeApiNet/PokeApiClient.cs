@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using PokeApiNet.Cache;
-using PokeApiNet.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +72,23 @@ namespace PokeApiNet
 
             _client = new HttpClient(messageHandler) { BaseAddress = _baseUri };
             _client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(userAgent));
+        }
+
+        /// <summary>
+        /// Construct accepting directly a HttpClient. Useful when used in projects where IHttpClientFactory is used to create and configure HttpClient instances with different policies.
+        /// See https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public PokeApiClient(HttpClient httpClient)
+        {
+            if (httpClient == null)
+            {
+                throw new ArgumentNullException(nameof(httpClient));
+            }
+
+            _client = httpClient;
+            _client.BaseAddress = _baseUri;
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace PokeApiNet.Models
+﻿namespace PokeApiNet
 {
     /// <summary>
     /// The base class for classes that have an API endpoint. These

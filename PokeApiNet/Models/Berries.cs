@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace PokeApiNet.Models
+namespace PokeApiNet
 {
     /// <summary>
     /// Berries are small fruits that can provide HP and status condition restoration,
@@ -89,6 +89,9 @@ namespace PokeApiNet.Models
         public NamedApiResource<Type> NaturalGiftType { get; set; }
     }
 
+    /// <summary>
+    /// The potency and flavor that a berry can have
+    /// </summary>
     public class BerryFlavorMap
     {
         /// <summary>
@@ -168,6 +171,9 @@ namespace PokeApiNet.Models
         public List<Names> Names { get; set; }
     }
 
+    /// <summary>
+    /// The potency and flavor that a berry can have
+    /// </summary>
     public class FlavorBerryMap
     {
         /// <summary>

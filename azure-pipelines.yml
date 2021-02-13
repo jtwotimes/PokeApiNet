@@ -13,10 +13,16 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet restore
-  displayName: 'dotnet restore'
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+- task: UseDotNet@2
+  displayName: 'Use .NET Core SDK 3.1.100'
+  inputs:
+    packageType: sdk
+    version: 3.1.100
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+- task: DotNetCoreCLI@2
+  displayName: dotnet build
+  inputs:
+    command: build
 - task: DotNetCoreCLI@2
   displayName: dotnet test
   inputs:
@@ -25,6 +31,7 @@ steps:
     projects: '**/*.Tests.csproj'
     nobuild: true
 - task: PublishTestResults@2
+  displayName: Publish test result
   inputs:
     testResultsFormat: 'XUnit'
     testResultsFiles: '**/coverage.cobertura.xml'
