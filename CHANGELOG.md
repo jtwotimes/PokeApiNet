@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.1
+### Added
+- `PokeApiClient` constructor that accepts an `HttpClient` instance; for use with the `IHttpClientFactory` interface
+- Updated test dependencies
+
 ## 3.0.0
 ### Breaking Changes
 - All classes under the `PokeApiNet.Models` namespace were moved to `PokeApiNet`
