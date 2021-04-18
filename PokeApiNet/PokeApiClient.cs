@@ -121,12 +121,16 @@ namespace PokeApiNet
             string sanitizedApiParam = apiParam.ToLowerInvariant();
 
             string apiEndpoint = GetApiEndpointString<T>();
-            HttpResponseMessage response = await _client.GetAsync($"{apiEndpoint}/{sanitizedApiParam}/", cancellationToken);        // trailing slash is needed!
+
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"{apiEndpoint}/{sanitizedApiParam}/");
+            using var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
 
             response.EnsureSuccessStatusCode();
 
-            string resp = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(resp);
+            using var sr = new System.IO.StreamReader(await response.Content.ReadAsStreamAsync());
+            using JsonReader reader = new JsonTextReader(sr);
+            var serializer = JsonSerializer.Create();
+            return serializer.Deserialize<T>(reader);
         }
 
         /// <summary>
