@@ -15,12 +15,14 @@ namespace PokeApiNet
     internal static class QueryHelpers
     {
         /// <summary>
-        /// Append the given query keys and values to the uri.
+        /// Append the given query keys and values to the URI.
         /// </summary>
-        /// <param name="uri">The base uri.</param>
-        /// <param name="queryString">A collection of name value query pairs to append.</param>
+        /// <param name="uri">The base URI.</param>
+        /// <param name="queryString">A dictionary of query keys and values to append.</param>
         /// <returns>The combined result.</returns>
-        public static string AddQueryString(string uri, IDictionary<string, string> queryString)
+        /// <exception cref="ArgumentNullException"><paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="queryString"/> is <c>null</c>.</exception>
+        public static string AddQueryString(string uri, IDictionary<string, string?> queryString)
         {
             if (uri == null)
             {
@@ -32,12 +34,20 @@ namespace PokeApiNet
                 throw new ArgumentNullException(nameof(queryString));
             }
 
-            return AddQueryString(uri, (IEnumerable<KeyValuePair<string, string>>)queryString);
+            return AddQueryString(uri, (IEnumerable<KeyValuePair<string, string?>>)queryString);
         }
 
+        /// <summary>
+        /// Append the given query keys and values to the URI.
+        /// </summary>
+        /// <param name="uri">The base URI.</param>
+        /// <param name="queryString">A collection of name value query pairs to append.</param>
+        /// <returns>The combined result.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="uri"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="queryString"/> is <c>null</c>.</exception>
         private static string AddQueryString(
             string uri,
-            IEnumerable<KeyValuePair<string, string>> queryString)
+            IEnumerable<KeyValuePair<string, string?>> queryString)
         {
             if (uri == null)
             {
@@ -66,6 +76,11 @@ namespace PokeApiNet
             sb.Append(uriToBeAppended);
             foreach (var parameter in queryString)
             {
+                if (parameter.Value == null)
+                {
+                    continue;
+                }
+
                 sb.Append(hasQuery ? '&' : '?');
                 sb.Append(UrlEncoder.Default.Encode(parameter.Key));
                 sb.Append('=');
