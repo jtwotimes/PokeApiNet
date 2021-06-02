@@ -16,6 +16,7 @@ steps:
   displayName: dotnet build
   inputs:
     command: build
+    configuration: $(buildConfiguration)
 - task: DotNetCoreCLI@2
   displayName: dotnet test
   inputs:
@@ -29,3 +30,15 @@ steps:
     testResultsFormat: 'XUnit'
     testResultsFiles: '**/coverage.cobertura.xml'
     failTaskOnFailedTests: true
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/PokeApiNet.csproj'
+    versioningScheme: 'off'
+    configuration: $(buildConfiguration)
+    nobuild: true
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
