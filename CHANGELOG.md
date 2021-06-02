@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.2
+### Added
+- Updated `PokemonSpecies` model to include new properties: `IsLegendary`, `IsMythical`
+- Code cleanup and small performance improvements
+
 ## 3.0.1
 ### Added
 - `PokeApiClient` constructor that accepts an `HttpClient` instance; for use with the `IHttpClientFactory` interface
