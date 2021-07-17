@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.3
+### Added
+- Updated `Pokemon` model to include new property: `past_types`
+
 ## 3.0.2
 ### Added
 - Updated `PokemonSpecies` model to include new properties: `IsLegendary`, `IsMythical`
