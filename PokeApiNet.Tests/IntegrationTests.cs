@@ -1370,5 +1370,88 @@ namespace PokeApiNet.Tests
             // assert
             Assert.True(page.Results.Any());
         }
+
+        /// <summary>
+        /// Verifies that Pokemon with past types data have theirs fetched correctly.
+        /// </summary>
+        [Theory]
+        [InlineData(35, 5, 1, 1)]
+        [InlineData(36, 5, 1, 1)]
+        [InlineData(39, 5, 1, 1)]
+        [InlineData(40, 5, 1, 1)]
+        [InlineData(81, 1, 13, 1)]
+        [InlineData(82, 1, 13, 1)]
+        [InlineData(122, 5, 14, 1)]
+        [InlineData(173, 5, 1, 1)]
+        [InlineData(174, 5, 1, 1)]
+        [InlineData(175, 5, 1, 1)]
+        [InlineData(176, 5, 1, 1)] [InlineData(176, 5, 3, 2)]
+        [InlineData(183, 5, 11, 1)]
+        [InlineData(184, 5, 11, 1)]
+        [InlineData(209, 5, 1, 1)]
+        [InlineData(210, 5, 1, 1)]
+        [InlineData(280, 5, 14, 1)]
+        [InlineData(281, 5, 14, 1)]
+        [InlineData(282, 5, 14, 1)]
+        [InlineData(298, 5, 1, 1)]
+        [InlineData(303, 5, 9, 1)]
+        [InlineData(439, 5, 14, 1)]
+        [InlineData(468, 5, 1, 1)] [InlineData(468, 5, 3, 2)]
+        [InlineData(546, 5, 12, 1)]
+        [InlineData(10008, 4, 13, 1)] [InlineData(10008, 4, 8, 2)]
+        [InlineData(10009, 4, 13, 1)] [InlineData(10009, 4, 8, 2)]
+        [InlineData(10010, 4, 13, 1)] [InlineData(10010, 4, 8, 2)]
+        [InlineData(10011, 4, 13, 1)] [InlineData(10011, 4, 8, 2)]
+        [InlineData(10012, 4, 13, 1)] [InlineData(10012, 4, 8, 2)]
+        public static async Task GetPastTypesTest_HasPastTypes(int pokemonID, int generation, int type, int slot)
+        {
+            // assemble
+            using (var client = new PokeApiClient())
+            {
+                // act
+                var pokemon = await client.GetResourceAsync<Pokemon>(pokemonID);
+
+                // assert
+                var pastTypes = pokemon.PastTypes;
+                Assert.NotNull(pastTypes);
+                Assert.NotEmpty(pastTypes);
+
+                // verify this pokemon has past type data for the given generation
+                var generations = await client.GetResourceAsync(pastTypes.Select(p => p.Generation));
+                var generationObj = generations.SingleOrDefault(g => g.Id == generation);
+                Assert.NotNull(generationObj);
+
+                // verify that this generation's past type data has an entry for the given slot
+                var types = pastTypes.Single(p => p.Generation.Name == generationObj.Name).Types;
+                var typeObj = types.SingleOrDefault(t => t.Slot == slot);
+                Assert.NotNull(typeObj);
+
+                // verify that this slot's type is correct
+                var typeRes = await client.GetResourceAsync(typeObj.Type);
+                Assert.Equal(typeRes.Id, type);
+            }
+        }
+
+        /// <summary>
+        /// Verifies that a Pokemon with no past types data
+        /// has an empty list as its PastTypes property.
+        /// </summary>
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        public static async Task GetPastTypesTest_NoPastTypes(int pokemonID)
+        {
+            // assemble
+            using (var client = new PokeApiClient())
+            {
+                // act
+                var pokemon = await client.GetResourceAsync<Pokemon>(pokemonID);
+
+                // assert
+                var pastTypes = pokemon.PastTypes;
+                Assert.Empty(pastTypes);
+            }
+        }
     } 
 }
