@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.0.3</Version>
+    <Version>3.0.4</Version>
     <Authors>JJ Banda</Authors>
     <Company />
     <Description>.Net client for the PokeAPI api</Description>
@@ -13,7 +13,7 @@
     <PackageReleaseNotes>https://github.com/mtrdp642/PokeApiNet/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
@@ -31,10 +31,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.0" />
-    <PackageReference Include="System.Collections.Immutable" Version="1.7.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.Text.Encodings.Web" Version="4.7.2" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+    <PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
