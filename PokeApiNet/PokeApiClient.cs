@@ -403,7 +403,7 @@ namespace PokeApiNet
         private async Task<T> GetAsync<T>(string url, CancellationToken cancellationToken)
         {
             using var request = new HttpRequestMessage(HttpMethod.Get, url);
-            using var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            using var response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken);
 
             response.EnsureSuccessStatusCode();
             return DeserializeStream<T>(await response.Content.ReadAsStreamAsync());
