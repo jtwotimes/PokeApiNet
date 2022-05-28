@@ -260,7 +260,7 @@ namespace PokeApiNet.Tests
             CancellationToken cancellationToken = new CancellationToken(true);
 
             // act / assert
-            await Assert.ThrowsAsync<OperationCanceledException>(async () => { await client.GetResourceAsync<Berry>(1, cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetResourceAsync<Berry>(1, cancellationToken); });
         }
 
         [Fact]
@@ -274,7 +274,7 @@ namespace PokeApiNet.Tests
             CancellationToken cancellationToken = new CancellationToken(true);
 
             // act / assert
-            await Assert.ThrowsAsync<OperationCanceledException>(async () => { await client.GetResourceAsync<Berry>("cheri", cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetResourceAsync<Berry>("cheri", cancellationToken); });
         }
 
         [Fact]
@@ -441,7 +441,7 @@ namespace PokeApiNet.Tests
             CancellationToken cancellationToken = new CancellationToken(true);
 
             // act / assemble
-            await Assert.ThrowsAsync<OperationCanceledException>(async () => { await client.GetResourceAsync(pikachu.Species, cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetResourceAsync(pikachu.Species, cancellationToken); });
         }
 
         [Fact]
@@ -553,7 +553,7 @@ namespace PokeApiNet.Tests
             CancellationToken cancellationToken = new CancellationToken(true);
 
             // act / assert
-            await Assert.ThrowsAsync<OperationCanceledException>(async () => { await client.GetResourceAsync(item.Attributes, cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetResourceAsync(item.Attributes, cancellationToken); });
         }
 
         [Fact]
@@ -589,7 +589,7 @@ namespace PokeApiNet.Tests
             CancellationToken cancellationToken = new CancellationToken(true);
 
             // act / assert
-            await Assert.ThrowsAsync<OperationCanceledException>(async () => { await client.GetNamedResourcePageAsync<Berry>(cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetNamedResourcePageAsync<Berry>(cancellationToken); });
         }
 
         [Fact]
@@ -625,7 +625,7 @@ namespace PokeApiNet.Tests
             CancellationToken cancellationToken = new CancellationToken(true);
 
             // act / assert
-            await Assert.ThrowsAsync<OperationCanceledException>(async () => { await client.GetNamedResourcePageAsync<Berry>(50, 2, cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetNamedResourcePageAsync<Berry>(50, 2, cancellationToken); });
         }
 
         [Fact]
@@ -661,7 +661,7 @@ namespace PokeApiNet.Tests
             CancellationToken cancellationToken = new CancellationToken(true);
 
             // act / assert
-            await Assert.ThrowsAsync<OperationCanceledException>(async () => { await client.GetApiResourcePageAsync<EvolutionChain>(cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetApiResourcePageAsync<EvolutionChain>(cancellationToken); });
         }
 
         [Fact]
@@ -697,7 +697,7 @@ namespace PokeApiNet.Tests
             CancellationToken cancellationToken = new CancellationToken(true);
 
             // act / assert
-            await Assert.ThrowsAsync<OperationCanceledException>(async () => { await client.GetApiResourcePageAsync<EvolutionChain>(1, 50, cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetApiResourcePageAsync<EvolutionChain>(1, 50, cancellationToken); });
         }
 
         private PokeApiClient CreateSut() => new PokeApiClient(mockHttp);

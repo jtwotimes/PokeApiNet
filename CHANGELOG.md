@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.4
+### Fix
+- Ensure HTTP responses are only processed after the content of the request has been read, instead of just the headers: [#29](https://github.com/mtrdp642/PokeApiNet/issues/29)
+- Updated dependencies
+- Bump test project to .Net 6.0
+
 ## 3.0.3
 ### Added
 - Updated `Pokemon` model to include new property: `past_types`
