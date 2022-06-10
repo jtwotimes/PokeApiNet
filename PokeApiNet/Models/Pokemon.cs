@@ -785,6 +785,988 @@ namespace PokeApiNet
         /// </summary>
         [JsonProperty("back_shiny_female")]
         public string BackShinyFemale { get; set; }
+
+        /// <summary>
+        /// Other sprites
+        /// </summary>
+        public OtherSprites Other { get; set; }
+
+        /// <summary>
+        /// Pókemon sprites versioned by game generation
+        /// </summary>
+        public VersionSprites Versions { get; set; }
+
+        /// <summary>
+        /// Other Pokémon sprites
+        /// </summary>
+        public class OtherSprites
+        {
+            /// <summary>
+            /// DreamWorld sprites
+            /// </summary>
+            [JsonProperty("dream_world")]
+            public DreamWorldSprites DreamWorld { get; set; }
+
+            /// <summary>
+            /// Home sprites
+            /// </summary>
+            public HomeSprites Home { get; set; }
+
+            /// <summary>
+            /// Official Artwork sprites
+            /// </summary>
+            [JsonProperty("official-artwork")]
+            public OfficialArtworkSprites OfficialArtwork { get; set; }
+
+            /// <summary>
+            /// DreamWorld Pókemon sprites
+            /// </summary>
+            public class DreamWorldSprites
+            {
+                /// <summary>
+                /// The default depiction of this Pokémon from the front in battle.
+                /// </summary>
+                [JsonProperty("front_default")]
+                public string FrontDefault { get; set; }
+
+                /// <summary>
+                /// The female depiction of this Pokémon from the front in battle.
+                /// </summary>
+                [JsonProperty("front_female")]
+                public string FrontFemale { get; set; }
+            }
+
+            /// <summary>
+            /// Home Pókemon sprites
+            /// </summary>
+            public class HomeSprites
+            {
+                /// <summary>
+                /// The default depiction of this Pokémon from the front in battle.
+                /// </summary>
+                [JsonProperty("front_default")]
+                public string FrontDefault { get; set; }
+
+                /// <summary>
+                /// The female depiction of this Pokémon from the front in battle.
+                /// </summary>
+                [JsonProperty("front_female")]
+                public string FrontFemale { get; set; }
+
+                /// <summary>
+                /// The shiny depiction of this Pokémon from the front in battle.
+                /// </summary>
+                [JsonProperty("front_shiny")]
+                public string FrontShiny { get; set; }
+
+                /// <summary>
+                /// The shiny female depiction of this Pokémon from the front in battle.
+                /// </summary>
+                [JsonProperty("front_shiny_female")]
+                public string FrontShinyFemale { get; set; }
+            }
+
+            /// <summary>
+            /// Official Artwork sprites
+            /// </summary>
+            public class OfficialArtworkSprites
+            {
+                /// <summary>
+                /// The default depiction of this Pokémon from the front in battle.
+                /// </summary>
+                [JsonProperty("front_default")]
+                public string FrontDefault { get; set; }
+            }
+        }
+
+        /// <summary>
+        /// Pókemon sprites versioned by game generation
+        /// </summary>
+        public class VersionSprites
+        {
+            /// <summary>
+            /// Pókemon sprites for Generation I
+            /// </summary>
+            [JsonProperty("generation-i")]
+            public GenerationISprites GenerationI { get; set; }
+
+            /// <summary>
+            /// Pókemon sprites for Generation II
+            /// </summary>
+            [JsonProperty("generation-ii")]
+            public GenerationIISprites GenerationII { get; set; }
+
+            /// <summary>
+            /// Pókemon sprites for Generation III
+            /// </summary>
+            [JsonProperty("generation-iii")]
+            public GenerationIIISprites GenerationIII { get; set; }
+
+            /// <summary>
+            /// Pókemon sprites for Generation IV
+            /// </summary>
+            [JsonProperty("generation-iv")]
+            public GenerationIVSprites GenerationIV { get; set; }
+
+            /// <summary>
+            /// Pókemon sprites for Generation V
+            /// </summary>
+            [JsonProperty("generation-v")]
+            public GenerationVSprites GenerationV { get; set; }
+
+            /// <summary>
+            /// Pókemon sprites for Generation VI
+            /// </summary>
+            [JsonProperty("generation-vi")]
+            public GenerationVISprites GenerationVI { get; set; }
+
+            /// <summary>
+            /// Pókemon sprites for Generation VII
+            /// </summary>
+            [JsonProperty("generation-vii")]
+            public GenerationVIISprites GenerationVII { get; set; }
+
+            /// <summary>
+            /// Pókemon sprites for Generation VIII
+            /// </summary>
+            [JsonProperty("generation-viii")]
+            public GenerationVIIISprites GenerationVIII { get; set; }
+
+            /// <summary>
+            /// Pókemon sprites for Generation I
+            /// </summary>
+            public class GenerationISprites
+            {
+                /// <summary>
+                /// Pókemon Red-Blue sprites
+                /// </summary>
+                [JsonProperty("red-blue")]
+                public RedBlueSprites RedBlue { get; set; }
+
+                /// <summary>
+                /// Pókemon Yellow sprites
+                /// </summary>
+                public YellowSprites Yellow { get; set; }
+
+                /// <summary>
+                /// Pókemon Red-Blue sprites
+                /// </summary>
+                public class RedBlueSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    [JsonProperty("back_default")]
+                    public string BackDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle on gray background.
+                    /// </summary>
+                    [JsonProperty("back_gray")]
+                    public string BackGray { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle on transparent background.
+                    /// </summary>
+                    [JsonProperty("back_transparent")]
+                    public string BackTransparent { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle on gray background.
+                    /// </summary>
+                    [JsonProperty("front_gray")]
+                    public string FrontGray { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle on transparent background.
+                    /// </summary>
+                    [JsonProperty("front_transparent")]
+                    public string FrontTransparent { get; set; }
+
+                }
+
+                /// <summary>
+                /// Pókemon Yellow sprites
+                /// </summary>
+                public class YellowSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    [JsonProperty("back_default")]
+                    public string BackDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle on gray background.
+                    /// </summary>
+                    [JsonProperty("back_gray")]
+                    public string BackGray { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle on transparent background.
+                    /// </summary>
+                    [JsonProperty("back_transparent")]
+                    public string BackTransparent { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle on gray background.
+                    /// </summary>
+                    [JsonProperty("front_gray")]
+                    public string FrontGray { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle on transparent background.
+                    /// </summary>
+                    [JsonProperty("front_transparent")]
+                    public string FrontTransparent { get; set; }
+                }
+            }
+
+            /// <summary>
+            /// Pókemon sprites for Generation II
+            /// </summary>
+            public class GenerationIISprites
+            {
+                /// <summary>
+                /// Pókemon Crystal sprites
+                /// </summary>
+                public CrystalSprites Crystal { get; set; }
+
+                /// <summary>
+                /// Pókemon Gold sprites
+                /// </summary>
+                public GoldSprites Gold { get; set; }
+
+                /// <summary>
+                /// Pókemon Silver sprites
+                /// </summary>
+                public SilverSprites Silver { get; set; }
+
+                /// <summary>
+                /// Pókemon Crystal sprites
+                /// </summary>
+                public class CrystalSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    [JsonProperty("back_default")]
+                    public string BackDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny")]
+                    public string BackShiny { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back shiny in battle on transparent background.
+                    /// </summary>
+                    [JsonProperty("back_shiny_transparent")]
+                    public string BackShinyTransparent { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle on transparent background.
+                    /// </summary>
+                    [JsonProperty("back_transparent")]
+                    public string BackTransparent { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle on transparent background.
+                    /// </summary>
+                    [JsonProperty("front_shiny_transparent")]
+                    public string FrontShinyTransparent { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle on transparent background.
+                    /// </summary>
+                    [JsonProperty("front_transparent")]
+                    public string FrontTransparent { get; set; }
+
+                }
+
+                /// <summary>
+                /// Pókemon Gold sprites
+                /// </summary>
+                public class GoldSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    [JsonProperty("back_default")]
+                    public string BackDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny")]
+                    public string BackShiny { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle on transparent background.
+                    /// </summary>
+                    [JsonProperty("front_transparent")]
+                    public string FrontTransparent { get; set; }
+                }
+
+                /// <summary>
+                /// Pókemon Silver sprites
+                /// </summary>
+                public class SilverSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    [JsonProperty("back_default")]
+                    public string BackDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny")]
+                    public string BackShiny { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle on transparent background.
+                    /// </summary>
+                    [JsonProperty("front_transparent")]
+                    public string FrontTransparent { get; set; }
+                }
+            }
+
+            /// <summary>
+            /// Pókemon sprites for Generation III
+            /// </summary>
+            public class GenerationIIISprites
+            {
+                /// <summary>
+                /// Pókemon Esmerald sprites
+                /// </summary>
+                [JsonProperty("emerald")]
+                public EsmeraldSprites Esmerald { get; set; }
+
+                /// <summary>
+                /// Pókemon Firered/Leafgreen sprites
+                /// </summary>
+                [JsonProperty("firered-leafgreen")]
+                public FireredLeafgreenSprites FireredLeafgreen { get; set; }
+
+                /// <summary>
+                /// Pókemon Ruby/Sapphire sprites
+                /// </summary>
+                [JsonProperty("ruby-sapphire")]
+                public RubySapphireSprites RubySapphire { get; set; }
+
+                /// <summary>
+                /// Pókemon Esmerald sprites
+                /// </summary>
+                public class EsmeraldSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+                }
+
+                /// <summary>
+                /// Pókemon Firered/Leafgreen sprites
+                /// </summary>
+                public class FireredLeafgreenSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    [JsonProperty("back_default")]
+                    public string BackDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny")]
+                    public string BackShiny { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+                }
+
+                /// <summary>
+                /// Pókemon Ruby/Sapphire sprites
+                /// </summary>
+                public class RubySapphireSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    [JsonProperty("back_default")]
+                    public string BackDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny")]
+                    public string BackShiny { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+                }
+            }
+
+            /// <summary>
+            /// Pókemon sprites for Generation IV
+            /// </summary>
+            public class GenerationIVSprites
+            {
+                /// <summary>
+                /// Pókemon Diamond/Pearl sprites
+                /// </summary>
+                [JsonProperty("diamond-pearl")]
+                public DiamondPearlSprites DiamondPearl { get; set; }
+
+                /// <summary>
+                /// Pókemon Heartgold/Soulsilver sprites
+                /// </summary>
+                [JsonProperty("heartgold-soulsilver")]
+                public HeartGoldSoulSilverSprites HeartGoldSoulSilver { get; set; }
+
+                /// <summary>
+                /// Pókemon Platinum sprites
+                /// </summary>
+                public PlatinumSprites Platinum { get; set; }
+
+                /// <summary>
+                /// Pókemon Diamond/Pearl sprites
+                /// </summary>
+                public class DiamondPearlSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    [JsonProperty("back_default")]
+                    public string BackDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back female in battle.
+                    /// </summary>
+                    [JsonProperty("back_female")]
+                    public string BackFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny")]
+                    public string BackShiny { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back female shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny_female")]
+                    public string BackShinyFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front female in battle.
+                    /// </summary>
+                    [JsonProperty("front_female")]
+                    public string FrontFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+
+                    // <summary>
+                    /// The default depiction of this Pokémon from the front female shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny_female")]
+                    public string FrontShinyFemale { get; set; }
+                }
+
+                /// <summary>
+                /// Pókemon Heartgold/Soulsilver sprites
+                /// </summary>
+                public class HeartGoldSoulSilverSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    [JsonProperty("back_default")]
+                    public string BackDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back female in battle.
+                    /// </summary>
+                    [JsonProperty("back_female")]
+                    public string BackFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny")]
+                    public string BackShiny { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back female shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny_female")]
+                    public string BackShinyFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front female in battle.
+                    /// </summary>
+                    [JsonProperty("front_female")]
+                    public string FrontFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+
+                    // <summary>
+                    /// The default depiction of this Pokémon from the front female shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny_female")]
+                    public string FrontShinyFemale { get; set; }
+                }
+
+                /// <summary>
+                /// Pókemon Platinum sprites
+                /// </summary>
+                public class PlatinumSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    [JsonProperty("back_default")]
+                    public string BackDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back female in battle.
+                    /// </summary>
+                    [JsonProperty("back_female")]
+                    public string BackFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny")]
+                    public string BackShiny { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back female shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny_female")]
+                    public string BackShinyFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front female in battle.
+                    /// </summary>
+                    [JsonProperty("front_female")]
+                    public string FrontFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+
+                    // <summary>
+                    /// The default depiction of this Pokémon from the front female shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny_female")]
+                    public string FrontShinyFemale { get; set; }
+                }
+            }
+
+            /// <summary>
+            /// Pókemon sprites for Generation V
+            /// </summary>
+            public class GenerationVSprites
+            {
+                /// <summary>
+                /// Pókemon Black/White sprites
+                /// </summary>
+                [JsonProperty("black-write")]
+                public BlackWhiteSprites BlackWhite { get; set; }
+
+                /// <summary>
+                /// Pókemon Black/White sprites
+                /// </summary>
+                public class BlackWhiteSprites
+                {
+                    /// <summary>
+                    /// The animated depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    public AnimatedSprites Animated { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    [JsonProperty("back_default")]
+                    public string BackDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back female in battle.
+                    /// </summary>
+                    [JsonProperty("back_female")]
+                    public string BackFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny")]
+                    public string BackShiny { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the back female shiny in battle.
+                    /// </summary>
+                    [JsonProperty("back_shiny_female")]
+                    public string BackShinyFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front female in battle.
+                    /// </summary>
+                    [JsonProperty("front_female")]
+                    public string FrontFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+
+                    // <summary>
+                    /// The default depiction of this Pokémon from the front female shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny_female")]
+                    public string FrontShinyFemale { get; set; }
+
+                    /// <summary>
+                    /// The animated depiction of this Pokémon from the back in battle.
+                    /// </summary>
+                    public class AnimatedSprites
+                    {
+                        /// <summary>
+                        /// The default depiction of this Pokémon from the back in battle.
+                        /// </summary>
+                        [JsonProperty("back_default")]
+                        public string BackDefault { get; set; }
+
+                        /// <summary>
+                        /// The default depiction of this Pokémon from the back female in battle.
+                        /// </summary>
+                        [JsonProperty("back_female")]
+                        public string BackFemale { get; set; }
+
+                        /// <summary>
+                        /// The default depiction of this Pokémon from the back shiny in battle.
+                        /// </summary>
+                        [JsonProperty("back_shiny")]
+                        public string BackShiny { get; set; }
+
+                        /// <summary>
+                        /// The default depiction of this Pokémon from the back female shiny in battle.
+                        /// </summary>
+                        [JsonProperty("back_shiny_female")]
+                        public string BackShinyFemale { get; set; }
+
+                        /// <summary>
+                        /// The default depiction of this Pokémon from the front in battle.
+                        /// </summary>
+                        [JsonProperty("front_default")]
+                        public string FrontDefault { get; set; }
+
+                        /// <summary>
+                        /// The default depiction of this Pokémon from the front female in battle.
+                        /// </summary>
+                        [JsonProperty("front_female")]
+                        public string FrontFemale { get; set; }
+
+                        /// <summary>
+                        /// The default depiction of this Pokémon from the front shiny in battle.
+                        /// </summary>
+                        [JsonProperty("front_shiny")]
+                        public string FrontShiny { get; set; }
+
+                        // <summary>
+                        /// The default depiction of this Pokémon from the front female shiny in battle.
+                        /// </summary>
+                        [JsonProperty("front_shiny_female")]
+                        public string FrontShinyFemale { get; set; }
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Pókemon sprites for Generation VI
+            /// </summary>
+            public class GenerationVISprites
+            {
+                /// <summary>
+                /// Pókemon OmegaRuby/AlphaSapphire sprites
+                /// </summary>
+                [JsonProperty("omegaruby-alphasapphire")]
+                public OmegaRubyAlphaSapphireSprites OmegaRubyAlphaSapphire { get; set; }
+
+                /// <summary>
+                /// Pókemon X/Y sprites
+                /// </summary>
+                [JsonProperty("x-y")]
+                public XYSprites XY { get; set; }
+
+                /// <summary>
+                /// Pókemon OmegaRuby/AlphaSapphire sprites
+                /// </summary>
+                public class OmegaRubyAlphaSapphireSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front female in battle.
+                    /// </summary>
+                    [JsonProperty("front_female")]
+                    public string FrontFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+
+                    // <summary>
+                    /// The default depiction of this Pokémon from the front female shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny_female")]
+                    public string FrontShinyFemale { get; set; }
+                }
+
+                /// <summary>
+                /// Pókemon X/Y sprites
+                /// </summary>
+                public class XYSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front female in battle.
+                    /// </summary>
+                    [JsonProperty("front_female")]
+                    public string FrontFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+
+                    // <summary>
+                    /// The default depiction of this Pokémon from the front female shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny_female")]
+                    public string FrontShinyFemale { get; set; }
+                }
+
+            }
+
+            /// <summary>
+            /// Pókemon sprites for Generation VII
+            /// </summary>
+            public class GenerationVIISprites
+            {
+                /// <summary>
+                /// Pókemon Icons sprites
+                /// </summary>
+                public IconsSprites Icons { get; set; }
+
+                /// <summary>
+                /// Pókemon UltraSun/UltraMoon sprites
+                /// </summary>
+                [JsonProperty("ultra-sun-ultra-moon")]
+                public UltraSunUltraMoonSprites UltraSunUltraMoon { get; set; }
+
+                /// <summary>
+                /// Pókemon Icons sprites
+                /// </summary>
+                public class IconsSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front female in battle.
+                    /// </summary>
+                    [JsonProperty("front_female")]
+                    public string FrontFemale { get; set; }
+                }
+
+                /// <summary>
+                /// Pókemon UltraSun/UltraMoon sprites
+                /// </summary>
+                public class UltraSunUltraMoonSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front female in battle.
+                    /// </summary>
+                    [JsonProperty("front_female")]
+                    public string FrontFemale { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny")]
+                    public string FrontShiny { get; set; }
+
+                    // <summary>
+                    /// The default depiction of this Pokémon from the front female shiny in battle.
+                    /// </summary>
+                    [JsonProperty("front_shiny_female")]
+                    public string FrontShinyFemale { get; set; }
+                }
+            }
+
+            /// <summary>
+            /// Pókemon sprites for Generation VIII
+            /// </summary>
+            public class GenerationVIIISprites
+            {
+                /// <summary>
+                /// Pókemon Icons sprites
+                /// </summary>
+                public IconsSprites Icons { get; set; }
+
+                /// <summary>
+                /// Pókemon Icons sprites
+                /// </summary>
+                public class IconsSprites
+                {
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front in battle.
+                    /// </summary>
+                    [JsonProperty("front_default")]
+                    public string FrontDefault { get; set; }
+
+                    /// <summary>
+                    /// The default depiction of this Pokémon from the front female in battle.
+                    /// </summary>
+                    [JsonProperty("front_female")]
+                    public string FrontFemale { get; set; }
+                }
+            }
+        }
     }
 
     /// <summary>
