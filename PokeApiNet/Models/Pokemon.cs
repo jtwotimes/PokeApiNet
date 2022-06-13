@@ -1188,10 +1188,10 @@ namespace PokeApiNet
             public class GenerationIIISprites
             {
                 /// <summary>
-                /// Pókemon Esmerald sprites
+                /// Pókemon Emerald sprites
                 /// </summary>
                 [JsonProperty("emerald")]
-                public EsmeraldSprites Esmerald { get; set; }
+                public EsmeraldSprites Emerald { get; set; }
 
                 /// <summary>
                 /// Pókemon Firered/Leafgreen sprites
@@ -1477,7 +1477,7 @@ namespace PokeApiNet
                 /// <summary>
                 /// Pókemon Black/White sprites
                 /// </summary>
-                [JsonProperty("black-write")]
+                [JsonProperty("black-white")]
                 public BlackWhiteSprites BlackWhite { get; set; }
 
                 /// <summary>
