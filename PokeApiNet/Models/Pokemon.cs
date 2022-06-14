@@ -1191,7 +1191,7 @@ namespace PokeApiNet
                 /// Pókemon Emerald sprites
                 /// </summary>
                 [JsonProperty("emerald")]
-                public EsmeraldSprites Emerald { get; set; }
+                public EmeraldSprites Emerald { get; set; }
 
                 /// <summary>
                 /// Pókemon Firered/Leafgreen sprites
@@ -1206,9 +1206,9 @@ namespace PokeApiNet
                 public RubySapphireSprites RubySapphire { get; set; }
 
                 /// <summary>
-                /// Pókemon Esmerald sprites
+                /// Pókemon Emerald sprites
                 /// </summary>
-                public class EsmeraldSprites
+                public class EmeraldSprites
                 {
                     /// <summary>
                     /// The default depiction of this Pokémon from the front in battle.
