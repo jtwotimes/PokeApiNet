@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.5
+### Added
+- Updated `Pokemon` model to include new properties for historical and alternate form sprites: [#33](https://github.com/mtrdp642/PokeApiNet/pull/33)
+
 ## 3.0.4
 ### Fix
 - Ensure HTTP responses are only processed after the content of the request has been read, instead of just the headers: [#29](https://github.com/mtrdp642/PokeApiNet/issues/29)
