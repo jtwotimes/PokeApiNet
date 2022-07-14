@@ -498,7 +498,7 @@ namespace PokeApiNet
         /// The base experience gained for defeating this Pokémon.
         /// </summary>
         [JsonProperty("base_experience")]
-        public int BaseExperience { get; set; }
+        public int? BaseExperience { get; set; }
 
         /// <summary>
         /// The height of this Pokémon in decimetres.
