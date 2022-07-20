@@ -22,7 +22,7 @@ Pokemon hoOh = await pokeClient.GetResourceAsync<Pokemon>("ho-oh");
 Item clawFossil = await pokeClient.GetResourceAsync<Item>(100);
 ```
 
-To see all the resources that are available, see the [PokeAPI docs site](https://pokeapi.co/docs/v2.html).
+To see all the resources that are available, see the [PokeAPI docs site](https://pokeapi.co/docs/v2).
 
 Internally, `PokeApiClient` uses an instance of the `HttpClient` class. As such, instances of `PokeApiClient` are [meant to be instantiated once and re-used throughout the life of an application.](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netcore-3.1#remarks)
 
