@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.6
+### Added
+- Made property `Pokemon.BaseExperience` nullable: [#37](https://github.com/mtrdp642/PokeApiNet/pull/37)
+
 ## 3.0.5
 ### Added
 - Updated `Pokemon` model to include new properties for historical and alternate form sprites: [#33](https://github.com/mtrdp642/PokeApiNet/pull/33)
