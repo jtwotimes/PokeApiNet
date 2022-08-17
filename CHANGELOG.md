@@ -1,8 +1,11 @@
 # Changelog
 
-## 3.0.6
+## 3.0.7
 ### Added
 - Made property `Pokemon.BaseExperience` nullable: [#37](https://github.com/mtrdp642/PokeApiNet/pull/37)
+
+## 3.0.6
+This is the same release as 3.0.5. Use 3.0.7 instead.
 
 ## 3.0.5
 ### Added
