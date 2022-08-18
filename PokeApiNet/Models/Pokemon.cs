@@ -2060,14 +2060,14 @@ namespace PokeApiNet
         /// the catch.
         /// </summary>
         [JsonProperty("capture_rate")]
-        public int CaptureRate { get; set; }
+        public int? CaptureRate { get; set; }
 
         /// <summary>
         /// The happiness when caught by a normal Pokéball; up to 255. The higher
         /// the number, the happier the Pokémon.
         /// </summary>
         [JsonProperty("base_happiness")]
-        public int BaseHappiness { get; set; }
+        public int? BaseHappiness { get; set; }
 
         /// <summary>
         /// Whether or not this is a baby Pokémon.
@@ -2093,7 +2093,7 @@ namespace PokeApiNet
         /// Flame Body's.
         /// </summary>
         [JsonProperty("hatch_counter")]
-        public int HatchCounter { get; set; }
+        public int? HatchCounter { get; set; }
 
         /// <summary>
         /// Whether or not this Pokémon has visual gender differences.

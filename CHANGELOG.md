@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.8
+### Added
+- Made property `PokemonSpecies.CaptureRate` and `PokemonSpecies.BaseHappiness` nullable
+
 ## 3.0.7
 ### Added
 - Made property `Pokemon.BaseExperience` nullable: [#37](https://github.com/mtrdp642/PokeApiNet/pull/37)
