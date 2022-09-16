@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.9
+### Fix
+ - Add support for endpoints respecting case sensitivity for named parameters
+
 ## 3.0.8
 ### Added
 - Made property `PokemonSpecies.CaptureRate` and `PokemonSpecies.BaseHappiness` nullable
