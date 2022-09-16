@@ -109,8 +109,9 @@ namespace PokeApiNet
         private async Task<T> GetResourcesWithParamsAsync<T>(string apiParam, CancellationToken cancellationToken)
             where T : ResourceBase
         {
-            // lowercase the resource name as the API doesn't recognize upper case and lower case as the same
-            string sanitizedApiParam = apiParam.ToLowerInvariant();
+            // check for case sensitive API endpoint
+            bool isApiEndpointCaseSensitive = IsApiEndpointCaseSensitive<T>();
+            string sanitizedApiParam = isApiEndpointCaseSensitive ? apiParam : apiParam.ToLowerInvariant();
             string apiEndpoint = GetApiEndpointString<T>();
 
             return await GetAsync<T>($"{apiEndpoint}/{sanitizedApiParam}/", cancellationToken);
@@ -443,6 +444,12 @@ namespace PokeApiNet
         {
             PropertyInfo propertyInfo = typeof(T).GetProperty("ApiEndpoint", BindingFlags.Static | BindingFlags.NonPublic);
             return propertyInfo.GetValue(null).ToString();
+        }
+
+        private static bool IsApiEndpointCaseSensitive<T>()
+        {
+            PropertyInfo propertyInfo = typeof(T).GetProperty("IsApiEndpointCaseSensitive", BindingFlags.Static | BindingFlags.NonPublic);
+            return propertyInfo == null ? false : (bool)propertyInfo.GetValue(null);
         }
     }
 }
