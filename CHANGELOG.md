@@ -2,7 +2,7 @@
 
 ## 3.0.9
 ### Fix
- - Add support for endpoints respecting case sensitivity for named parameters
+ - Add support for endpoints respecting case sensitivity for named parameters: [#39](https://github.com/mtrdp642/PokeApiNet/pull/39)
 
 ## 3.0.8
 ### Added
