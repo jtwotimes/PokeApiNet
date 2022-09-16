@@ -41,6 +41,11 @@ namespace PokeApiNet
         /// The name of this resource listed in different languages.
         /// </summary>
         public List<Names> Names { get; set; }
+
+        /// <summary>
+        /// Is endpoint case sensitive
+        /// </summary>
+        internal new static bool IsApiEndpointCaseSensitive { get; } = true;
     }
 
     /// <summary>
