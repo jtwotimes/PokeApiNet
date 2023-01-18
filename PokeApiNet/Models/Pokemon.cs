@@ -876,6 +876,12 @@ namespace PokeApiNet
                 /// </summary>
                 [JsonProperty("front_default")]
                 public string FrontDefault { get; set; }
+                
+                /// <summary>
+                /// The shiny depiction of this Pokémon from the front in battle.
+                /// </summary>
+                [JsonProperty("front_shiny")]
+                public string FrontShiny { get; set; }
             }
         }
 
