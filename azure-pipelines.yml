@@ -32,7 +32,7 @@ steps:
     command: 'pack'
     packagesToPack: '**/PokeApiNet.csproj'
     versioningScheme: 'byEnvVar'
-    versionEnvVar: $(GitVersion.SemVer)
+    versionEnvVar: GitVersion.SemVer
     configuration: $(buildConfiguration)
 - task: PublishBuildArtifacts@1
   inputs:
