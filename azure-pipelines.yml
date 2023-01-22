@@ -34,6 +34,11 @@ steps:
     configFilePath: ./GitVersion.yml
 - task: DotNetCoreCLI@2
   inputs:
+    command: 'build'
+    projects: '**/PokeApiNet.csproj'
+    configuration: $(buildConfiguration)
+- task: DotNetCoreCLI@2
+  inputs:
     command: 'pack'
     packagesToPack: '**/PokeApiNet.csproj'
     versioningScheme: 'byEnvVar'
