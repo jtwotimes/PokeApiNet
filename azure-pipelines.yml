@@ -11,32 +11,29 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: sdk
-    version: '6.x'
-- task: DotNetCoreCLI@2
-  displayName: dotnet build
-  inputs:
-    command: build
-    arguments: -c $(buildConfiguration)
+    version: '7.x'
 - task: DotNetCoreCLI@2
   displayName: dotnet test
   inputs:
     command: test
     arguments: '--configuration $(BuildConfiguration) --filter "Category = Unit" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
     projects: '**/*.Tests.csproj'
-    nobuild: true
 - task: PublishTestResults@2
   displayName: Publish test result
   inputs:
     testResultsFormat: 'XUnit'
     testResultsFiles: '**/coverage.cobertura.xml'
     failTaskOnFailedTests: true
+- task: gitversion/setup@0
+  inputs:
+    versionSpec: '5.x'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
     packagesToPack: '**/PokeApiNet.csproj'
-    versioningScheme: 'off'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: $(GitVersion.SemVer)
     configuration: $(buildConfiguration)
-    nobuild: true
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
