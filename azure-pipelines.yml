@@ -27,6 +27,11 @@ steps:
 - task: gitversion/setup@0
   inputs:
     versionSpec: '5.x'
+- task: gitversion/execute@0
+  displayName: Determine Version
+  inputs:
+    useConfigFile: true
+    configFilePath: ./GitVersion.yml
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
