@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.10
+### Added
+- Updated `Pokemon` model to include new property: `front_shiny`: [#41](https://github.com/mtrdp642/PokeApiNet/pull/41)
+
 ## 3.0.9
 ### Fix
  - Add support for endpoints respecting case sensitivity for named parameters: [#39](https://github.com/mtrdp642/PokeApiNet/pull/39)
