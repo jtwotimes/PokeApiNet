@@ -35,12 +35,6 @@ steps:
     useConfigFile: true
     configFilePath: ./GitVersion.yml
 - task: DotNetCoreCLI@2
-  displayName: 'dotnet build'
-  inputs:
-    command: 'build'
-    projects: '**/PokeApiNet.csproj'
-    configuration: $(buildConfiguration)
-- task: DotNetCoreCLI@2
   displayName: 'dotnet pack'
   inputs:
     command: 'pack'
