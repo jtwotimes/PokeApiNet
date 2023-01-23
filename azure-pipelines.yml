@@ -27,12 +27,22 @@ steps:
 - task: gitversion/setup@0
   inputs:
     versionSpec: '5.x'
+- task: gitversion/execute@0
+  displayName: Determine Version
+  inputs:
+    useConfigFile: true
+    configFilePath: ./GitVersion.yml
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/PokeApiNet.csproj'
+    configuration: $(buildConfiguration)
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
     packagesToPack: '**/PokeApiNet.csproj'
     versioningScheme: 'byEnvVar'
-    versionEnvVar: GitVersion.SemVer
+    versionEnvVar: 'GitVersion.SemVer'
     configuration: $(buildConfiguration)
 - task: PublishBuildArtifacts@1
   inputs:
