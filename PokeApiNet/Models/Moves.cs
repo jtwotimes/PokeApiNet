@@ -101,6 +101,10 @@ namespace PokeApiNet
         /// </summary>
         public NamedApiResource<Generation> Generation { get; set; }
 
+        /// <summary>The pokemon that learn this move.</summary>
+        [JsonProperty("learned_by_pokemon")]
+        public List<NamedApiResource<Pokemon>> LearnedByPokemon { get; set; }
+
         /// <summary>
         /// A list of the machines that teach this move.
         /// </summary>
