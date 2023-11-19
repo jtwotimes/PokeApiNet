@@ -1,10 +1,11 @@
-using Newtonsoft.Json;
 using RichardSzalay.MockHttp;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -27,13 +28,13 @@ namespace PokeApiNet.Tests
             // assemble
             PokeApiClient sut = CreateSut();
             mockHttp.Expect("*machine")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeApiResourceList<Machine>()));
             mockHttp.Expect("*berry")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeNamedResourceList<Berry>()));
             mockHttp.Expect("*machine")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeApiResourceList<Machine>()));
             mockHttp.Expect("*berry")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeNamedResourceList<Berry>()));
 
             // act
             await sut.GetApiResourcePageAsync<Machine>();
@@ -53,11 +54,11 @@ namespace PokeApiNet.Tests
             // assemble
             PokeApiClient sut = CreateSut();
             mockHttp.Expect("*machine")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeApiResourceList<Machine>()));
             mockHttp.Expect("*berry")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeNamedResourceList<Berry>()));
             mockHttp.Expect("*machine")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeApiResourceList<Machine>()));
 
             // act
             await sut.GetApiResourcePageAsync<Machine>();
@@ -77,7 +78,7 @@ namespace PokeApiNet.Tests
             // assemble
             PokeApiClient sut = CreateSut();
             mockHttp.Expect("*")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeApiResourceList<Machine>()));
             mockHttp.When("*")
                 .Throw(new Exception("Cache miss"));
 
@@ -97,10 +98,10 @@ namespace PokeApiNet.Tests
             (int limit, int offset) = (30, 2);
             PokeApiClient sut = CreateSut();
             mockHttp.Expect("*")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeApiResourceList<Machine>()));
             mockHttp.Expect("*")
                 .WithExactQueryString(ToPairs(limit, offset))
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeApiResourceList<Machine>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeApiResourceList<Machine>()));
 
             // act
             await sut.GetApiResourcePageAsync<Machine>();
@@ -117,7 +118,7 @@ namespace PokeApiNet.Tests
             // assemble
             PokeApiClient sut = CreateSut();
             mockHttp.Expect("*")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeNamedResourceList<Berry>()));
             mockHttp.When("*")
                 .Throw(new Exception("Cache miss"));
 
@@ -137,10 +138,10 @@ namespace PokeApiNet.Tests
             (int limit, int offset) = (30, 2);
             PokeApiClient sut = CreateSut();
             mockHttp.Expect("*")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeNamedResourceList<Berry>()));
             mockHttp.Expect("*")
                 .WithExactQueryString(ToPairs(limit, offset))
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeNamedResourceList<Berry>()));
 
             // act
             await sut.GetNamedResourcePageAsync<Berry>();
@@ -159,7 +160,7 @@ namespace PokeApiNet.Tests
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
             mockHttp.When("*")
                 .WithHeaders("User-Agent", userAgent.ToString())
-                .Respond("application/json", JsonConvert.SerializeObject(new Berry { Id = 1 }));
+                .Respond("application/json", JsonSerializer.Serialize(new Berry { Id = 1 }));
 
             PokeApiClient client = new PokeApiClient(mockHttp);
 
@@ -179,7 +180,7 @@ namespace PokeApiNet.Tests
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
             mockHttp.When("*")
                 .WithHeaders("User-Agent", userAgent.ToString())
-                .Respond("application/json", JsonConvert.SerializeObject(new Berry { Id = 1 }));
+                .Respond("application/json", JsonSerializer.Serialize(new Berry { Id = 1 }));
 
             PokeApiClient client = new PokeApiClient(mockHttp, userAgent);
 
@@ -196,7 +197,11 @@ namespace PokeApiNet.Tests
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("*").Respond("application/json", JsonConvert.SerializeObject(new Berry { Id = 1 }));
+            mockHttp.When("*")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    new Berry { Id = 1 },
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
 
             PokeApiClient client = new PokeApiClient(mockHttp);
             Berry berry = await client.GetResourceAsync<Berry>(1);
@@ -216,8 +221,11 @@ namespace PokeApiNet.Tests
         public async Task GetResourceAsyncByNameAutoCache()
         {
             // assemble
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("*").Respond("application/json", JsonConvert.SerializeObject(new Berry { Name = "cheri" }));
+            mockHttp.When("*")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    new Berry { Name = "cheri" },
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
 
             PokeApiClient client = new PokeApiClient(mockHttp);
             Berry berry = await client.GetResourceAsync<Berry>("cheri");
@@ -238,7 +246,7 @@ namespace PokeApiNet.Tests
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*hi-im-a-berry*").Respond("application/json", JsonConvert.SerializeObject(new Berry { Name = "cheri" }));
+            mockHttp.Expect("*hi-im-a-berry*").Respond("application/json", JsonSerializer.Serialize(new Berry { Name = "cheri" }));
 
             PokeApiClient client = new PokeApiClient(mockHttp);
 
@@ -255,7 +263,7 @@ namespace PokeApiNet.Tests
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("*").Respond("application/json", JsonConvert.SerializeObject(new Berry { Name = "cheri" }));
+            mockHttp.When("*").Respond("application/json", JsonSerializer.Serialize(new Berry { Name = "cheri" }));
             PokeApiClient client = new PokeApiClient(mockHttp);
             CancellationToken cancellationToken = new CancellationToken(true);
 
@@ -269,7 +277,7 @@ namespace PokeApiNet.Tests
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("*").Respond("application/json", JsonConvert.SerializeObject(new Berry { Name = "cheri" }));
+            mockHttp.When("*").Respond("application/json", JsonSerializer.Serialize(new Berry { Name = "cheri" }));
             PokeApiClient client = new PokeApiClient(mockHttp);
             CancellationToken cancellationToken = new CancellationToken(true);
 
@@ -286,13 +294,13 @@ namespace PokeApiNet.Tests
             Machine machine = new Machine { Id = 1 };
             PokeApiClient sut = CreateSut();
             mockHttp.Expect("*machine*")
-                .Respond("application/json", JsonConvert.SerializeObject(machine));
+                .Respond("application/json", JsonSerializer.Serialize(machine));
             mockHttp.Expect("*berry*")
-                .Respond("application/json", JsonConvert.SerializeObject(berry));
+                .Respond("application/json", JsonSerializer.Serialize(berry));
             mockHttp.Expect("*machine*")
-                .Respond("application/json", JsonConvert.SerializeObject(machine));
+                .Respond("application/json", JsonSerializer.Serialize(machine));
             mockHttp.Expect("*berry*")
-                 .Respond("application/json", JsonConvert.SerializeObject(berry));
+                 .Respond("application/json", JsonSerializer.Serialize(berry));
 
             // act
             await sut.GetResourceAsync<Machine>(machine.Id);
@@ -312,7 +320,7 @@ namespace PokeApiNet.Tests
             // assemble
             Berry returnedBerry = new Berry { Id = 1 };
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*").Respond("application/json", JsonConvert.SerializeObject(returnedBerry));
+            mockHttp.Expect("*").Respond("application/json", JsonSerializer.Serialize(returnedBerry));
 
             PokeApiClient client = new PokeApiClient(mockHttp);
             Berry berry = await client.GetResourceAsync<Berry>(1);
@@ -321,7 +329,7 @@ namespace PokeApiNet.Tests
 
             // act
             client.ClearResourceCache<Berry>();
-            mockHttp.Expect("*").Respond("application/json", JsonConvert.SerializeObject(returnedBerry));
+            mockHttp.Expect("*").Respond("application/json", JsonSerializer.Serialize(returnedBerry));
             berry = await client.GetResourceAsync<Berry>(1);
 
             // assert
@@ -336,13 +344,13 @@ namespace PokeApiNet.Tests
             PokeApiClient sut = CreateSut();
             Berry berry = new Berry { Name = "test", Id = 1 };
             mockHttp.Expect($"*berry/{berry.Id}*")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeNamedResourceList<Berry>()));
             mockHttp.Expect("*berry")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeNamedResourceList<Berry>()));
             mockHttp.Expect($"*berry/{berry.Id}*")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeNamedResourceList<Berry>()));
             mockHttp.Expect("*berry")
-                .Respond("application/json", JsonConvert.SerializeObject(CreateFakeNamedResourceList<Berry>()));
+                .Respond("application/json", JsonSerializer.Serialize(CreateFakeNamedResourceList<Berry>()));
 
             // act
             await sut.GetResourceAsync<Berry>(berry.Id);
@@ -374,7 +382,7 @@ namespace PokeApiNet.Tests
         {
             // assemble
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*berry/cheri/").Respond("application/json", JsonConvert.SerializeObject(new Berry { Name = "cheri" }));
+            mockHttp.Expect("*berry/cheri/").Respond("application/json", JsonSerializer.Serialize(new Berry { Name = "cheri" }));
             PokeApiClient client = new PokeApiClient(mockHttp);
 
             // act
@@ -402,8 +410,16 @@ namespace PokeApiNet.Tests
             PokemonSpecies responseSpecies = new PokemonSpecies { Name = "pikachu" };
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*pokemon/pikachu/").Respond("application/json", JsonConvert.SerializeObject(responsePikachu));
-            mockHttp.Expect("*pokemon-species/25/").Respond("application/json", JsonConvert.SerializeObject(responseSpecies));
+            mockHttp.Expect("*pokemon/pikachu/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    responsePikachu,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
+            mockHttp.Expect("*pokemon-species/25/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    responseSpecies,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
             PokeApiClient client = new PokeApiClient(mockHttp);
 
             Pokemon pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
@@ -433,8 +449,16 @@ namespace PokeApiNet.Tests
             PokemonSpecies responseSpecies = new PokemonSpecies { Name = "pikachu" };
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*pokemon/pikachu/").Respond("application/json", JsonConvert.SerializeObject(responsePikachu));
-            mockHttp.Expect("*pokemon-species/25/").Respond("application/json", JsonConvert.SerializeObject(responseSpecies));
+            mockHttp.Expect("*pokemon/pikachu/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    responsePikachu,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
+            mockHttp.Expect("*pokemon-species/25/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    responseSpecies,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
             PokeApiClient client = new PokeApiClient(mockHttp);
 
             Pokemon pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
@@ -462,18 +486,30 @@ namespace PokeApiNet.Tests
             PokemonSpecies responseSpecies = new PokemonSpecies { Name = "pikachu", Id = 25 };
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*pokemon/pikachu/").Respond("application/json", JsonConvert.SerializeObject(responsePikachu));
-            mockHttp.Expect("*pokemon-species/25/").Respond("application/json", JsonConvert.SerializeObject(responseSpecies));
+            mockHttp.Expect("*pokemon/pikachu/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    responsePikachu,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
+            mockHttp.Expect("*pokemon-species/25/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    responseSpecies,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
             PokeApiClient client = new PokeApiClient(mockHttp);
 
             Pokemon pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
             PokemonSpecies species = await client.GetResourceAsync(pikachu.Species);
 
             mockHttp.ResetExpectations();
-            mockHttp.Expect("*pokemon-species/25/").Respond("application/json", JsonConvert.SerializeObject(responseSpecies));
+            mockHttp.Expect("*pokemon-species/25/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    responseSpecies,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
 
             // act
-            species = await client.GetResourceAsync(pikachu.Species);
+            _ = await client.GetResourceAsync(pikachu.Species);
 
             // assert
             Assert.Throws<InvalidOperationException>(() => mockHttp.VerifyNoOutstandingExpectation());
@@ -504,9 +540,21 @@ namespace PokeApiNet.Tests
             };
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*item/hyper-potion/").Respond("application/json", JsonConvert.SerializeObject(hyperPotion));
-            mockHttp.Expect("*item-attribute/5/").Respond("application/json", JsonConvert.SerializeObject(holdable));
-            mockHttp.Expect("*item-attribute/2/").Respond("application/json", JsonConvert.SerializeObject(consumable));
+            mockHttp.Expect("*item/hyper-potion/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    hyperPotion,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
+            mockHttp.Expect("*item-attribute/5/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    holdable,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
+            mockHttp.Expect("*item-attribute/2/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    consumable,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
 
             PokeApiClient client = new PokeApiClient(mockHttp);
             Item item = await client.GetResourceAsync<Item>("hyper-potion");
@@ -543,9 +591,21 @@ namespace PokeApiNet.Tests
             };
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*item/hyper-potion/").Respond("application/json", JsonConvert.SerializeObject(hyperPotion));
-            mockHttp.Expect("*item-attribute/5/").Respond("application/json", JsonConvert.SerializeObject(holdable));
-            mockHttp.Expect("*item-attribute/2/").Respond("application/json", JsonConvert.SerializeObject(consumable));
+            mockHttp.Expect("*item/hyper-potion/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    hyperPotion,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
+            mockHttp.Expect("*item-attribute/5/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    holdable,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
+            mockHttp.Expect("*item-attribute/2/")
+                .Respond("application/json", JsonSerializer.Serialize(
+                    consumable,
+                    options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
+            );
 
             PokeApiClient client = new PokeApiClient(mockHttp);
             Item item = await client.GetResourceAsync<Item>("hyper-potion");
@@ -564,7 +624,7 @@ namespace PokeApiNet.Tests
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*berry").Respond("application/json", JsonConvert.SerializeObject(berryPage));
+            mockHttp.Expect("*berry").Respond("application/json", JsonSerializer.Serialize(berryPage));
 
             PokeApiClient client = new PokeApiClient(mockHttp);
 
@@ -583,7 +643,7 @@ namespace PokeApiNet.Tests
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*berry").Respond("application/json", JsonConvert.SerializeObject(berryPage));
+            mockHttp.Expect("*berry").Respond("application/json", JsonSerializer.Serialize(berryPage));
 
             PokeApiClient client = new PokeApiClient(mockHttp);
             CancellationToken cancellationToken = new CancellationToken(true);
@@ -600,7 +660,7 @@ namespace PokeApiNet.Tests
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*berry?limit=50&offset=2").Respond("application/json", JsonConvert.SerializeObject(berryPage));
+            mockHttp.Expect("*berry?limit=50&offset=2").Respond("application/json", JsonSerializer.Serialize(berryPage));
 
             PokeApiClient client = new PokeApiClient(mockHttp);
 
@@ -619,7 +679,7 @@ namespace PokeApiNet.Tests
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*berry?limit=50&offset=2").Respond("application/json", JsonConvert.SerializeObject(berryPage));
+            mockHttp.Expect("*berry?limit=50&offset=2").Respond("application/json", JsonSerializer.Serialize(berryPage));
 
             PokeApiClient client = new PokeApiClient(mockHttp);
             CancellationToken cancellationToken = new CancellationToken(true);
@@ -636,7 +696,7 @@ namespace PokeApiNet.Tests
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*evolution-chain").Respond("application/json", JsonConvert.SerializeObject(berryPage));
+            mockHttp.Expect("*evolution-chain").Respond("application/json", JsonSerializer.Serialize(berryPage));
 
             PokeApiClient client = new PokeApiClient(mockHttp);
 
@@ -655,7 +715,7 @@ namespace PokeApiNet.Tests
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*evolution-chain").Respond("application/json", JsonConvert.SerializeObject(berryPage));
+            mockHttp.Expect("*evolution-chain").Respond("application/json", JsonSerializer.Serialize(berryPage));
 
             PokeApiClient client = new PokeApiClient(mockHttp);
             CancellationToken cancellationToken = new CancellationToken(true);
@@ -672,7 +732,7 @@ namespace PokeApiNet.Tests
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*evolution-chain?limit=1&offset=50").Respond("application/json", JsonConvert.SerializeObject(berryPage));
+            mockHttp.Expect("*evolution-chain?limit=1&offset=50").Respond("application/json", JsonSerializer.Serialize(berryPage));
 
             PokeApiClient client = new PokeApiClient(mockHttp);
 
@@ -691,7 +751,7 @@ namespace PokeApiNet.Tests
             NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
 
             MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*evolution-chain?limit=1&offset=50").Respond("application/json", JsonConvert.SerializeObject(berryPage));
+            mockHttp.Expect("*evolution-chain?limit=1&offset=50").Respond("application/json", JsonSerializer.Serialize(berryPage));
 
             PokeApiClient client = new PokeApiClient(mockHttp);
             CancellationToken cancellationToken = new CancellationToken(true);

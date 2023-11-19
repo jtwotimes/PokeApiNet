@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-using PokeApiNet.Cache;
+﻿using PokeApiNet.Cache;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -401,7 +401,7 @@ namespace PokeApiNet
         /// <summary>
         /// Handles all outbound API requests to the PokeAPI server and deserializes the response
         /// </summary>
-        private async Task<T> GetAsync<T>(string url, CancellationToken cancellationToken)
+        private async Task<T?> GetAsync<T>(string url, CancellationToken cancellationToken)
         {
             using var request = new HttpRequestMessage(HttpMethod.Get, url);
             using var response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken);
@@ -413,12 +413,10 @@ namespace PokeApiNet
         /// <summary>
         /// Handles deserialization of a given stream to a given type
         /// </summary>
-        private T DeserializeStream<T>(System.IO.Stream stream)
+        private T? DeserializeStream<T>(System.IO.Stream stream)
         {
             using var sr = new System.IO.StreamReader(stream);
-            using JsonReader reader = new JsonTextReader(sr);
-            var serializer = JsonSerializer.Create();
-            return serializer.Deserialize<T>(reader);
+            return JsonSerializer.Deserialize<T>(stream, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower });
         }
 
         private static string AddPaginationParamsToUrl(string uri, int? limit = null, int? offset = null)

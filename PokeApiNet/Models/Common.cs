@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace PokeApiNet
 {
@@ -96,20 +95,20 @@ namespace PokeApiNet
         /// <summary>
         /// The lowest level the Pokémon could be encountered at.
         /// </summary>
-        [JsonProperty("min_level")]
+        [JsonPropertyName("min_level")]
         public int MinLevel { get; set; }
 
         /// <summary>
         /// The highest level the Pokémon could be encountered at.
         /// </summary>
-        [JsonProperty("max_level")]
+        [JsonPropertyName("max_level")]
         public int MaxLevel { get; set; }
 
         /// <summary>
         /// A list of condition values that must be in effect for this
         /// encounter to occur.
         /// </summary>
-        [JsonProperty("condition_values")]
+        [JsonPropertyName("condition_values")]
         public List<NamedApiResource<EncounterConditionValue>> ConditionValues { get; set; }
 
         /// <summary>
@@ -131,7 +130,7 @@ namespace PokeApiNet
         /// <summary>
         /// The localized flavor text for an API resource in a specific language.
         /// </summary>
-        [JsonProperty("flavor_text")]
+        [JsonPropertyName("flavor_text")]
         public string FlavorText { get; set; }
 
         /// <summary>
@@ -148,7 +147,7 @@ namespace PokeApiNet
         /// <summary>
         /// The internal id of an API resource within game data.
         /// </summary>
-        [JsonProperty("game_index")]
+        [JsonPropertyName("game_index")]
         public int GameIndex { get; set; }
 
         /// <summary>
@@ -170,7 +169,7 @@ namespace PokeApiNet
         /// <summary>
         /// The version group of this specific machine.
         /// </summary>
-        [JsonProperty("version_group")]
+        [JsonPropertyName("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 
@@ -233,7 +232,7 @@ namespace PokeApiNet
         /// <summary>
         /// The localized effect text in brief.
         /// </summary>
-        [JsonProperty("short_effect")]
+        [JsonPropertyName("short_effect")]
         public string ShortEffect { get; set; }
 
         /// <summary>
@@ -255,13 +254,13 @@ namespace PokeApiNet
         /// <summary>
         /// The total percentage of all encounter potential.
         /// </summary>
-        [JsonProperty("max_chance")]
+        [JsonPropertyName("max_chance")]
         public int MaxChance { get; set; }
 
         /// <summary>
         /// A list of encounters and their specifics.
         /// </summary>
-        [JsonProperty("encounter_details")]
+        [JsonPropertyName("encounter_details")]
         public List<Encounter> EncounterDetails { get; set; }
     }
 
@@ -273,7 +272,7 @@ namespace PokeApiNet
         /// <summary>
         /// The internal id of an API resource within game data.
         /// </summary>
-        [JsonProperty("game_index")]
+        [JsonPropertyName("game_index")]
         public int GameIndex { get; set; }
 
         /// <summary>
@@ -300,7 +299,7 @@ namespace PokeApiNet
         /// <summary>
         /// The version group which uses this flavor text.
         /// </summary>
-        [JsonProperty("version_group")]
+        [JsonPropertyName("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 }

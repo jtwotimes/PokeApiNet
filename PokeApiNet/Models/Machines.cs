@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace PokeApiNet
+﻿namespace PokeApiNet
 {
     /// <summary>
     /// Machines are the representation of items that teach moves
@@ -30,7 +28,7 @@ namespace PokeApiNet
         /// <summary>
         /// The version group that this machine applies to.
         /// </summary>
-        [JsonProperty("version_group")]
+        [JsonPropertyName("version_group")]
         public NamedApiResource<VersionGroup> VersionGroup { get; set; }
     }
 }
