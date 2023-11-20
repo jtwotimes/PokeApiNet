@@ -1454,4 +1454,32 @@ public class IntegrationTests
             Assert.Empty(pastTypes);
         }
     }
+
+    [Fact]
+    public async Task GetAllNamedResourcesAsyncDoesPaging()
+    {
+        var allPageResults = new List<NamedApiResource<Berry>>();
+
+        using var client = new PokeApiClient();
+        await foreach (var berryRef in client.GetAllNamedResourcesAsync<Berry>())
+        {
+            allPageResults.Add(berryRef);
+        }
+
+        Assert.NotEmpty(allPageResults);
+    }
+
+    [Fact]
+    public async Task GetAllApiResourcesAsyncDoesPaging()
+    {
+        var allPageResults = new List<ApiResource<EvolutionChain>>();
+
+        using var client = new PokeApiClient();
+        await foreach (var chainRef in client.GetAllApiResourcesAsync<EvolutionChain>())
+        {
+            allPageResults.Add(chainRef);
+        }
+
+        Assert.NotEmpty(allPageResults);
+    }
 } 

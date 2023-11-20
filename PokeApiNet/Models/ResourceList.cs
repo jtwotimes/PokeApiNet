@@ -10,17 +10,20 @@ namespace PokeApiNet
         /// <summary>
         /// The total number of resources available from this API
         /// </summary>
+        [JsonPropertyName("count")]
         public int Count { get; set; }
 
         /// <summary>
         /// The URL for the next page in the list.
         /// </summary>
-        public string Next { get; set; }
+        [JsonPropertyName("next")]
+        public string? Next { get; set; }
 
         /// <summary>
         /// The URL for the previous page in the list.
         /// </summary>
-        public string Previous { get; set; }
+        [JsonPropertyName("previous")]
+        public string? Previous { get; set; }
     }
 
     /// <summary>
@@ -32,6 +35,7 @@ namespace PokeApiNet
         /// <summary>
         /// A list of un-named API resources.
         /// </summary>
+        [JsonPropertyName("results")]
         public List<ApiResource<T>> Results { get; set; }
     }
 
@@ -44,6 +48,7 @@ namespace PokeApiNet
         /// <summary>
         /// A list of named API resources.
         /// </summary>
+        [JsonPropertyName("results")]
         public List<NamedApiResource<T>> Results { get; set; }
     }
 }
