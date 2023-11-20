@@ -25,10 +25,11 @@ steps:
     testResultsFormat: 'XUnit'
     testResultsFiles: '**/coverage.cobertura.xml'
     failTaskOnFailedTests: true
+
 - task: gitversion/setup@0
   displayName: 'GitVersion setup'
   inputs:
-    versionSpec: '5.x'
+    versionSpec: '6.x'
 - task: gitversion/execute@0
   displayName: 'Determine Version'
   inputs:
