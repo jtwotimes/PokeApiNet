@@ -15,13 +15,13 @@ namespace PokeApiNet.Tests
         public async Task GetBerryResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Berry berry = await client.GetResourceAsync<Berry>(1);
+            var berry = await client.GetResourceAsync<Berry>(1);
 
             // assert
-            Assert.True(berry.Id != default(int));
+            Assert.True(berry.Id != default);
         }
 
         [Fact]
@@ -29,13 +29,13 @@ namespace PokeApiNet.Tests
         public async Task GetBerryFirmnessResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            BerryFirmness berryFirmness = await client.GetResourceAsync<BerryFirmness>(1);
+            var berryFirmness = await client.GetResourceAsync<BerryFirmness>(1);
 
             // assert
-            Assert.True(berryFirmness.Id != default(int));
+            Assert.True(berryFirmness.Id != default);
         }
 
         [Fact]
@@ -43,13 +43,13 @@ namespace PokeApiNet.Tests
         public async Task GetBerryFlavorResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            BerryFlavor berryFlavor = await client.GetResourceAsync<BerryFlavor>(1);
+            var berryFlavor = await client.GetResourceAsync<BerryFlavor>(1);
 
             // assert
-            Assert.True(berryFlavor.Id != default(int));
+            Assert.True(berryFlavor.Id != default);
         }
 
         [Fact]
@@ -57,13 +57,13 @@ namespace PokeApiNet.Tests
         public async Task GetLanguageResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Language language = await client.GetResourceAsync<Language>(1);
+            var language = await client.GetResourceAsync<Language>(1);
 
             // assert
-            Assert.True(language.Id != default(int));
+            Assert.True(language.Id != default);
         }
 
         [Fact]
@@ -71,13 +71,13 @@ namespace PokeApiNet.Tests
         public async Task GetContestTypeResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            ContestType contestType = await client.GetResourceAsync<ContestType>(1);
+            var contestType = await client.GetResourceAsync<ContestType>(1);
 
             // assert
-            Assert.True(contestType.Id != default(int));
+            Assert.True(contestType.Id != default);
         }
 
         [Fact]
@@ -85,13 +85,13 @@ namespace PokeApiNet.Tests
         public async Task GetContestEffectResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            ContestEffect contestEffect = await client.GetResourceAsync<ContestEffect>(1);
+            var contestEffect = await client.GetResourceAsync<ContestEffect>(1);
 
             // assert
-            Assert.True(contestEffect.Id != default(int));
+            Assert.True(contestEffect.Id != default);
         }
 
         [Fact]
@@ -99,13 +99,13 @@ namespace PokeApiNet.Tests
         public async Task GetSuperContestEffectResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            SuperContestEffect superContestEffect = await client.GetResourceAsync<SuperContestEffect>(1);
+            var superContestEffect = await client.GetResourceAsync<SuperContestEffect>(1);
 
             // assert
-            Assert.True(superContestEffect.Id != default(int));
+            Assert.True(superContestEffect.Id != default);
         }
 
         [Fact]
@@ -113,13 +113,13 @@ namespace PokeApiNet.Tests
         public async Task GetEncounterMethodResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            EncounterMethod evolutionMethod = await client.GetResourceAsync<EncounterMethod>(1);
+            var evolutionMethod = await client.GetResourceAsync<EncounterMethod>(1);
 
             // assert
-            Assert.True(evolutionMethod.Id != default(int));
+            Assert.True(evolutionMethod.Id != default);
         }
 
         [Fact]
@@ -127,13 +127,13 @@ namespace PokeApiNet.Tests
         public async Task GetEncounterConditionResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            EncounterCondition encounterCondition = await client.GetResourceAsync<EncounterCondition>(1);
+            var encounterCondition = await client.GetResourceAsync<EncounterCondition>(1);
 
             // assert
-            Assert.True(encounterCondition.Id != default(int));
+            Assert.True(encounterCondition.Id != default);
         }
 
         [Fact]
@@ -141,13 +141,13 @@ namespace PokeApiNet.Tests
         public async Task GetEncounterConditionValueResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            EncounterConditionValue encounterConditionValue = await client.GetResourceAsync<EncounterConditionValue>(1);
+            var encounterConditionValue = await client.GetResourceAsync<EncounterConditionValue>(1);
 
             // assert
-            Assert.True(encounterConditionValue.Id != default(int));
+            Assert.True(encounterConditionValue.Id != default);
         }
 
         [Fact]
@@ -155,13 +155,13 @@ namespace PokeApiNet.Tests
         public async Task GetEvolutionChainResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            EvolutionChain evolutionChain = await client.GetResourceAsync<EvolutionChain>(1);
+            var evolutionChain = await client.GetResourceAsync<EvolutionChain>(1);
 
             // assert
-            Assert.True(evolutionChain.Id != default(int));
+            Assert.True(evolutionChain.Id != default);
         }
 
         [Fact]
@@ -169,13 +169,13 @@ namespace PokeApiNet.Tests
         public async Task GetEvolutionTriggerResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            EvolutionTrigger evolutionTrigger = await client.GetResourceAsync<EvolutionTrigger>(1);
+            var evolutionTrigger = await client.GetResourceAsync<EvolutionTrigger>(1);
 
             // assert
-            Assert.True(evolutionTrigger.Id != default(int));
+            Assert.True(evolutionTrigger.Id != default);
         }
 
         [Fact]
@@ -183,13 +183,13 @@ namespace PokeApiNet.Tests
         public async Task GetGenerationResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Generation generation = await client.GetResourceAsync<Generation>(1);
+            var generation = await client.GetResourceAsync<Generation>(1);
 
             // assert
-            Assert.True(generation.Id != default(int));
+            Assert.True(generation.Id != default);
         }
 
         [Fact]
@@ -197,13 +197,13 @@ namespace PokeApiNet.Tests
         public async Task GetPokedexResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Pokedex pokedex = await client.GetResourceAsync<Pokedex>(1);
+            var pokedex = await client.GetResourceAsync<Pokedex>(1);
 
             // assert
-            Assert.True(pokedex.Id != default(int));
+            Assert.True(pokedex.Id != default);
         }
 
         [Fact]
@@ -211,13 +211,13 @@ namespace PokeApiNet.Tests
         public async Task GetVersionResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            PokeApiNet.Version version = await client.GetResourceAsync<PokeApiNet.Version>(1);
+            var version = await client.GetResourceAsync<PokeApiNet.Version>(1);
 
             // assert
-            Assert.True(version.Id != default(int));
+            Assert.True(version.Id != default);
         }
 
         [Fact]
@@ -225,13 +225,13 @@ namespace PokeApiNet.Tests
         public async Task GetVersionGroupResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            VersionGroup versionGroup = await client.GetResourceAsync<VersionGroup>(1);
+            var versionGroup = await client.GetResourceAsync<VersionGroup>(1);
 
             // assert
-            Assert.True(versionGroup.Id != default(int));
+            Assert.True(versionGroup.Id != default);
         }
 
         [Fact]
@@ -239,13 +239,13 @@ namespace PokeApiNet.Tests
         public async Task GetItemResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Item item = await client.GetResourceAsync<Item>(1);
+            var item = await client.GetResourceAsync<Item>(1);
 
             // assert
-            Assert.True(item.Id != default(int));
+            Assert.True(item.Id != default);
         }
 
         [Fact]
@@ -253,13 +253,13 @@ namespace PokeApiNet.Tests
         public async Task GetItemAttributeResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            ItemAttribute itemAttribute = await client.GetResourceAsync<ItemAttribute>(1);
+            var itemAttribute = await client.GetResourceAsync<ItemAttribute>(1);
 
             // assert
-            Assert.True(itemAttribute.Id != default(int));
+            Assert.True(itemAttribute.Id != default);
         }
 
         [Fact]
@@ -267,13 +267,13 @@ namespace PokeApiNet.Tests
         public async Task GetItemCategoryResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            ItemCategory itemCategory = await client.GetResourceAsync<ItemCategory>(1);
+            var itemCategory = await client.GetResourceAsync<ItemCategory>(1);
 
             // assert
-            Assert.True(itemCategory.Id != default(int));
+            Assert.True(itemCategory.Id != default);
         }
 
         [Fact]
@@ -281,13 +281,13 @@ namespace PokeApiNet.Tests
         public async Task GetItemFlingEffectResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            ItemFlingEffect itemFlingEffect = await client.GetResourceAsync<ItemFlingEffect>(1);
+            var itemFlingEffect = await client.GetResourceAsync<ItemFlingEffect>(1);
 
             // assert
-            Assert.True(itemFlingEffect.Id != default(int));
+            Assert.True(itemFlingEffect.Id != default);
         }
 
         [Fact]
@@ -295,13 +295,13 @@ namespace PokeApiNet.Tests
         public async Task GetItemPocketResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            ItemPocket itemPocket = await client.GetResourceAsync<ItemPocket>(1);
+            var itemPocket = await client.GetResourceAsync<ItemPocket>(1);
 
             // assert
-            Assert.True(itemPocket.Id != default(int));
+            Assert.True(itemPocket.Id != default);
         }
 
         [Fact]
@@ -309,13 +309,13 @@ namespace PokeApiNet.Tests
         public async Task GetLocationResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Location location = await client.GetResourceAsync<Location>(1);
+            var location = await client.GetResourceAsync<Location>(1);
 
             // assert
-            Assert.True(location.Id != default(int));
+            Assert.True(location.Id != default);
         }
 
         [Fact]
@@ -323,13 +323,13 @@ namespace PokeApiNet.Tests
         public async Task GetLocationAreaResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            LocationArea locationArea = await client.GetResourceAsync<LocationArea>(1);
+            var locationArea = await client.GetResourceAsync<LocationArea>(1);
 
             // assert
-            Assert.True(locationArea.Id != default(int));
+            Assert.True(locationArea.Id != default);
         }
 
         [Fact]
@@ -337,13 +337,13 @@ namespace PokeApiNet.Tests
         public async Task GetPalParkAreaResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            PalParkArea palParkArea = await client.GetResourceAsync<PalParkArea>(1);
+            var palParkArea = await client.GetResourceAsync<PalParkArea>(1);
 
             // assert
-            Assert.True(palParkArea.Id != default(int));
+            Assert.True(palParkArea.Id != default);
         }
 
         [Fact]
@@ -351,13 +351,13 @@ namespace PokeApiNet.Tests
         public async Task GetRegionResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Region region = await client.GetResourceAsync<Region>(1);
+            var region = await client.GetResourceAsync<Region>(1);
 
             // assert
-            Assert.True(region.Id != default(int));
+            Assert.True(region.Id != default);
         }
 
         [Fact]
@@ -365,13 +365,13 @@ namespace PokeApiNet.Tests
         public async Task GetMachineResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Machine machine = await client.GetResourceAsync<Machine>(1);
+            var machine = await client.GetResourceAsync<Machine>(1);
 
             // assert
-            Assert.True(machine.Id != default(int));
+            Assert.True(machine.Id != default);
         }
 
         [Theory]
@@ -381,13 +381,13 @@ namespace PokeApiNet.Tests
         public async Task GetMoveResourceAsyncIntegrationTest(int id)
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Move move = await client.GetResourceAsync<Move>(id);
+            var move = await client.GetResourceAsync<Move>(id);
 
             // assert
-            Assert.True(move.Id != default(int));
+            Assert.True(move.Id != default);
         }
 
         [Fact]
@@ -395,13 +395,13 @@ namespace PokeApiNet.Tests
         public async Task GetMoveAilmentResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            MoveAilment moveAilment = await client.GetResourceAsync<MoveAilment>(1);
+            var moveAilment = await client.GetResourceAsync<MoveAilment>(1);
 
             // assert
-            Assert.True(moveAilment.Id != default(int));
+            Assert.True(moveAilment.Id != default);
         }
 
         [Fact]
@@ -409,13 +409,13 @@ namespace PokeApiNet.Tests
         public async Task GetMoveBattleStyleResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            MoveBattleStyle moveBattleStyle = await client.GetResourceAsync<MoveBattleStyle>(1);
+            var moveBattleStyle = await client.GetResourceAsync<MoveBattleStyle>(1);
 
             // assert
-            Assert.True(moveBattleStyle.Id != default(int));
+            Assert.True(moveBattleStyle.Id != default);
         }
 
         [Fact]
@@ -423,13 +423,13 @@ namespace PokeApiNet.Tests
         public async Task GetMoveCategoryResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            MoveCategory moveCategory = await client.GetResourceAsync<MoveCategory>(1);
+            var moveCategory = await client.GetResourceAsync<MoveCategory>(1);
 
             // assert
-            Assert.True(moveCategory.Id != default(int));
+            Assert.True(moveCategory.Id != default);
         }
 
         [Fact]
@@ -437,13 +437,13 @@ namespace PokeApiNet.Tests
         public async Task GetMoveDamageClassResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            MoveDamageClass moveDamageClass = await client.GetResourceAsync<MoveDamageClass>(1);
+            var moveDamageClass = await client.GetResourceAsync<MoveDamageClass>(1);
 
             // assert
-            Assert.True(moveDamageClass.Id != default(int));
+            Assert.True(moveDamageClass.Id != default);
         }
 
         [Fact]
@@ -451,13 +451,13 @@ namespace PokeApiNet.Tests
         public async Task GetMoveLearnMethodResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            MoveLearnMethod moveLearnMethod = await client.GetResourceAsync<MoveLearnMethod>(1);
+            var moveLearnMethod = await client.GetResourceAsync<MoveLearnMethod>(1);
 
             // assert
-            Assert.True(moveLearnMethod.Id != default(int));
+            Assert.True(moveLearnMethod.Id != default);
         }
 
         [Fact]
@@ -465,13 +465,13 @@ namespace PokeApiNet.Tests
         public async Task GetMoveTargetResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            MoveTarget moveTarget = await client.GetResourceAsync<MoveTarget>(1);
+            var moveTarget = await client.GetResourceAsync<MoveTarget>(1);
 
             // assert
-            Assert.True(moveTarget.Id != default(int));
+            Assert.True(moveTarget.Id != default);
         }
 
         [Fact]
@@ -479,13 +479,13 @@ namespace PokeApiNet.Tests
         public async Task GetAbilityResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Ability ability = await client.GetResourceAsync<Ability>(1);
+            var ability = await client.GetResourceAsync<Ability>(1);
 
             // assert
-            Assert.True(ability.Id != default(int));
+            Assert.True(ability.Id != default);
         }
 
         [Fact]
@@ -493,13 +493,13 @@ namespace PokeApiNet.Tests
         public async Task GetCharacteristicResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Characteristic characteristic = await client.GetResourceAsync<Characteristic>(1);
+            var characteristic = await client.GetResourceAsync<Characteristic>(1);
 
             // assert
-            Assert.True(characteristic.Id != default(int));
+            Assert.True(characteristic.Id != default);
         }
 
         [Fact]
@@ -507,13 +507,13 @@ namespace PokeApiNet.Tests
         public async Task GetEggGroupResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            EggGroup eggGroup = await client.GetResourceAsync<EggGroup>(1);
+            var eggGroup = await client.GetResourceAsync<EggGroup>(1);
 
             // assert
-            Assert.True(eggGroup.Id != default(int));
+            Assert.True(eggGroup.Id != default);
         }
 
         [Fact]
@@ -521,13 +521,13 @@ namespace PokeApiNet.Tests
         public async Task GetGenderResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Gender gender = await client.GetResourceAsync<Gender>(1);
+            var gender = await client.GetResourceAsync<Gender>(1);
 
             // assert
-            Assert.True(gender.Id != default(int));
+            Assert.True(gender.Id != default);
         }
 
         [Fact]
@@ -535,13 +535,13 @@ namespace PokeApiNet.Tests
         public async Task GetGrowthRateResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            GrowthRate growthRate = await client.GetResourceAsync<GrowthRate>(1);
+            var growthRate = await client.GetResourceAsync<GrowthRate>(1);
 
             // assert
-            Assert.True(growthRate.Id != default(int));
+            Assert.True(growthRate.Id != default);
         }
 
         [Fact]
@@ -549,13 +549,13 @@ namespace PokeApiNet.Tests
         public async Task GetNatureResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Nature nature = await client.GetResourceAsync<Nature>(1);
+            var nature = await client.GetResourceAsync<Nature>(1);
 
             // assert
-            Assert.True(nature.Id != default(int));
+            Assert.True(nature.Id != default);
         }
 
         [Fact]
@@ -563,13 +563,13 @@ namespace PokeApiNet.Tests
         public async Task GetPokeathlonStatResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            PokeathlonStat pokeathlonStat = await client.GetResourceAsync<PokeathlonStat>(1);
+            var pokeathlonStat = await client.GetResourceAsync<PokeathlonStat>(1);
 
             // assert
-            Assert.True(pokeathlonStat.Id != default(int));
+            Assert.True(pokeathlonStat.Id != default);
         }
 
         [Fact]
@@ -577,13 +577,13 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Pokemon pokemon = await client.GetResourceAsync<Pokemon>(1);
+            var pokemon = await client.GetResourceAsync<Pokemon>(1);
 
             // assert
-            Assert.True(pokemon.Id != default(int));
+            Assert.True(pokemon.Id != default);
         }
 
         [Fact]
@@ -591,13 +591,13 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonColorResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            PokemonColor pokemonColor = await client.GetResourceAsync<PokemonColor>(1);
+            var pokemonColor = await client.GetResourceAsync<PokemonColor>(1);
 
             // assert
-            Assert.True(pokemonColor.Id != default(int));
+            Assert.True(pokemonColor.Id != default);
         }
 
         [Fact]
@@ -605,13 +605,13 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonFormResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            PokemonForm pokemonForm = await client.GetResourceAsync<PokemonForm>(1);
+            var pokemonForm = await client.GetResourceAsync<PokemonForm>(1);
 
             // assert
-            Assert.True(pokemonForm.Id != default(int));
+            Assert.True(pokemonForm.Id != default);
         }
 
         [Fact]
@@ -619,13 +619,13 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonHabitatResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            PokemonHabitat pokemonHabitat = await client.GetResourceAsync<PokemonHabitat>(1);
+            var pokemonHabitat = await client.GetResourceAsync<PokemonHabitat>(1);
 
             // assert
-            Assert.True(pokemonHabitat.Id != default(int));
+            Assert.True(pokemonHabitat.Id != default);
         }
 
         [Fact]
@@ -633,13 +633,13 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonShapeResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            PokemonShape pokemonShape = await client.GetResourceAsync<PokemonShape>(1);
+            var pokemonShape = await client.GetResourceAsync<PokemonShape>(1);
 
             // assert
-            Assert.True(pokemonShape.Id != default(int));
+            Assert.True(pokemonShape.Id != default);
         }
 
         [Fact]
@@ -647,13 +647,13 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonSpeciesResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            PokemonSpecies pokemonSpecies = await client.GetResourceAsync<PokemonSpecies>(1);
+            var pokemonSpecies = await client.GetResourceAsync<PokemonSpecies>(1);
 
             // assert
-            Assert.True(pokemonSpecies.Id != default(int));
+            Assert.True(pokemonSpecies.Id != default);
         }
 
         [Fact]
@@ -661,11 +661,11 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonSpeciesResolveAllAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
-            PokemonSpecies pokemonSpecies = await client.GetResourceAsync<PokemonSpecies>(1);
+            using PokeApiClient client = new();
+            var pokemonSpecies = await client.GetResourceAsync<PokemonSpecies>(1);
 
             // act
-            List<EggGroup> eggGroups = await client.GetResourceAsync(pokemonSpecies.EggGroups);
+            var eggGroups = await client.GetResourceAsync(pokemonSpecies.EggGroups);
 
             // assert
             Assert.True(eggGroups.Any());
@@ -676,13 +676,13 @@ namespace PokeApiNet.Tests
         public async Task GetStatResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            Stat stat = await client.GetResourceAsync<Stat>(1);
+            var stat = await client.GetResourceAsync<Stat>(1);
 
             // assert
-            Assert.True(stat.Id != default(int));
+            Assert.True(stat.Id != default);
         }
 
         [Fact]
@@ -690,13 +690,13 @@ namespace PokeApiNet.Tests
         public async Task GetTypeResourceAsyncIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            PokeApiNet.Type type = await client.GetResourceAsync<PokeApiNet.Type>(1);
+            var type = await client.GetResourceAsync<PokeApiNet.Type>(1);
 
             // assert
-            Assert.True(type.Id != default(int));
+            Assert.True(type.Id != default);
         }
 
         [Fact]
@@ -704,10 +704,10 @@ namespace PokeApiNet.Tests
         public async Task GetBerryPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Berry> page = await client.GetNamedResourcePageAsync<Berry>();
+            var page = await client.GetNamedResourcePageAsync<Berry>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -718,10 +718,10 @@ namespace PokeApiNet.Tests
         public async Task GetBerryFirmnessPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<BerryFirmness> page = await client.GetNamedResourcePageAsync<BerryFirmness>();
+            var page = await client.GetNamedResourcePageAsync<BerryFirmness>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -732,10 +732,10 @@ namespace PokeApiNet.Tests
         public async Task GetBerryFlavorPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<BerryFlavor> page = await client.GetNamedResourcePageAsync<BerryFlavor>();
+            var page = await client.GetNamedResourcePageAsync<BerryFlavor>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -746,10 +746,10 @@ namespace PokeApiNet.Tests
         public async Task GetLanguagePagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Language> page = await client.GetNamedResourcePageAsync<Language>();
+            var page = await client.GetNamedResourcePageAsync<Language>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -760,10 +760,10 @@ namespace PokeApiNet.Tests
         public async Task GetContestTypePagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<ContestType> page = await client.GetNamedResourcePageAsync<ContestType>();
+            var page = await client.GetNamedResourcePageAsync<ContestType>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -774,10 +774,10 @@ namespace PokeApiNet.Tests
         public async Task GetContestEffectPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            ApiResourceList<ContestEffect> page = await client.GetApiResourcePageAsync<ContestEffect>();
+            var page = await client.GetApiResourcePageAsync<ContestEffect>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -788,10 +788,10 @@ namespace PokeApiNet.Tests
         public async Task GetSuperContestEffectPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            ApiResourceList<SuperContestEffect> page = await client.GetApiResourcePageAsync<SuperContestEffect>();
+            var page = await client.GetApiResourcePageAsync<SuperContestEffect>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -802,10 +802,10 @@ namespace PokeApiNet.Tests
         public async Task GetEncounterMethodPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<EncounterMethod> page = await client.GetNamedResourcePageAsync<EncounterMethod>();
+            var page = await client.GetNamedResourcePageAsync<EncounterMethod>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -816,10 +816,10 @@ namespace PokeApiNet.Tests
         public async Task GetEncounterConditionPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<EncounterCondition> page = await client.GetNamedResourcePageAsync<EncounterCondition>();
+            var page = await client.GetNamedResourcePageAsync<EncounterCondition>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -830,10 +830,10 @@ namespace PokeApiNet.Tests
         public async Task GetEncounterConditionValuePagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<EncounterConditionValue> page = await client.GetNamedResourcePageAsync<EncounterConditionValue>();
+            var page = await client.GetNamedResourcePageAsync<EncounterConditionValue>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -844,10 +844,10 @@ namespace PokeApiNet.Tests
         public async Task GetEvolutionChainPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            ApiResourceList<EvolutionChain> page = await client.GetApiResourcePageAsync<EvolutionChain>();
+            var page = await client.GetApiResourcePageAsync<EvolutionChain>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -858,10 +858,10 @@ namespace PokeApiNet.Tests
         public async Task GetEvolutionTriggerPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<EvolutionTrigger> page = await client.GetNamedResourcePageAsync<EvolutionTrigger>();
+            var page = await client.GetNamedResourcePageAsync<EvolutionTrigger>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -872,10 +872,10 @@ namespace PokeApiNet.Tests
         public async Task GetGenerationPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Generation> page = await client.GetNamedResourcePageAsync<Generation>();
+            var page = await client.GetNamedResourcePageAsync<Generation>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -886,10 +886,10 @@ namespace PokeApiNet.Tests
         public async Task GetPokedexPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Pokedex> page = await client.GetNamedResourcePageAsync<Pokedex>();
+            var page = await client.GetNamedResourcePageAsync<Pokedex>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -900,10 +900,11 @@ namespace PokeApiNet.Tests
         public async Task GetVersionPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Version> page = await client.GetNamedResourcePageAsync<Version>();
+            var page = await client.GetNamedResourcePageAsync<Version>();
+
 
             // assert
             Assert.True(page.Results.Any());
@@ -914,10 +915,10 @@ namespace PokeApiNet.Tests
         public async Task GetVersionGroupPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<VersionGroup> page = await client.GetNamedResourcePageAsync<VersionGroup>();
+            var page = await client.GetNamedResourcePageAsync<VersionGroup>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -928,10 +929,10 @@ namespace PokeApiNet.Tests
         public async Task GetItemPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Item> page = await client.GetNamedResourcePageAsync<Item>();
+            var page = await client.GetNamedResourcePageAsync<Item>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -942,10 +943,10 @@ namespace PokeApiNet.Tests
         public async Task GetItemAttributePagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<ItemAttribute> page = await client.GetNamedResourcePageAsync<ItemAttribute>();
+            var page = await client.GetNamedResourcePageAsync<ItemAttribute>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -956,10 +957,10 @@ namespace PokeApiNet.Tests
         public async Task GetItemCategoryPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<ItemCategory> page = await client.GetNamedResourcePageAsync<ItemCategory>();
+            var page = await client.GetNamedResourcePageAsync<ItemCategory>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -970,10 +971,10 @@ namespace PokeApiNet.Tests
         public async Task GetItemFlingEffectPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<ItemFlingEffect> page = await client.GetNamedResourcePageAsync<ItemFlingEffect>();
+            var page = await client.GetNamedResourcePageAsync<ItemFlingEffect>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -984,10 +985,10 @@ namespace PokeApiNet.Tests
         public async Task GetItemPocketPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<ItemPocket> page = await client.GetNamedResourcePageAsync<ItemPocket>();
+            var page = await client.GetNamedResourcePageAsync<ItemPocket>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -998,10 +999,10 @@ namespace PokeApiNet.Tests
         public async Task GetLocationPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Location> page = await client.GetNamedResourcePageAsync<Location>();
+            var page = await client.GetNamedResourcePageAsync<Location>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1012,10 +1013,10 @@ namespace PokeApiNet.Tests
         public async Task GetLocationAreaPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<LocationArea> page = await client.GetNamedResourcePageAsync<LocationArea>();
+            var page = await client.GetNamedResourcePageAsync<LocationArea>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1026,10 +1027,10 @@ namespace PokeApiNet.Tests
         public async Task GetPalParkAreaPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<PalParkArea> page = await client.GetNamedResourcePageAsync<PalParkArea>();
+            var page = await client.GetNamedResourcePageAsync<PalParkArea>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1040,10 +1041,10 @@ namespace PokeApiNet.Tests
         public async Task GetRegionPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Region> page = await client.GetNamedResourcePageAsync<Region>();
+            var page = await client.GetNamedResourcePageAsync<Region>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1054,10 +1055,10 @@ namespace PokeApiNet.Tests
         public async Task GetMachinePagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            ApiResourceList<Machine> page = await client.GetApiResourcePageAsync<Machine>();
+            var page = await client.GetApiResourcePageAsync<Machine>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1068,10 +1069,10 @@ namespace PokeApiNet.Tests
         public async Task GetMovePagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Move> page = await client.GetNamedResourcePageAsync<Move>();
+            var page = await client.GetNamedResourcePageAsync<Move>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1082,10 +1083,10 @@ namespace PokeApiNet.Tests
         public async Task GetMoveAilmentPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<MoveAilment> page = await client.GetNamedResourcePageAsync<MoveAilment>();
+            var page = await client.GetNamedResourcePageAsync<MoveAilment>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1096,10 +1097,10 @@ namespace PokeApiNet.Tests
         public async Task GetMoveBattleStylePagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<MoveBattleStyle> page = await client.GetNamedResourcePageAsync<MoveBattleStyle>();
+            var page = await client.GetNamedResourcePageAsync<MoveBattleStyle>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1110,10 +1111,10 @@ namespace PokeApiNet.Tests
         public async Task GetMoveCategoryPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<MoveCategory> page = await client.GetNamedResourcePageAsync<MoveCategory>();
+            var page = await client.GetNamedResourcePageAsync<MoveCategory>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1124,10 +1125,10 @@ namespace PokeApiNet.Tests
         public async Task GetMoveDamageClassPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<MoveDamageClass> page = await client.GetNamedResourcePageAsync<MoveDamageClass>();
+            var page = await client.GetNamedResourcePageAsync<MoveDamageClass>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1138,10 +1139,10 @@ namespace PokeApiNet.Tests
         public async Task GetMoveLearnMethodPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<MoveLearnMethod> page = await client.GetNamedResourcePageAsync<MoveLearnMethod>();
+            var page = await client.GetNamedResourcePageAsync<MoveLearnMethod>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1152,10 +1153,10 @@ namespace PokeApiNet.Tests
         public async Task GetMoveTargetPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<MoveTarget> page = await client.GetNamedResourcePageAsync<MoveTarget>();
+            var page = await client.GetNamedResourcePageAsync<MoveTarget>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1166,10 +1167,10 @@ namespace PokeApiNet.Tests
         public async Task GetAbilityPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Ability> page = await client.GetNamedResourcePageAsync<Ability>();
+            var page = await client.GetNamedResourcePageAsync<Ability>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1180,10 +1181,10 @@ namespace PokeApiNet.Tests
         public async Task GetCharacteristicPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            ApiResourceList<Characteristic> page = await client.GetApiResourcePageAsync<Characteristic>();
+            var page = await client.GetApiResourcePageAsync<Characteristic>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1194,10 +1195,10 @@ namespace PokeApiNet.Tests
         public async Task GetEggGroupPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<EggGroup> page = await client.GetNamedResourcePageAsync<EggGroup>();
+            var page = await client.GetNamedResourcePageAsync<EggGroup>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1208,10 +1209,10 @@ namespace PokeApiNet.Tests
         public async Task GetGenderPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Gender> page = await client.GetNamedResourcePageAsync<Gender>();
+            var page = await client.GetNamedResourcePageAsync<Gender>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1222,10 +1223,10 @@ namespace PokeApiNet.Tests
         public async Task GetGrowthRatePagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<GrowthRate> page = await client.GetNamedResourcePageAsync<GrowthRate>();
+            var page = await client.GetNamedResourcePageAsync<GrowthRate>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1236,10 +1237,10 @@ namespace PokeApiNet.Tests
         public async Task GetNaturePagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Nature> page = await client.GetNamedResourcePageAsync<Nature>();
+            var page = await client.GetNamedResourcePageAsync<Nature>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1250,10 +1251,10 @@ namespace PokeApiNet.Tests
         public async Task GetPokeathlonStatPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<PokeathlonStat> page = await client.GetNamedResourcePageAsync<PokeathlonStat>();
+            var page = await client.GetNamedResourcePageAsync<PokeathlonStat>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1264,10 +1265,10 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Pokemon> page = await client.GetNamedResourcePageAsync<Pokemon>();
+            var page = await client.GetNamedResourcePageAsync<Pokemon>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1278,10 +1279,10 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonColorPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<PokemonColor> page = await client.GetNamedResourcePageAsync<PokemonColor>();
+            var page = await client.GetNamedResourcePageAsync<PokemonColor>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1292,10 +1293,10 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonFormPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<PokemonForm> page = await client.GetNamedResourcePageAsync<PokemonForm>();
+            var page = await client.GetNamedResourcePageAsync<PokemonForm>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1306,10 +1307,10 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonHabitatPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<PokemonHabitat> page = await client.GetNamedResourcePageAsync<PokemonHabitat>();
+            var page = await client.GetNamedResourcePageAsync<PokemonHabitat>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1320,10 +1321,10 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonShapePagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<PokemonShape> page = await client.GetNamedResourcePageAsync<PokemonShape>();
+            var page = await client.GetNamedResourcePageAsync<PokemonShape>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1334,10 +1335,10 @@ namespace PokeApiNet.Tests
         public async Task GetPokemonSpeciesPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<PokemonSpecies> page = await client.GetNamedResourcePageAsync<PokemonSpecies>();
+            var page = await client.GetNamedResourcePageAsync<PokemonSpecies>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1348,10 +1349,10 @@ namespace PokeApiNet.Tests
         public async Task GetStatPagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Stat> page = await client.GetNamedResourcePageAsync<Stat>();
+            var page = await client.GetNamedResourcePageAsync<Stat>();
 
             // assert
             Assert.True(page.Results.Any());
@@ -1362,10 +1363,10 @@ namespace PokeApiNet.Tests
         public async Task GetTypePagedResourceIntegrationTest()
         {
             // assemble
-            PokeApiClient client = new PokeApiClient();
+            using PokeApiClient client = new();
 
             // act
-            NamedApiResourceList<Type> page = await client.GetNamedResourcePageAsync<Type>();
+            var page = await client.GetNamedResourcePageAsync<Type>();
 
             // assert
             Assert.True(page.Results.Any());

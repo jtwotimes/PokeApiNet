@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -157,15 +156,14 @@ namespace PokeApiNet.Tests
         {
             // assemble
             ProductHeaderValue userAgent = PokeApiClient.DefaultUserAgent;
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
             mockHttp.When("*")
                 .WithHeaders("User-Agent", userAgent.ToString())
                 .Respond("application/json", JsonSerializer.Serialize(new Berry { Id = 1 }));
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
+            PokeApiClient client = CreateSut();
 
             // act
-            Berry berry = await client.GetResourceAsync<Berry>(1);
+            _ = await client.GetResourceAsync<Berry>(1);
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
@@ -177,15 +175,14 @@ namespace PokeApiNet.Tests
         {
             // assemble
             ProductHeaderValue userAgent = ProductHeaderValue.Parse("CustomUserAgent/2.0");
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
             mockHttp.When("*")
                 .WithHeaders("User-Agent", userAgent.ToString())
                 .Respond("application/json", JsonSerializer.Serialize(new Berry { Id = 1 }));
 
-            PokeApiClient client = new PokeApiClient(mockHttp, userAgent);
+            PokeApiClient client = new(mockHttp, userAgent);
 
             // act
-            Berry berry = await client.GetResourceAsync<Berry>(1);
+            _ = await client.GetResourceAsync<Berry>(1);
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
@@ -196,21 +193,20 @@ namespace PokeApiNet.Tests
         public async Task GetResourceAsyncByIdAutoCache()
         {
             // assemble
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
             mockHttp.When("*")
                 .Respond("application/json", JsonSerializer.Serialize(
                     new Berry { Id = 1 },
                     options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
             );
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
-            Berry berry = await client.GetResourceAsync<Berry>(1);
+            PokeApiClient client = CreateSut();
+            var berry = await client.GetResourceAsync<Berry>(1);
 
             mockHttp.ResetBackendDefinitions();
             mockHttp.When("*").Throw(new Exception("Should not be thrown if cache system is in place"));
 
             // act
-            Berry cachedBerry = await client.GetResourceAsync<Berry>(1);
+            var cachedBerry = await client.GetResourceAsync<Berry>(1);
 
             // assert
             Assert.Same(berry, cachedBerry);
@@ -227,14 +223,14 @@ namespace PokeApiNet.Tests
                     options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
             );
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
-            Berry berry = await client.GetResourceAsync<Berry>("cheri");
+            PokeApiClient client = CreateSut();
+            var berry = await client.GetResourceAsync<Berry>("cheri");
 
             mockHttp.ResetBackendDefinitions();
             mockHttp.When("*").Throw(new Exception("Should not be thrown if cache system is in place"));
 
             // act
-            Berry cachedBerry = await client.GetResourceAsync<Berry>("cheri");
+            var cachedBerry = await client.GetResourceAsync<Berry>("cheri");
 
             // assert
             Assert.Same(berry, cachedBerry);
@@ -245,13 +241,13 @@ namespace PokeApiNet.Tests
         public async Task GetResourceAsyncByNameWithPunctuation()
         {
             // assemble
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*hi-im-a-berry*").Respond("application/json", JsonSerializer.Serialize(new Berry { Name = "cheri" }));
+            mockHttp.Expect("*hi-im-a-berry*")
+                .Respond("application/json", JsonSerializer.Serialize(new Berry { Name = "cheri" }));
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
+            PokeApiClient client = CreateSut();
 
             // act
-            Berry cleanNamedBerry = await client.GetResourceAsync<Berry>("hi I'm a berry.");
+            _ = await client.GetResourceAsync<Berry>("hi I'm a berry.");
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
@@ -262,13 +258,16 @@ namespace PokeApiNet.Tests
         public async Task GetResourceByIdCancellation()
         {
             // assemble
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("*").Respond("application/json", JsonSerializer.Serialize(new Berry { Name = "cheri" }));
-            PokeApiClient client = new PokeApiClient(mockHttp);
-            CancellationToken cancellationToken = new CancellationToken(true);
+            mockHttp.When("*")
+                .Respond("application/json", JsonSerializer.Serialize(new Berry { Name = "cheri" }));
+            PokeApiClient client = CreateSut();
+            CancellationToken cancellationToken = new(true);
 
             // act / assert
-            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetResourceAsync<Berry>(1, cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () =>
+            {
+                await client.GetResourceAsync<Berry>(1, cancellationToken);
+            });
         }
 
         [Fact]
@@ -276,13 +275,16 @@ namespace PokeApiNet.Tests
         public async Task GetResourceByNameCancellation()
         {
             // assemble
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("*").Respond("application/json", JsonSerializer.Serialize(new Berry { Name = "cheri" }));
-            PokeApiClient client = new PokeApiClient(mockHttp);
-            CancellationToken cancellationToken = new CancellationToken(true);
+            mockHttp.When("*")
+                .Respond("application/json", JsonSerializer.Serialize(new Berry { Name = "cheri" }));
+            PokeApiClient client = CreateSut();
+            CancellationToken cancellationToken = new(true);
 
             // act / assert
-            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetResourceAsync<Berry>("cheri", cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () =>
+            {
+                await client.GetResourceAsync<Berry>("cheri", cancellationToken);
+            });
         }
 
         [Fact]
@@ -290,8 +292,8 @@ namespace PokeApiNet.Tests
         public async Task ClearResourceCacheOfAllTypes()
         {
             // assemble
-            Berry berry = new Berry { Name = "test", Id = 1 };
-            Machine machine = new Machine { Id = 1 };
+            Berry berry = new() { Name = "test", Id = 1 };
+            Machine machine = new() { Id = 1 };
             PokeApiClient sut = CreateSut();
             mockHttp.Expect("*machine*")
                 .Respond("application/json", JsonSerializer.Serialize(machine));
@@ -318,19 +320,20 @@ namespace PokeApiNet.Tests
         public async Task ClearResourceCacheOfSpecificType()
         {
             // assemble
-            Berry returnedBerry = new Berry { Id = 1 };
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*").Respond("application/json", JsonSerializer.Serialize(returnedBerry));
+            Berry returnedBerry = new() { Id = 1 };
+            mockHttp.Expect("*")
+                .Respond("application/json", JsonSerializer.Serialize(returnedBerry));
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
-            Berry berry = await client.GetResourceAsync<Berry>(1);
+            PokeApiClient client = CreateSut();
+            _ = await client.GetResourceAsync<Berry>(1);
 
             mockHttp.ResetExpectations();
 
             // act
             client.ClearResourceCache<Berry>();
-            mockHttp.Expect("*").Respond("application/json", JsonSerializer.Serialize(returnedBerry));
-            berry = await client.GetResourceAsync<Berry>(1);
+            mockHttp.Expect("*")
+                .Respond("application/json", JsonSerializer.Serialize(returnedBerry));
+            _ = await client.GetResourceAsync<Berry>(1);
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
@@ -342,7 +345,7 @@ namespace PokeApiNet.Tests
         {
             // assemble
             PokeApiClient sut = CreateSut();
-            Berry berry = new Berry { Name = "test", Id = 1 };
+            Berry berry = new() { Name = "test", Id = 1 };
             mockHttp.Expect($"*berry/{berry.Id}*")
                 .Respond("application/json", JsonSerializer.Serialize(CreateFakeNamedResourceList<Berry>()));
             mockHttp.Expect("*berry")
@@ -368,12 +371,13 @@ namespace PokeApiNet.Tests
         public async Task ResourceNotFound()
         {
             // assemble
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.When("*").Respond(HttpStatusCode.NotFound);
-            PokeApiClient client = new PokeApiClient(mockHttp);
+            mockHttp.When("*")
+                .Respond(HttpStatusCode.NotFound);
+            PokeApiClient client = CreateSut();
 
             // act / assert
-            await Assert.ThrowsAsync<HttpRequestException>(async () => { await client.GetResourceAsync<Berry>("i am not a berry name"); });
+            await Assert.ThrowsAsync<HttpRequestException>(async () =>
+                await client.GetResourceAsync<Berry>("i am not a berry name"));
         }
 
         [Fact]
@@ -381,12 +385,12 @@ namespace PokeApiNet.Tests
         public async Task GetResourceAsyncByNameCase()
         {
             // assemble
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*berry/cheri/").Respond("application/json", JsonSerializer.Serialize(new Berry { Name = "cheri" }));
-            PokeApiClient client = new PokeApiClient(mockHttp);
+            mockHttp.Expect("*berry/cheri/")
+                .Respond("application/json", JsonSerializer.Serialize(new Berry { Name = "cheri" }));
+            PokeApiClient client = CreateSut();
 
             // act
-            Berry retrievedBerry = await client.GetResourceAsync<Berry>("CHERI");
+            _ = await client.GetResourceAsync<Berry>("CHERI");
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
@@ -397,19 +401,18 @@ namespace PokeApiNet.Tests
         public async Task UrlNavigationResolveAsyncSingle()
         {
             // assemble
-            Pokemon responsePikachu = new Pokemon
+            Pokemon responsePikachu = new()
             {
                 Name = "pikachu",
                 Id = 25,
-                Species = new NamedApiResource<PokemonSpecies>
+                Species = new()
                 {
                     Name = "pikachu",
                     Url = "https://pokeapi.co/api/v2/pokemon-species/25/"
                 }
             };
-            PokemonSpecies responseSpecies = new PokemonSpecies { Name = "pikachu" };
+            PokemonSpecies responseSpecies = new() { Name = "pikachu" };
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
             mockHttp.Expect("*pokemon/pikachu/")
                 .Respond("application/json", JsonSerializer.Serialize(
                     responsePikachu,
@@ -420,12 +423,12 @@ namespace PokeApiNet.Tests
                     responseSpecies,
                     options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
             );
-            PokeApiClient client = new PokeApiClient(mockHttp);
+            PokeApiClient client = CreateSut();
 
-            Pokemon pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
+            var pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
 
             // act
-            PokemonSpecies species = await client.GetResourceAsync(pikachu.Species);
+            _ = await client.GetResourceAsync(pikachu.Species);
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
@@ -436,7 +439,7 @@ namespace PokeApiNet.Tests
         public async Task UrlNavigationCancellationAsyncSingle()
         {
             // assemble
-            Pokemon responsePikachu = new Pokemon
+            Pokemon responsePikachu = new()
             {
                 Name = "pikachu",
                 Id = 25,
@@ -446,9 +449,8 @@ namespace PokeApiNet.Tests
                     Url = "https://pokeapi.co/api/v2/pokemon-species/25/"
                 }
             };
-            PokemonSpecies responseSpecies = new PokemonSpecies { Name = "pikachu" };
+            PokemonSpecies responseSpecies = new() { Name = "pikachu" };
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
             mockHttp.Expect("*pokemon/pikachu/")
                 .Respond("application/json", JsonSerializer.Serialize(
                     responsePikachu,
@@ -459,13 +461,14 @@ namespace PokeApiNet.Tests
                     responseSpecies,
                     options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
             );
-            PokeApiClient client = new PokeApiClient(mockHttp);
+            PokeApiClient client = CreateSut();
 
-            Pokemon pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
-            CancellationToken cancellationToken = new CancellationToken(true);
+            var pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
+            CancellationToken cancellationToken = new(true);
 
             // act / assemble
-            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetResourceAsync(pikachu.Species, cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () =>
+                await client.GetResourceAsync(pikachu.Species, cancellationToken));
         }
 
         [Fact]
@@ -473,19 +476,18 @@ namespace PokeApiNet.Tests
         public async Task UrlNavigationResolveAsyncSingleCached()
         {
             // assemble
-            Pokemon responsePikachu = new Pokemon
+            Pokemon responsePikachu = new()
             {
                 Name = "pikachu",
                 Id = 25,
-                Species = new NamedApiResource<PokemonSpecies>
+                Species = new()
                 {
                     Name = "pikachu",
                     Url = "https://pokeapi.co/api/v2/pokemon-species/25/"
                 }
             };
-            PokemonSpecies responseSpecies = new PokemonSpecies { Name = "pikachu", Id = 25 };
+            PokemonSpecies responseSpecies = new() { Name = "pikachu", Id = 25 };
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
             mockHttp.Expect("*pokemon/pikachu/")
                 .Respond("application/json", JsonSerializer.Serialize(
                     responsePikachu,
@@ -496,10 +498,10 @@ namespace PokeApiNet.Tests
                     responseSpecies,
                     options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
             );
-            PokeApiClient client = new PokeApiClient(mockHttp);
+            PokeApiClient client = CreateSut();
 
-            Pokemon pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
-            PokemonSpecies species = await client.GetResourceAsync(pikachu.Species);
+            var pikachu = await client.GetResourceAsync<Pokemon>("pikachu");
+            _ = await client.GetResourceAsync(pikachu.Species);
 
             mockHttp.ResetExpectations();
             mockHttp.Expect("*pokemon-species/25/")
@@ -512,7 +514,7 @@ namespace PokeApiNet.Tests
             _ = await client.GetResourceAsync(pikachu.Species);
 
             // assert
-            Assert.Throws<InvalidOperationException>(() => mockHttp.VerifyNoOutstandingExpectation());
+            Assert.Throws<InvalidOperationException>(mockHttp.VerifyNoOutstandingExpectation);
         }
 
         [Fact]
@@ -520,26 +522,25 @@ namespace PokeApiNet.Tests
         public async Task UrlNavigationResolveAllAsync()
         {
             // assemble
-            ItemAttribute holdable = new ItemAttribute { Name = "holdable", Id = 1 };
-            ItemAttribute consumable = new ItemAttribute { Name = "consumable", Id = 2 };
-            Item hyperPotion = new Item
+            ItemAttribute holdable = new() { Name = "holdable", Id = 1 };
+            ItemAttribute consumable = new() { Name = "consumable", Id = 2 };
+            Item hyperPotion = new()
             {
                 Attributes = new List<NamedApiResource<ItemAttribute>>
-            {
-                new NamedApiResource<ItemAttribute>
                 {
-                    Name = "holdable",
-                    Url = "https://pokeapi.co/api/v2/item-attribute/5/"
-                },
-                new NamedApiResource<ItemAttribute>
-                {
-                    Name = "consumable",
-                    Url = "https://pokeapi.co/api/v2/item-attribute/2/"
+                    new NamedApiResource<ItemAttribute>
+                    {
+                        Name = "holdable",
+                        Url = "https://pokeapi.co/api/v2/item-attribute/5/"
+                    },
+                    new NamedApiResource<ItemAttribute>
+                    {
+                        Name = "consumable",
+                        Url = "https://pokeapi.co/api/v2/item-attribute/2/"
+                    }
                 }
-            }
             };
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
             mockHttp.Expect("*item/hyper-potion/")
                 .Respond("application/json", JsonSerializer.Serialize(
                     hyperPotion,
@@ -556,11 +557,11 @@ namespace PokeApiNet.Tests
                     options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
             );
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
-            Item item = await client.GetResourceAsync<Item>("hyper-potion");
+            PokeApiClient client = CreateSut();
+            var item = await client.GetResourceAsync<Item>("hyper-potion");
 
             // act
-            List<ItemAttribute> attributes = await client.GetResourceAsync(item.Attributes);
+            _ = await client.GetResourceAsync(item.Attributes);
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
@@ -571,26 +572,25 @@ namespace PokeApiNet.Tests
         public async Task UrlNavigationCancellationAllAsync()
         {
             // assemble
-            ItemAttribute holdable = new ItemAttribute { Name = "holdable", Id = 1 };
-            ItemAttribute consumable = new ItemAttribute { Name = "consumable", Id = 2 };
-            Item hyperPotion = new Item
+            ItemAttribute holdable = new() { Name = "holdable", Id = 1 };
+            ItemAttribute consumable = new() { Name = "consumable", Id = 2 };
+            Item hyperPotion = new()
             {
                 Attributes = new List<NamedApiResource<ItemAttribute>>
-            {
-                new NamedApiResource<ItemAttribute>
                 {
-                    Name = "holdable",
-                    Url = "https://pokeapi.co/api/v2/item-attribute/5/"
-                },
-                new NamedApiResource<ItemAttribute>
-                {
-                    Name = "consumable",
-                    Url = "https://pokeapi.co/api/v2/item-attribute/2/"
+                    new NamedApiResource<ItemAttribute>
+                    {
+                        Name = "holdable",
+                        Url = "https://pokeapi.co/api/v2/item-attribute/5/"
+                    },
+                    new NamedApiResource<ItemAttribute>
+                    {
+                        Name = "consumable",
+                        Url = "https://pokeapi.co/api/v2/item-attribute/2/"
+                    }
                 }
-            }
             };
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
             mockHttp.Expect("*item/hyper-potion/")
                 .Respond("application/json", JsonSerializer.Serialize(
                     hyperPotion,
@@ -607,13 +607,14 @@ namespace PokeApiNet.Tests
                     options: new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower })
             );
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
-            Item item = await client.GetResourceAsync<Item>("hyper-potion");
+            PokeApiClient client = CreateSut();
+            var item = await client.GetResourceAsync<Item>("hyper-potion");
 
-            CancellationToken cancellationToken = new CancellationToken(true);
+            CancellationToken cancellationToken = new(true);
 
             // act / assert
-            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetResourceAsync(item.Attributes, cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () =>
+                await client.GetResourceAsync(item.Attributes, cancellationToken));
         }
 
         [Fact]
@@ -621,15 +622,15 @@ namespace PokeApiNet.Tests
         public async Task GetNamedResourcePageAsync()
         {
             // assemble
-            NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
+            NamedApiResourceList<Berry> berryPage = new();
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*berry").Respond("application/json", JsonSerializer.Serialize(berryPage));
+            mockHttp.Expect("*berry")
+                .Respond("application/json", JsonSerializer.Serialize(berryPage));
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
+            PokeApiClient client = CreateSut();
 
             // act
-            NamedApiResourceList<Berry> page = await client.GetNamedResourcePageAsync<Berry>();
+            _ = await client.GetNamedResourcePageAsync<Berry>();
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
@@ -640,16 +641,17 @@ namespace PokeApiNet.Tests
         public async Task GetNamedResourcePageAsyncCancellation()
         {
             // assemble
-            NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
+            NamedApiResourceList<Berry> berryPage = new();
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*berry").Respond("application/json", JsonSerializer.Serialize(berryPage));
+            mockHttp.Expect("*berry")
+                .Respond("application/json", JsonSerializer.Serialize(berryPage));
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
-            CancellationToken cancellationToken = new CancellationToken(true);
+            PokeApiClient client = CreateSut();
+            CancellationToken cancellationToken = new (true);
 
             // act / assert
-            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetNamedResourcePageAsync<Berry>(cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () =>
+                await client.GetNamedResourcePageAsync<Berry>(cancellationToken));
         }
 
         [Fact]
@@ -657,15 +659,15 @@ namespace PokeApiNet.Tests
         public async Task GetNamedResourcePageLimitOffsetAsync()
         {
             // assemble
-            NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
+            NamedApiResourceList<Berry> berryPage = new();
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*berry?limit=50&offset=2").Respond("application/json", JsonSerializer.Serialize(berryPage));
+            mockHttp.Expect("*berry?limit=50&offset=2")
+                .Respond("application/json", JsonSerializer.Serialize(berryPage));
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
+            PokeApiClient client = CreateSut();
 
             // act
-            NamedApiResourceList<Berry> page = await client.GetNamedResourcePageAsync<Berry>(50, 2);
+            _ = await client.GetNamedResourcePageAsync<Berry>(50, 2);
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
@@ -676,16 +678,17 @@ namespace PokeApiNet.Tests
         public async Task GetNamedResourcePageLimitOffsetAsyncCancellation()
         {
             // assemble
-            NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
+            NamedApiResourceList<Berry> berryPage = new();
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*berry?limit=50&offset=2").Respond("application/json", JsonSerializer.Serialize(berryPage));
+            mockHttp.Expect("*berry?limit=50&offset=2")
+                .Respond("application/json", JsonSerializer.Serialize(berryPage));
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
-            CancellationToken cancellationToken = new CancellationToken(true);
+            PokeApiClient client = CreateSut();
+            CancellationToken cancellationToken = new(true);
 
             // act / assert
-            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetNamedResourcePageAsync<Berry>(50, 2, cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () =>
+                await client.GetNamedResourcePageAsync<Berry>(50, 2, cancellationToken));
         }
 
         [Fact]
@@ -693,15 +696,15 @@ namespace PokeApiNet.Tests
         public async Task GetApiResourcePageAsync()
         {
             // assemble
-            NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
+            NamedApiResourceList<Berry> berryPage = new();
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*evolution-chain").Respond("application/json", JsonSerializer.Serialize(berryPage));
+            mockHttp.Expect("*evolution-chain")
+                .Respond("application/json", JsonSerializer.Serialize(berryPage));
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
+            PokeApiClient client = CreateSut();
 
             // act
-            ApiResourceList<EvolutionChain> page = await client.GetApiResourcePageAsync<EvolutionChain>();
+            _ = await client.GetApiResourcePageAsync<EvolutionChain>();
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
@@ -712,16 +715,17 @@ namespace PokeApiNet.Tests
         public async Task GetApiResourcePageAsyncCancellation()
         {
             // assemble
-            NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
+            NamedApiResourceList<Berry> berryPage = new();
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*evolution-chain").Respond("application/json", JsonSerializer.Serialize(berryPage));
+            mockHttp.Expect("*evolution-chain")
+                .Respond("application/json", JsonSerializer.Serialize(berryPage));
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
-            CancellationToken cancellationToken = new CancellationToken(true);
+            PokeApiClient client = CreateSut();
+            CancellationToken cancellationToken = new(true);
 
             // act / assert
-            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetApiResourcePageAsync<EvolutionChain>(cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () =>
+                await client.GetApiResourcePageAsync<EvolutionChain>(cancellationToken));
         }
 
         [Fact]
@@ -729,15 +733,15 @@ namespace PokeApiNet.Tests
         public async Task GetApiResourcePageLimitOffsetAsync()
         {
             // assemble
-            NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
+            NamedApiResourceList<Berry> berryPage = new();
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*evolution-chain?limit=1&offset=50").Respond("application/json", JsonSerializer.Serialize(berryPage));
+            mockHttp.Expect("*evolution-chain?limit=1&offset=50")
+                .Respond("application/json", JsonSerializer.Serialize(berryPage));
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
+            PokeApiClient client = CreateSut();
 
             // act
-            ApiResourceList<EvolutionChain> page = await client.GetApiResourcePageAsync<EvolutionChain>(1, 50);
+            _ = await client.GetApiResourcePageAsync<EvolutionChain>(1, 50);
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
@@ -748,19 +752,20 @@ namespace PokeApiNet.Tests
         public async Task GetApiResourcePageLimitOffsetAsyncCancellation()
         {
             // assemble
-            NamedApiResourceList<Berry> berryPage = new NamedApiResourceList<Berry>();
+            NamedApiResourceList<Berry> berryPage = new();
 
-            MockHttpMessageHandler mockHttp = new MockHttpMessageHandler();
-            mockHttp.Expect("*evolution-chain?limit=1&offset=50").Respond("application/json", JsonSerializer.Serialize(berryPage));
+            mockHttp.Expect("*evolution-chain?limit=1&offset=50")
+                .Respond("application/json", JsonSerializer.Serialize(berryPage));
 
-            PokeApiClient client = new PokeApiClient(mockHttp);
-            CancellationToken cancellationToken = new CancellationToken(true);
+            PokeApiClient client = CreateSut();
+            CancellationToken cancellationToken = new(true);
 
             // act / assert
-            await Assert.ThrowsAsync<TaskCanceledException>(async () => { await client.GetApiResourcePageAsync<EvolutionChain>(1, 50, cancellationToken); });
+            await Assert.ThrowsAsync<TaskCanceledException>(async () =>
+                await client.GetApiResourcePageAsync<EvolutionChain>(1, 50, cancellationToken));
         }
 
-        private PokeApiClient CreateSut() => new PokeApiClient(mockHttp);
+        private PokeApiClient CreateSut() => new(mockHttp);
 
         private ApiResourceList<T> CreateFakeApiResourceList<T>()
             where T : ApiResource
