@@ -65,6 +65,16 @@ Berry cheri = await client.GetResourceAsync<Berry>(firstBerryPage.Results[0]);
 
 Refer to the PokeAPI documention to see which resources include a `Name` property.
 
+### `IAsyncEnumerable` Support
+Two methods expose support for `IAsyncEnumerable` to make paging through all pages super simple: `GetAllNamedResourcesAsync<T>()` and `GetAllApiResourcesAsync<T>()`. Example:
+
+```cs
+await foreach (var berryRef in pokeClient.GetAllNamedResourcesAsync<Berry>())
+{
+    // do something with each berry reference
+}
+```
+
 ## Caching
 Every resource and page response is automatically cached in memory, making all subsequent requests for the same resource or page pull cached data. Example:
 ```cs

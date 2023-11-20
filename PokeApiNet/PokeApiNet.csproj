@@ -4,13 +4,13 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Authors>JJ Banda</Authors>
     <Description>.Net client for the PokeAPI api</Description>
-    <PackageProjectUrl>https://github.com/mtrdp642/PokeApiNet</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/mtrdp642/PokeApiNet</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/jtwotimes/PokeApiNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jtwotimes/PokeApiNet</RepositoryUrl>
     <PackageTags>pokemon pokeapi</PackageTags>
-    <PackageReleaseNotes>https://github.com/mtrdp642/PokeApiNet/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/jtwotimes/PokeApiNet/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <LangVersion>11</LangVersion>
+    <LangVersion>11.0</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
