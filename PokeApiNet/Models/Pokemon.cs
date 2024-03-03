@@ -1892,6 +1892,9 @@ namespace PokeApiNet
         /// </summary>
         public PokemonFormSprites Sprites { get; set; }
 
+        /// <summary>
+        /// List of types belonging to this Pokémon form.
+        /// </summary>
         public List<PokemonType> Types { get; set; }
 
         /// <summary>
