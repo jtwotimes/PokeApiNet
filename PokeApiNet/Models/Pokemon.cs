@@ -1893,6 +1893,11 @@ namespace PokeApiNet
         public PokemonFormSprites Sprites { get; set; }
 
         /// <summary>
+        /// List of types belonging to this Pokémon form.
+        /// </summary>
+        public List<PokemonType> Types { get; set; }
+
+        /// <summary>
         /// The version group this Pokémon form was introduced in.
         /// </summary>
         [JsonPropertyName("version_group")]
