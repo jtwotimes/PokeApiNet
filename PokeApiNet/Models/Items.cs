@@ -132,7 +132,7 @@ namespace PokeApiNet
         /// <summary>
         /// How often this Pokémon holds this item in this version.
         /// </summary>
-        public string Rarity { get; set; }
+        public int Rarity { get; set; }
 
         /// <summary>
         /// The version that this item is held in by the Pokémon.
