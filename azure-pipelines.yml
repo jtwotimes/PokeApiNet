@@ -12,7 +12,7 @@ steps:
   displayName: 'Setup dotnet SDK'
   inputs:
     packageType: sdk
-    version: '7.x'
+    version: '8.x'
 - task: DotNetCoreCLI@2
   displayName: 'dotnet test'
   inputs:
