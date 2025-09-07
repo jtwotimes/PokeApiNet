@@ -8,6 +8,9 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- checkout: self
+  displayName: Checkout
+  fetchDepth: 0
 - task: UseDotNet@2
   displayName: 'Setup dotnet SDK'
   inputs:
