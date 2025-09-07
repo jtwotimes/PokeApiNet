@@ -35,7 +35,6 @@ steps:
 - task: gitversion-execute@4
   inputs:
     configFilePath: './GitVersion.yml'
-    updateAssemblyInfo: true
     updateProjectFiles: true
 - task: DotNetCoreCLI@2
   displayName: 'dotnet pack'
