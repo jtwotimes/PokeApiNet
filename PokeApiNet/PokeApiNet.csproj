@@ -28,9 +28,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.8" />
-    <PackageReference Include="System.Collections.Immutable" Version="9.0.8" />
-    <PackageReference Include="System.Text.Json" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.*" />
+    <PackageReference Include="System.Collections.Immutable" Version="9.*" />
+    <PackageReference Include="System.Text.Json" Version="9.*" />
   </ItemGroup>
 
   <ItemGroup>
