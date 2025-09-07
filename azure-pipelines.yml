@@ -25,16 +25,15 @@ steps:
     testResultsFormat: 'XUnit'
     testResultsFiles: '**/coverage.cobertura.xml'
     failTaskOnFailedTests: true
-- task: gitversion/setup@0
-  displayName: 'GitVersion setup'
+- task: gitversion-setup@4
   inputs:
     versionSpec: '6.x'
-    includePrerelease: true
-- task: gitversion/execute@0
-  displayName: 'Determine Version'
+    preferLatestVersion: true
+- task: gitversion-execute@4
   inputs:
-    useConfigFile: true
-    configFilePath: ./GitVersion.yml
+    configFilePath: './GitVersion.yml'
+    updateAssemblyInfo: true
+    updateProjectFiles: true
 - task: DotNetCoreCLI@2
   displayName: 'dotnet pack'
   inputs:
